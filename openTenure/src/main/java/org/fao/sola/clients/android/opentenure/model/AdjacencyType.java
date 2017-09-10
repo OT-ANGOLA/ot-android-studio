@@ -27,6 +27,9 @@
  */
 package org.fao.sola.clients.android.opentenure.model;
 
+import org.fao.sola.clients.android.opentenure.DisplayNameLocalizer;
+import org.fao.sola.clients.android.opentenure.OpenTenureApplication;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,14 +40,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.fao.sola.clients.android.opentenure.DisplayNameLocalizer;
-import org.fao.sola.clients.android.opentenure.OpenTenureApplication;
-
-public class IdType {
+public class AdjacencyType {
 
 	Database db = OpenTenureApplication.getInstance().getDatabase();
 
-	String type;
+	String code;
 	String displayValue;
 	String description;
 	String status;
@@ -52,7 +52,7 @@ public class IdType {
 
 	@Override
 	public String toString() {
-		return "IdType [type=" + type + ", description=" + description
+		return "AdjacencyType [code=" + code + ", description=" + description
 				+ ", displayValue=" + displayValue + ", status=" + status + ", active=" + active + "]";
 	}
 
@@ -65,7 +65,7 @@ public class IdType {
 	public void setDb(Database db) {
 		this.db = db;
 	}
-	
+
 	public Boolean getActive() {
 		return active;
 	}
@@ -74,12 +74,12 @@ public class IdType {
 		this.active = active;
 	}
 
-	public String getType() {
-		return type;
+	public String getCode() {
+		return code;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getDisplayValue() {
@@ -116,9 +116,9 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("INSERT INTO ID_TYPE(TYPE, DESCRIPTION, DISPLAY_VALUE, ACTIVE) VALUES (?,?,?,'true')");
+					.prepareStatement("INSERT INTO ADJACENCY_TYPE(CODE, DESCRIPTION, DISPLAY_VALUE, ACTIVE) VALUES (?,?,?,'true')");
 
-			statement.setString(1, getType());
+			statement.setString(1, getCode());
 			statement.setString(2, getDescription());
 			statement.setString(3, getDisplayValue());
 
@@ -144,7 +144,7 @@ public class IdType {
 		return result;
 	}
 
-	public int addType(IdType idType) {
+	public int AdjacencyType(AdjacencyType adjacencyType) {
 
 		int result = 0;
 		Connection localConnection = null;
@@ -154,11 +154,11 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("INSERT INTO ID_TYPE(TYPE, DESCRIPTION, DISPLAY_VALUE,ACTIVE) VALUES (?,?,?,'true')");
+					.prepareStatement("INSERT INTO ADJACENCY_TYPE(CODE, DESCRIPTION, DISPLAY_VALUE,ACTIVE) VALUES (?,?,?,'true')");
 
-			statement.setString(1, idType.getType());
-			statement.setString(2, idType.getDescription());
-			statement.setString(3, idType.getDisplayValue());
+			statement.setString(1, adjacencyType.getCode());
+			statement.setString(2, adjacencyType.getDescription());
+			statement.setString(3, adjacencyType.getDisplayValue());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -182,9 +182,9 @@ public class IdType {
 		return result;
 	}
 
-	public List<IdType> getIdTypesActive() {
+	public List<AdjacencyType> getActiveAdjacencyTypes() {
 
-		List<IdType> types = new ArrayList<IdType>();
+		List<AdjacencyType> types = new ArrayList<AdjacencyType>();
 		ResultSet rs = null;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
@@ -193,16 +193,16 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT TYPE, DESCRIPTION, DISPLAY_VALUE FROM ID_TYPE IT where ACTIVE = 'true'");
+					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM ADJACENCY_TYPE WHERE ACTIVE = 'true'");
 			rs = statement.executeQuery();
 
 			while (rs.next()) {
-				IdType idType = new IdType();
-				idType.setType(rs.getString(1));
-				idType.setDescription(rs.getString(2));
-				idType.setDisplayValue(rs.getString(3));
+				AdjacencyType adjacencyType = new AdjacencyType();
+				adjacencyType.setCode(rs.getString(1));
+				adjacencyType.setDescription(rs.getString(2));
+				adjacencyType.setDisplayValue(rs.getString(3));
 
-				types.add(idType);
+				types.add(adjacencyType);
 
 			}
 			return types;
@@ -234,10 +234,10 @@ public class IdType {
 		return types;
 
 	}
-	
-	public List<IdType> getIdTypes() {
 
-		List<IdType> types = new ArrayList<IdType>();
+	public List<AdjacencyType> getAdjacencyTypes() {
+
+		List<AdjacencyType> types = new ArrayList<AdjacencyType>();
 		ResultSet rs = null;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
@@ -246,16 +246,16 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT TYPE, DESCRIPTION, DISPLAY_VALUE FROM ID_TYPE IT");
+					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM ADJACENCY_TYPE");
 			rs = statement.executeQuery();
 
 			while (rs.next()) {
-				IdType idType = new IdType();
-				idType.setType(rs.getString(1));
-				idType.setDescription(rs.getString(2));
-				idType.setDisplayValue(rs.getString(3));
+				AdjacencyType adjacencyType = new AdjacencyType();
+				adjacencyType.setCode(rs.getString(1));
+				adjacencyType.setDescription(rs.getString(2));
+				adjacencyType.setDisplayValue(rs.getString(3));
 
-				types.add(idType);
+				types.add(adjacencyType);
 
 			}
 			return types;
@@ -290,87 +290,87 @@ public class IdType {
 
 	public List<String> getDisplayValues(String localization,boolean onlyActive) {
 
-		List<org.fao.sola.clients.android.opentenure.model.IdType> list;
-		
+		List<AdjacencyType> list;
+
 		if(!onlyActive)
-			list = getIdTypes();
+			list = getAdjacencyTypes();
 		else
-			list = getIdTypesActive();
-		
-		
+			list = getActiveAdjacencyTypes();
+
+
 		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
 		List<String> displayList = new ArrayList<String>();
 
-		for (Iterator<org.fao.sola.clients.android.opentenure.model.IdType> iterator = list.iterator(); iterator.hasNext();) {
-			org.fao.sola.clients.android.opentenure.model.IdType idType = (org.fao.sola.clients.android.opentenure.model.IdType) iterator
+		for (Iterator<AdjacencyType> iterator = list.iterator(); iterator.hasNext();) {
+			AdjacencyType idType = (AdjacencyType) iterator
 					.next();
 
 			displayList.add(dnl.getLocalizedDisplayName(idType.getDisplayValue()));
 		}
 		return displayList;
 	}
-	
+
 	public Map<String,String> getKeyValueMap(String localization,boolean onlyActive) {
 
-		List<org.fao.sola.clients.android.opentenure.model.IdType> list;
-		
+		List<AdjacencyType> list;
+
 		if(!onlyActive)
-			list = getIdTypes();
+			list = getAdjacencyTypes();
 		else
-			list = getIdTypesActive();
+			list = getActiveAdjacencyTypes();
 
 		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
 		Map<String,String> keyValueMap = new HashMap<String,String>();
 
-		for (Iterator<IdType> iterator = list.iterator(); iterator.hasNext();) {
-			
-			IdType idType = (IdType) iterator
+		for (Iterator<AdjacencyType> iterator = list.iterator(); iterator.hasNext();) {
+
+			AdjacencyType idType = (AdjacencyType) iterator
 					.next();
-			
-			keyValueMap.put(idType.getType().toLowerCase(),dnl.getLocalizedDisplayName(idType.getDisplayValue()));
+
+			keyValueMap.put(idType.getCode().toLowerCase(),dnl.getLocalizedDisplayName(idType.getDisplayValue()));
 		}
 		return keyValueMap;
 	}
-	
+
 	public Map<String,String> getValueKeyMap(String localization,boolean onlyActive) {
 
-		List<org.fao.sola.clients.android.opentenure.model.IdType> list;
-		
+		List<AdjacencyType> list;
+
 		if(!onlyActive)
-			list = getIdTypes();
+			list = getAdjacencyTypes();
 		else
-			list = getIdTypesActive();
+			list = getActiveAdjacencyTypes();
 
 		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
 		Map<String,String> keyValueMap = new HashMap<String,String>();
 
-		for (Iterator<IdType> iterator = list.iterator(); iterator.hasNext();) {
-			
-			IdType idType = (IdType) iterator
+		for (Iterator<AdjacencyType> iterator = list.iterator(); iterator.hasNext();) {
+
+			AdjacencyType idType = (AdjacencyType) iterator
 					.next();
 
-			keyValueMap.put(dnl.getLocalizedDisplayName(idType.getDisplayValue()),idType.getType());
+			keyValueMap.put(dnl.getLocalizedDisplayName(idType.getDisplayValue()),idType.getCode());
 		}
 		return keyValueMap;
 	}
 
 	public int getIndexByCodeType(String code,boolean onlyActive) {
 
-		List<org.fao.sola.clients.android.opentenure.model.IdType> list;
-		
+		List<AdjacencyType> list;
+
 		if(!onlyActive)
-			list = getIdTypes();
+			list = getAdjacencyTypes();
 		else
-			list = getIdTypesActive();
+			list = getActiveAdjacencyTypes();
 
 
 		int i = 0;
 
-		for (Iterator<org.fao.sola.clients.android.opentenure.model.IdType> iterator = list.iterator(); iterator.hasNext();) {
-			org.fao.sola.clients.android.opentenure.model.IdType idType = (org.fao.sola.clients.android.opentenure.model.IdType) iterator
+		for (Iterator<AdjacencyType> iterator = list.iterator(); iterator.hasNext();) {
+			AdjacencyType adjacencyType = (AdjacencyType) iterator
 					.next();
 
-			if (idType.getType().equals(code)) {
+			if (adjacencyType.getCode().equals(code)) {
 
 				return i;
 
@@ -382,7 +382,7 @@ public class IdType {
 
 	}
 
-	public String getTypebyDisplayValue(String value) {
+	public String getCodeByDisplayValue(String value) {
 
 		ResultSet rs = null;
 		Connection localConnection = null;
@@ -392,7 +392,7 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT TYPE FROM ID_TYPE CT WHERE DISPLAY_VALUE LIKE  '%' || ? || '%' ");
+					.prepareStatement("SELECT CODE FROM ADJACENCY_TYPE WHERE DISPLAY_VALUE LIKE  '%' || ? || '%' ");
 			statement.setString(1, value);
 			rs = statement.executeQuery();
 
@@ -439,7 +439,7 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT DISPLAY_VALUE FROM ID_TYPE CT WHERE TYPE = ?");
+					.prepareStatement("SELECT DISPLAY_VALUE FROM ADJACENCY_TYPE WHERE TYPE = ?");
 			statement.setString(1, value);
 			rs = statement.executeQuery();
 
@@ -476,27 +476,27 @@ public class IdType {
 
 	}
 	
-	public static IdType getIdType(String type) {
+	public static AdjacencyType getAdjacencyType(String code) {
 		ResultSet result = null;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
-		IdType idType = new IdType();
+		AdjacencyType adjacencyType = new AdjacencyType();
 		try {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT TYPE, DESCRIPTION, DISPLAY_VALUE FROM ID_TYPE WHERE TYPE=?");
-			statement.setString(1, type);
+					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM ADJACENCY_TYPE WHERE CODE=?");
+			statement.setString(1, code);
 
 			result = statement.executeQuery();
 
 			if (result.next()) {
 
-				idType.setType(result.getString(1));
-				idType.setDescription(result.getString(2));
-				idType.setDisplayValue(result.getString(3));
+				adjacencyType.setCode(result.getString(1));
+				adjacencyType.setDescription(result.getString(2));
+				adjacencyType.setDisplayValue(result.getString(3));
 				
-				return idType;
+				return adjacencyType;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -519,7 +519,7 @@ public class IdType {
 		return null;
 	}
 	
-	public int updadateIdType() {
+	public int updateAdjacencyType() {
 		int result = 0;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
@@ -528,11 +528,10 @@ public class IdType {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("UPDATE ID_TYPE SET TYPE=?, DESCRIPTION=?, DISPLAY_VALUE=?, ACTIVE='true' WHERE TYPE = ?");
-			statement.setString(1, getType());
-			statement.setString(2, getDescription());
-			statement.setString(3, getDisplayValue());
-			statement.setString(4, getType());
+					.prepareStatement("UPDATE ADJACENCY_TYPE SET DESCRIPTION=?, DISPLAY_VALUE=?, ACTIVE='true' WHERE CODE = ?");
+			statement.setString(1, getDescription());
+			statement.setString(2, getDisplayValue());
+			statement.setString(3, getCode());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -557,7 +556,7 @@ public class IdType {
 	}
 	
 	
-	public static int setAllIdTypeNoActive() {
+	public static int setAllAdjacencyTypesInctive() {
 		int result = 0;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
@@ -566,7 +565,7 @@ public class IdType {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("UPDATE ID_TYPE ID SET ACTIVE='false' WHERE  ID.ACTIVE= 'true'");
+					.prepareStatement("UPDATE ADJACENCY_TYPE SET ACTIVE='false' WHERE  ACTIVE= 'true'");
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {

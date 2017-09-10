@@ -74,7 +74,21 @@ public class CommunityServerAPIUtilities {
 	public static final String HTTPS_GETLANGUAGES = "%s/ws/ref/getlanguages";
 	
 	public static final String HTTPS_GETPARCELGEOMREQUIRED = "%s/ws/%s/claim/getParcelGeomRequired";
-		
+
+	public static final String HTTPS_GETCOUNTRIES = "%s/ws/ref/getcountries";
+
+	public static final String HTTPS_GETLANDPROJECTS = "%s/ws/ref/getlandprojects";
+
+	public static final String HTTPS_GETADJACENCYTYPES = "%s/ws/ref/getadjacencytypes";
+
+	public static final String HTTPS_GETALLPROVINCES = "%s/ws/ref/getallprovinces";
+
+	public static final String HTTPS_GETALLMUNICIPALITIES = "%s/ws/ref/getallmunicipalities";
+
+	public static final String HTTPS_GETMARITALSTATUSES = "%s/ws/ref/getmaritalstatuses";
+
+	public static final String HTTPS_GETALLCOMMUNES = "%s/ws/ref/getallcommunes";
+
 	public static final String HTTPS_GETCOMMUNITYAREA = "%s/ws/%s/ref/getcommunityarea";
 	public static final String HTTP_GETCOMMUNITYAREA = "%s/ws/%s/ref/getcommunityarea";
 	

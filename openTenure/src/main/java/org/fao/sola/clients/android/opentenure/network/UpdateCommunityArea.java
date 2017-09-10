@@ -73,19 +73,20 @@ public class UpdateCommunityArea extends AsyncTask<String, Void, String> {
 
 				synchronized (OpenTenureApplication.getInstance()) {
 
-					if (OpenTenureApplication.getInstance()
-							.isCheckedCommunityArea()
-							&& OpenTenureApplication.getInstance()
-									.isCheckedTypes()
-							&& OpenTenureApplication.getInstance()
-									.isCheckedIdTypes()
-							&& OpenTenureApplication.getInstance()
-									.isCheckedCommunityArea()
-							&& OpenTenureApplication.getInstance()
-									.isCheckedForm()
-							&& OpenTenureApplication.getInstance()
-									.isCheckedGeometryRequired()
-
+					if (OpenTenureApplication.getInstance().isCheckedCommunityArea()
+							&& OpenTenureApplication.getInstance().isCheckedTypes()
+							&& OpenTenureApplication.getInstance().isCheckedIdTypes()
+							&& OpenTenureApplication.getInstance().isCheckedCommunityArea()
+							&& OpenTenureApplication.getInstance().isCheckedForm()
+							&& OpenTenureApplication.getInstance().isCheckedGeometryRequired()
+							// Angola specific
+							&& OpenTenureApplication.getInstance().isCheckedCountries()
+							&& OpenTenureApplication.getInstance().isCheckedProvinces()
+							&& OpenTenureApplication.getInstance().isCheckedCommunes()
+							&& OpenTenureApplication.getInstance().isCheckedMunicipalities()
+							&& OpenTenureApplication.getInstance().isCheckedLandProjects()
+							&& OpenTenureApplication.getInstance().isCheckedMaritalStatuses()
+							&& OpenTenureApplication.getInstance().isCheckedAdjacencyTypes()
 					) {
 
 						OpenTenureApplication.getInstance()

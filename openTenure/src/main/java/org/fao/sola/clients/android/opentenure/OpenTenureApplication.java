@@ -70,6 +70,14 @@ public class OpenTenureApplication extends MultiDexApplication {
 	private boolean checkedLanguages = false;
 	private boolean checkedGeometryRequired = false;
 
+	private boolean checkedCountries = false;
+	private boolean checkedMunicipalities = false;
+	private boolean checkedProvinces = false;
+	private boolean checkedCommunes = false;
+	private boolean checkedAdjacencyTypes = false;
+	private boolean checkedMaritalStatuses = false;
+	private boolean checkedLandProjects = false;
+
 	private boolean checkedCommunityArea = false;
 	private boolean checkedForm = false;
 	private boolean initialized = false;
@@ -302,6 +310,62 @@ public class OpenTenureApplication extends MultiDexApplication {
 
 	public void setCheckedGeometryRequired(boolean checkedGeometryRequired) {
 		this.checkedGeometryRequired = checkedGeometryRequired;
+	}
+
+	public boolean isCheckedCountries() {
+		return checkedCountries;
+	}
+
+	public void setCheckedCountries(boolean checkedCountries) {
+		this.checkedCountries = checkedCountries;
+	}
+
+	public boolean isCheckedMunicipalities() {
+		return checkedMunicipalities;
+	}
+
+	public void setCheckedMunicipalities(boolean checkedMunicipalities) {
+		this.checkedMunicipalities = checkedMunicipalities;
+	}
+
+	public boolean isCheckedProvinces() {
+		return checkedProvinces;
+	}
+
+	public void setCheckedProvinces(boolean checkedProvinces) {
+		this.checkedProvinces = checkedProvinces;
+	}
+
+	public boolean isCheckedCommunes() {
+		return checkedCommunes;
+	}
+
+	public void setCheckedCommunes(boolean checkedCommunes) {
+		this.checkedCommunes = checkedCommunes;
+	}
+
+	public boolean isCheckedAdjacencyTypes() {
+		return checkedAdjacencyTypes;
+	}
+
+	public void setCheckedAdjacencyTypes(boolean checkedAdjacencyTypes) {
+		this.checkedAdjacencyTypes = checkedAdjacencyTypes;
+	}
+
+	public boolean isCheckedMaritalStatuses() {
+		return checkedMaritalStatuses;
+	}
+
+	public void setCheckedMaritalStatuses(boolean checkedMaritalStatuses) {
+		this.checkedMaritalStatuses = checkedMaritalStatuses;
+	}
+
+	public boolean isCheckedLandProjects() {
+		return checkedLandProjects;
+	}
+
+	public void setCheckedLandProjects(boolean checkedLandProjects) {
+		this.checkedLandProjects = checkedLandProjects;
 	}
 
 	/*

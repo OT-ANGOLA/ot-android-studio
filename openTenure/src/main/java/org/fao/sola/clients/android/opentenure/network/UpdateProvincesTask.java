@@ -27,75 +27,74 @@
  */
 package org.fao.sola.clients.android.opentenure.network;
 
-import java.util.Iterator;
-import java.util.List;
+import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
 
 import org.fao.sola.clients.android.opentenure.OpenTenureApplication;
 import org.fao.sola.clients.android.opentenure.maps.MainMapFragment;
 import org.fao.sola.clients.android.opentenure.model.Configuration;
 import org.fao.sola.clients.android.opentenure.network.API.CommunityServerAPI;
-import org.fao.sola.clients.android.opentenure.network.response.ClaimType;
+import org.fao.sola.clients.android.opentenure.network.response.Province;
 
-import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
+import java.util.Iterator;
+import java.util.List;
 
-/**
- * Task called to initialize the Application with the values of Types of claim
- * Retrieve all the types from the server
- * **/
-public class UpdateClaimTypesTask extends
-		AsyncTask<String, Void, List<ClaimType>> {
+public class UpdateProvincesTask extends AsyncTask<String, Void, List<Province>> {
 
 	@Override
-	protected List<ClaimType> doInBackground(String... params) {
-		List<ClaimType> types = CommunityServerAPI.getClaimTypes();
-		return types;
+	protected List<Province> doInBackground(String... params) {
+		List<Province> countries = CommunityServerAPI.getProvinces();
+		return countries;
 	}
 
 	@Override
-	protected void onPostExecute(List<ClaimType> types) {
+	protected void onPostExecute(List<Province> countries) {
 
-		if (types != null && (types.size() > 0)) {
+		if (countries != null && (countries.size() > 0)) {
 
-			org.fao.sola.clients.android.opentenure.model.ClaimType.setAllClaimTypeNoActive();
-			for (Iterator<ClaimType> iterator = types.iterator(); iterator
+			org.fao.sola.clients.android.opentenure.model.Province.setAllProvincesInactive();
+			for (Iterator<Province> iterator = countries.iterator(); iterator
 					.hasNext();) {
-				ClaimType claimType = (ClaimType) iterator.next();
+				Province networkProvince = (Province) iterator.next();
 
-				org.fao.sola.clients.android.opentenure.model.ClaimType type = new org.fao.sola.clients.android.opentenure.model.ClaimType();
+				org.fao.sola.clients.android.opentenure.model.Province modelProvince = new org.fao.sola.clients.android.opentenure.model.Province();
 
-				type.setDescription(claimType.getDescription());
-				type.setType(claimType.getCode());
-				type.setDisplayValue(claimType.getDisplayValue());
+				modelProvince.setDescription(networkProvince.getDescription());
+				modelProvince.setCode(networkProvince.getCode());
+				modelProvince.setDisplayValue(networkProvince.getDisplayValue());
+				modelProvince.setCountryCode(networkProvince.getCountryCode());
+				if (org.fao.sola.clients.android.opentenure.model.Province
+						.getProvince(networkProvince.getCode()) == null)
 
-				if (org.fao.sola.clients.android.opentenure.model.ClaimType
-						.getClaimType(claimType.getCode()) == null)
-					type.add();
+					modelProvince.add();
 				else
-					type.updadateClaimType();
+					modelProvince.updateProvince();
 
 			}
 
-			OpenTenureApplication.getInstance().setCheckedTypes(true);
+			OpenTenureApplication.getInstance().setCheckedProvinces(true);
 
 			synchronized (OpenTenureApplication.getInstance()) {
 
 				if (OpenTenureApplication.getInstance().isCheckedCommunityArea()
+						&& OpenTenureApplication.getInstance().isCheckedTypes()
 						&& OpenTenureApplication.getInstance().isCheckedDocTypes()
-						&& OpenTenureApplication.getInstance().isCheckedIdTypes()
 						&& OpenTenureApplication.getInstance().isCheckedLandUses()
 						&& OpenTenureApplication.getInstance().isCheckedLanguages()
 						&& OpenTenureApplication.getInstance().isCheckedForm()
 						&& OpenTenureApplication.getInstance().isCheckedGeometryRequired()
+						&& OpenTenureApplication.getInstance().isCheckedIdTypes()
 						// Angola specific
 						&& OpenTenureApplication.getInstance().isCheckedCountries()
-						&& OpenTenureApplication.getInstance().isCheckedProvinces()
 						&& OpenTenureApplication.getInstance().isCheckedCommunes()
 						&& OpenTenureApplication.getInstance().isCheckedMunicipalities()
 						&& OpenTenureApplication.getInstance().isCheckedLandProjects()
 						&& OpenTenureApplication.getInstance().isCheckedMaritalStatuses()
 						&& OpenTenureApplication.getInstance().isCheckedAdjacencyTypes()
-				) {
+
+				)
+
+				{
 
 					OpenTenureApplication.getInstance().setInitialized(true);
 
@@ -118,9 +117,7 @@ public class UpdateClaimTypesTask extends
 							.getMapFragment();
 
 					mapFrag.boundCameraToInterestArea();
-
 				}
-
 			}
 
 		}

@@ -27,6 +27,9 @@
  */
 package org.fao.sola.clients.android.opentenure.model;
 
+import org.fao.sola.clients.android.opentenure.DisplayNameLocalizer;
+import org.fao.sola.clients.android.opentenure.OpenTenureApplication;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,14 +40,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.fao.sola.clients.android.opentenure.DisplayNameLocalizer;
-import org.fao.sola.clients.android.opentenure.OpenTenureApplication;
-
-public class IdType {
+public class Country {
 
 	Database db = OpenTenureApplication.getInstance().getDatabase();
 
-	String type;
+	String code;
 	String displayValue;
 	String description;
 	String status;
@@ -52,7 +52,7 @@ public class IdType {
 
 	@Override
 	public String toString() {
-		return "IdType [type=" + type + ", description=" + description
+		return "Country [code=" + code + ", description=" + description
 				+ ", displayValue=" + displayValue + ", status=" + status + ", active=" + active + "]";
 	}
 
@@ -65,7 +65,7 @@ public class IdType {
 	public void setDb(Database db) {
 		this.db = db;
 	}
-	
+
 	public Boolean getActive() {
 		return active;
 	}
@@ -74,12 +74,12 @@ public class IdType {
 		this.active = active;
 	}
 
-	public String getType() {
-		return type;
+	public String getCode() {
+		return code;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getDisplayValue() {
@@ -116,9 +116,9 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("INSERT INTO ID_TYPE(TYPE, DESCRIPTION, DISPLAY_VALUE, ACTIVE) VALUES (?,?,?,'true')");
+					.prepareStatement("INSERT INTO COUNTRY(CODE, DESCRIPTION, DISPLAY_VALUE, ACTIVE) VALUES (?,?,?,'true')");
 
-			statement.setString(1, getType());
+			statement.setString(1, getCode());
 			statement.setString(2, getDescription());
 			statement.setString(3, getDisplayValue());
 
@@ -144,7 +144,7 @@ public class IdType {
 		return result;
 	}
 
-	public int addType(IdType idType) {
+	public int addCountry(Country country) {
 
 		int result = 0;
 		Connection localConnection = null;
@@ -154,11 +154,11 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("INSERT INTO ID_TYPE(TYPE, DESCRIPTION, DISPLAY_VALUE,ACTIVE) VALUES (?,?,?,'true')");
+					.prepareStatement("INSERT INTO COUNTRY(CODE, DESCRIPTION, DISPLAY_VALUE,ACTIVE) VALUES (?,?,?,'true')");
 
-			statement.setString(1, idType.getType());
-			statement.setString(2, idType.getDescription());
-			statement.setString(3, idType.getDisplayValue());
+			statement.setString(1, country.getCode());
+			statement.setString(2, country.getDescription());
+			statement.setString(3, country.getDisplayValue());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -182,9 +182,9 @@ public class IdType {
 		return result;
 	}
 
-	public List<IdType> getIdTypesActive() {
+	public List<Country> getActiveCountries() {
 
-		List<IdType> types = new ArrayList<IdType>();
+		List<Country> countries = new ArrayList<Country>();
 		ResultSet rs = null;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
@@ -193,19 +193,19 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT TYPE, DESCRIPTION, DISPLAY_VALUE FROM ID_TYPE IT where ACTIVE = 'true'");
+					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM COUNTRY WHERE ACTIVE = 'true'");
 			rs = statement.executeQuery();
 
 			while (rs.next()) {
-				IdType idType = new IdType();
-				idType.setType(rs.getString(1));
-				idType.setDescription(rs.getString(2));
-				idType.setDisplayValue(rs.getString(3));
+				Country country = new Country();
+				country.setCode(rs.getString(1));
+				country.setDescription(rs.getString(2));
+				country.setDisplayValue(rs.getString(3));
 
-				types.add(idType);
+				countries.add(country);
 
 			}
-			return types;
+			return countries;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -231,13 +231,13 @@ public class IdType {
 				}
 			}
 		}
-		return types;
+		return countries;
 
 	}
-	
-	public List<IdType> getIdTypes() {
 
-		List<IdType> types = new ArrayList<IdType>();
+	public List<Country> getCountries() {
+
+		List<Country> countries = new ArrayList<Country>();
 		ResultSet rs = null;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
@@ -246,19 +246,19 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT TYPE, DESCRIPTION, DISPLAY_VALUE FROM ID_TYPE IT");
+					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM COUNTRY");
 			rs = statement.executeQuery();
 
 			while (rs.next()) {
-				IdType idType = new IdType();
-				idType.setType(rs.getString(1));
-				idType.setDescription(rs.getString(2));
-				idType.setDisplayValue(rs.getString(3));
+				Country country = new Country();
+				country.setCode(rs.getString(1));
+				country.setDescription(rs.getString(2));
+				country.setDisplayValue(rs.getString(3));
 
-				types.add(idType);
+				countries.add(country);
 
 			}
-			return types;
+			return countries;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -284,93 +284,93 @@ public class IdType {
 				}
 			}
 		}
-		return types;
+		return countries;
 
 	}
 
 	public List<String> getDisplayValues(String localization,boolean onlyActive) {
 
-		List<org.fao.sola.clients.android.opentenure.model.IdType> list;
-		
+		List<Country> countries;
+
 		if(!onlyActive)
-			list = getIdTypes();
+			countries = getCountries();
 		else
-			list = getIdTypesActive();
-		
-		
+			countries = getActiveCountries();
+
+
 		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
 		List<String> displayList = new ArrayList<String>();
 
-		for (Iterator<org.fao.sola.clients.android.opentenure.model.IdType> iterator = list.iterator(); iterator.hasNext();) {
-			org.fao.sola.clients.android.opentenure.model.IdType idType = (org.fao.sola.clients.android.opentenure.model.IdType) iterator
+		for (Iterator<Country> iterator = countries.iterator(); iterator.hasNext();) {
+			Country country = (Country) iterator
 					.next();
 
-			displayList.add(dnl.getLocalizedDisplayName(idType.getDisplayValue()));
+			displayList.add(dnl.getLocalizedDisplayName(country.getDisplayValue()));
 		}
 		return displayList;
 	}
-	
+
 	public Map<String,String> getKeyValueMap(String localization,boolean onlyActive) {
 
-		List<org.fao.sola.clients.android.opentenure.model.IdType> list;
-		
+		List<Country> list;
+
 		if(!onlyActive)
-			list = getIdTypes();
+			list = getCountries();
 		else
-			list = getIdTypesActive();
+			list = getActiveCountries();
 
 		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
 		Map<String,String> keyValueMap = new HashMap<String,String>();
 
-		for (Iterator<IdType> iterator = list.iterator(); iterator.hasNext();) {
-			
-			IdType idType = (IdType) iterator
+		for (Iterator<Country> iterator = list.iterator(); iterator.hasNext();) {
+
+			Country country = (Country) iterator
 					.next();
-			
-			keyValueMap.put(idType.getType().toLowerCase(),dnl.getLocalizedDisplayName(idType.getDisplayValue()));
+
+			keyValueMap.put(country.getCode().toLowerCase(),dnl.getLocalizedDisplayName(country.getDisplayValue()));
 		}
 		return keyValueMap;
 	}
-	
+
 	public Map<String,String> getValueKeyMap(String localization,boolean onlyActive) {
 
-		List<org.fao.sola.clients.android.opentenure.model.IdType> list;
-		
+		List<Country> list;
+
 		if(!onlyActive)
-			list = getIdTypes();
+			list = getCountries();
 		else
-			list = getIdTypesActive();
+			list = getActiveCountries();
 
 		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
 		Map<String,String> keyValueMap = new HashMap<String,String>();
 
-		for (Iterator<IdType> iterator = list.iterator(); iterator.hasNext();) {
-			
-			IdType idType = (IdType) iterator
+		for (Iterator<Country> iterator = list.iterator(); iterator.hasNext();) {
+
+			Country idType = (Country) iterator
 					.next();
 
-			keyValueMap.put(dnl.getLocalizedDisplayName(idType.getDisplayValue()),idType.getType());
+			keyValueMap.put(dnl.getLocalizedDisplayName(idType.getDisplayValue()),idType.getCode());
 		}
 		return keyValueMap;
 	}
 
 	public int getIndexByCodeType(String code,boolean onlyActive) {
 
-		List<org.fao.sola.clients.android.opentenure.model.IdType> list;
-		
+		List<Country> countries;
+
 		if(!onlyActive)
-			list = getIdTypes();
+			countries = getCountries();
 		else
-			list = getIdTypesActive();
+			countries = getActiveCountries();
 
 
 		int i = 0;
 
-		for (Iterator<org.fao.sola.clients.android.opentenure.model.IdType> iterator = list.iterator(); iterator.hasNext();) {
-			org.fao.sola.clients.android.opentenure.model.IdType idType = (org.fao.sola.clients.android.opentenure.model.IdType) iterator
+		for (Iterator<Country> iterator = countries.iterator(); iterator.hasNext();) {
+			Country idType = (Country) iterator
 					.next();
 
-			if (idType.getType().equals(code)) {
+			if (idType.getCode().equals(code)) {
 
 				return i;
 
@@ -382,7 +382,7 @@ public class IdType {
 
 	}
 
-	public String getTypebyDisplayValue(String value) {
+	public String getCountryByDisplayValue(String value) {
 
 		ResultSet rs = null;
 		Connection localConnection = null;
@@ -392,7 +392,7 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT TYPE FROM ID_TYPE CT WHERE DISPLAY_VALUE LIKE  '%' || ? || '%' ");
+					.prepareStatement("SELECT CODE FROM COUNTRY WHERE DISPLAY_VALUE LIKE  '%' || ? || '%' ");
 			statement.setString(1, value);
 			rs = statement.executeQuery();
 
@@ -429,7 +429,7 @@ public class IdType {
 
 	}
 
-	public String getDisplayValueByType(String value) {
+	public String getDisplayValueByCode(String value) {
 
 		ResultSet rs = null;
 		Connection localConnection = null;
@@ -439,7 +439,7 @@ public class IdType {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT DISPLAY_VALUE FROM ID_TYPE CT WHERE TYPE = ?");
+					.prepareStatement("SELECT DISPLAY_VALUE FROM COUNTRY WHERE CODE = ?");
 			statement.setString(1, value);
 			rs = statement.executeQuery();
 
@@ -476,27 +476,27 @@ public class IdType {
 
 	}
 	
-	public static IdType getIdType(String type) {
+	public static Country getCountry(String code) {
 		ResultSet result = null;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
-		IdType idType = new IdType();
+		Country country = new Country();
 		try {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT TYPE, DESCRIPTION, DISPLAY_VALUE FROM ID_TYPE WHERE TYPE=?");
-			statement.setString(1, type);
+					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM COUNTRY WHERE CODE=?");
+			statement.setString(1, code);
 
 			result = statement.executeQuery();
 
 			if (result.next()) {
 
-				idType.setType(result.getString(1));
-				idType.setDescription(result.getString(2));
-				idType.setDisplayValue(result.getString(3));
+				country.setCode(result.getString(1));
+				country.setDescription(result.getString(2));
+				country.setDisplayValue(result.getString(3));
 				
-				return idType;
+				return country;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -519,7 +519,7 @@ public class IdType {
 		return null;
 	}
 	
-	public int updadateIdType() {
+	public int updateCountry() {
 		int result = 0;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
@@ -528,11 +528,10 @@ public class IdType {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("UPDATE ID_TYPE SET TYPE=?, DESCRIPTION=?, DISPLAY_VALUE=?, ACTIVE='true' WHERE TYPE = ?");
-			statement.setString(1, getType());
-			statement.setString(2, getDescription());
-			statement.setString(3, getDisplayValue());
-			statement.setString(4, getType());
+					.prepareStatement("UPDATE COUNTRY SET DESCRIPTION=?, DISPLAY_VALUE=?, ACTIVE='true' WHERE CODE = ?");
+			statement.setString(1, getDescription());
+			statement.setString(2, getDisplayValue());
+			statement.setString(3, getCode());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -557,7 +556,7 @@ public class IdType {
 	}
 	
 	
-	public static int setAllIdTypeNoActive() {
+	public static int setAllCountriesInactive() {
 		int result = 0;
 		Connection localConnection = null;
 		PreparedStatement statement = null;
@@ -566,7 +565,7 @@ public class IdType {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("UPDATE ID_TYPE ID SET ACTIVE='false' WHERE  ID.ACTIVE= 'true'");
+					.prepareStatement("UPDATE COUNTRY SET ACTIVE='false' WHERE  ACTIVE= 'true'");
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {

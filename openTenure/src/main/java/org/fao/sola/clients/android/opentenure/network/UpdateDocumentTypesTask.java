@@ -76,19 +76,21 @@ public class UpdateDocumentTypesTask extends
 
 			synchronized (OpenTenureApplication.getInstance()) {
 
-				if (OpenTenureApplication.getInstance()
-						.isCheckedCommunityArea()
+				if (OpenTenureApplication.getInstance().isCheckedCommunityArea()
 						&& OpenTenureApplication.getInstance().isCheckedTypes()
-						&& OpenTenureApplication.getInstance()
-								.isCheckedIdTypes()
-						&& OpenTenureApplication.getInstance()
-								.isCheckedLandUses()
-						&& OpenTenureApplication.getInstance()
-								.isCheckedLanguages()
+						&& OpenTenureApplication.getInstance().isCheckedIdTypes()
+						&& OpenTenureApplication.getInstance().isCheckedLandUses()
+						&& OpenTenureApplication.getInstance().isCheckedLanguages()
 						&& OpenTenureApplication.getInstance().isCheckedForm()
-						&& OpenTenureApplication.getInstance()
-								.isCheckedGeometryRequired()
-
+						&& OpenTenureApplication.getInstance().isCheckedGeometryRequired()
+						// Angola specific
+						&& OpenTenureApplication.getInstance().isCheckedCountries()
+						&& OpenTenureApplication.getInstance().isCheckedProvinces()
+						&& OpenTenureApplication.getInstance().isCheckedCommunes()
+						&& OpenTenureApplication.getInstance().isCheckedMunicipalities()
+						&& OpenTenureApplication.getInstance().isCheckedLandProjects()
+						&& OpenTenureApplication.getInstance().isCheckedMaritalStatuses()
+						&& OpenTenureApplication.getInstance().isCheckedAdjacencyTypes()
 				)
 
 				{

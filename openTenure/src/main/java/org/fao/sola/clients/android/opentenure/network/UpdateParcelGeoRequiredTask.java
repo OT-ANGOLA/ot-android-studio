@@ -78,7 +78,16 @@ public class UpdateParcelGeoRequiredTask extends
 					&& OpenTenureApplication.getInstance().isCheckedLandUses()
 					&& OpenTenureApplication.getInstance().isCheckedLanguages()
 					&& OpenTenureApplication.getInstance().isCheckedForm()
-					&& OpenTenureApplication.getInstance().isCheckedIdTypes())
+					&& OpenTenureApplication.getInstance().isCheckedIdTypes()
+					// Angola specific
+					&& OpenTenureApplication.getInstance().isCheckedCountries()
+					&& OpenTenureApplication.getInstance().isCheckedProvinces()
+					&& OpenTenureApplication.getInstance().isCheckedCommunes()
+					&& OpenTenureApplication.getInstance().isCheckedMunicipalities()
+					&& OpenTenureApplication.getInstance().isCheckedLandProjects()
+					&& OpenTenureApplication.getInstance().isCheckedMaritalStatuses()
+					&& OpenTenureApplication.getInstance().isCheckedAdjacencyTypes()
+					)
 
 			{
 

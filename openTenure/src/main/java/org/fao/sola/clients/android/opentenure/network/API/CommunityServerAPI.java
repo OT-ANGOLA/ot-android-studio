@@ -981,6 +981,628 @@ public class CommunityServerAPI {
 
 	}
 
+	public static List<org.fao.sola.clients.android.opentenure.network.response.Country> getCountries() {
+
+		SharedPreferences OpenTenurePreferences = PreferenceManager
+				.getDefaultSharedPreferences(OpenTenureApplication.getContext());
+
+		String csUrl = OpenTenurePreferences.getString(
+				OpenTenurePreferencesActivity.CS_URL_PREF,
+				OpenTenureApplication._DEFAULT_COMMUNITY_SERVER);
+
+		if (csUrl.trim().equals(""))
+			csUrl = OpenTenureApplication._DEFAULT_COMMUNITY_SERVER;
+
+		String url = String.format(
+				CommunityServerAPIUtilities.HTTPS_GETCOUNTRIES, csUrl);
+		HttpGet request = new HttpGet(url);
+
+		AndroidHttpClient client = OpenTenureApplication.getHttpClient();
+
+		try {
+
+			HttpResponse response = client.execute(request);
+
+			setServerProtoVersion(response);
+
+			String json = CommunityServerAPIUtilities.Slurp(response
+					.getEntity().getContent(), 1024);
+
+			if (response.getStatusLine().getStatusCode() == (HttpStatus.SC_OK)) {
+
+				Log.d("CommunityServerAPI", "GET COUNTRIES JSON RESPONSE "
+						+ json);
+
+				Type listType = new TypeToken<ArrayList<org.fao.sola.clients.android.opentenure.network.response.Country>>() {
+				}.getType();
+				List<org.fao.sola.clients.android.opentenure.network.response.Country> countriesList = new Gson()
+						.fromJson(json, listType);
+
+				if (countriesList != null)
+					Log.d("CommunityServerAPI", "RETRIEVED COUNTRIES LIST"
+							+ countriesList.size());
+
+				return countriesList;
+
+			} else {
+
+				Log.d("CommunityServerAPI",
+						"GET COUNTRIES NOT SUCCEEDED : HTTP STATUS "
+								+ response.getStatusLine().getStatusCode()
+								+ "  "
+								+ response.getStatusLine().getReasonPhrase());
+
+				return null;
+
+			}
+
+		} catch (java.net.SocketException se) {
+
+			Log.d("CommunityServerAPI", "GET ALL COUNTRIES NETWORK ERROR SE"
+					+ se.getMessage());
+			se.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (java.net.SocketTimeoutException stoe) {
+
+			Log.d("CommunityServerAPI", "GET ALL COUNTRIES NETWORK ERROR STOE"
+					+ stoe.getMessage());
+			stoe.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (javax.net.ssl.SSLException ssle) {
+
+			Log.d("CommunityServerAPI", "GET ALL COUNTRIES NETWORK ERROR SSLE"
+					+ ssle.getMessage());
+			ssle.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		}
+
+		catch (Exception ex) {
+
+			Log.d("CommunityServerAPI",
+					"GET ALL COUNTRIES ERROR " + ex.getMessage());
+			ex.printStackTrace();
+			return null;
+
+		}
+
+	}
+
+	public static List<org.fao.sola.clients.android.opentenure.network.response.Province> getProvinces() {
+
+		SharedPreferences OpenTenurePreferences = PreferenceManager
+				.getDefaultSharedPreferences(OpenTenureApplication.getContext());
+
+		String csUrl = OpenTenurePreferences.getString(
+				OpenTenurePreferencesActivity.CS_URL_PREF,
+				OpenTenureApplication._DEFAULT_COMMUNITY_SERVER);
+
+		if (csUrl.trim().equals(""))
+			csUrl = OpenTenureApplication._DEFAULT_COMMUNITY_SERVER;
+
+		String url = String.format(
+				CommunityServerAPIUtilities.HTTPS_GETALLPROVINCES, csUrl);
+		HttpGet request = new HttpGet(url);
+
+		AndroidHttpClient client = OpenTenureApplication.getHttpClient();
+
+		try {
+
+			HttpResponse response = client.execute(request);
+
+			setServerProtoVersion(response);
+
+			String json = CommunityServerAPIUtilities.Slurp(response
+					.getEntity().getContent(), 1024);
+
+			if (response.getStatusLine().getStatusCode() == (HttpStatus.SC_OK)) {
+
+				Log.d("CommunityServerAPI", "GET ALL PROVINCES JSON RESPONSE "
+						+ json);
+
+				Type listType = new TypeToken<ArrayList<org.fao.sola.clients.android.opentenure.network.response.Province>>() {
+				}.getType();
+				List<org.fao.sola.clients.android.opentenure.network.response.Province> provincesList = new Gson()
+						.fromJson(json, listType);
+
+				if (provincesList != null)
+					Log.d("CommunityServerAPI", "RETRIEVED ALL PROVINCES LIST"
+							+ provincesList.size());
+
+				return provincesList;
+
+			} else {
+
+				Log.d("CommunityServerAPI",
+						"GET ALL PROVINCES NOT SUCCEEDED : HTTP STATUS "
+								+ response.getStatusLine().getStatusCode()
+								+ "  "
+								+ response.getStatusLine().getReasonPhrase());
+
+				return null;
+
+			}
+
+		} catch (java.net.SocketException se) {
+
+			Log.d("CommunityServerAPI", "GET ALL PROVINCES NETWORK ERROR SE"
+					+ se.getMessage());
+			se.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (java.net.SocketTimeoutException stoe) {
+
+			Log.d("CommunityServerAPI", "GET ALL PROVINCES NETWORK ERROR STOE"
+					+ stoe.getMessage());
+			stoe.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (javax.net.ssl.SSLException ssle) {
+
+			Log.d("CommunityServerAPI", "GET ALL PROVINCES NETWORK ERROR SSLE"
+					+ ssle.getMessage());
+			ssle.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		}
+
+		catch (Exception ex) {
+
+			Log.d("CommunityServerAPI",
+					"GET ALL PROVINCES " + ex.getMessage());
+			ex.printStackTrace();
+			return null;
+
+		}
+
+	}
+
+	public static List<org.fao.sola.clients.android.opentenure.network.response.Municipality> getMunicipalities() {
+
+		SharedPreferences OpenTenurePreferences = PreferenceManager
+				.getDefaultSharedPreferences(OpenTenureApplication.getContext());
+
+		String csUrl = OpenTenurePreferences.getString(
+				OpenTenurePreferencesActivity.CS_URL_PREF,
+				OpenTenureApplication._DEFAULT_COMMUNITY_SERVER);
+
+		if (csUrl.trim().equals(""))
+			csUrl = OpenTenureApplication._DEFAULT_COMMUNITY_SERVER;
+
+		String url = String.format(
+				CommunityServerAPIUtilities.HTTPS_GETALLMUNICIPALITIES, csUrl);
+		HttpGet request = new HttpGet(url);
+
+		AndroidHttpClient client = OpenTenureApplication.getHttpClient();
+
+		try {
+
+			HttpResponse response = client.execute(request);
+
+			setServerProtoVersion(response);
+
+			String json = CommunityServerAPIUtilities.Slurp(response
+					.getEntity().getContent(), 1024);
+
+			if (response.getStatusLine().getStatusCode() == (HttpStatus.SC_OK)) {
+
+				Log.d("CommunityServerAPI", "GET ALL MUNICIPALITIES JSON RESPONSE "
+						+ json);
+
+				Type listType = new TypeToken<ArrayList<org.fao.sola.clients.android.opentenure.network.response.Municipality>>() {
+				}.getType();
+				List<org.fao.sola.clients.android.opentenure.network.response.Municipality> municipalitiesList = new Gson()
+						.fromJson(json, listType);
+
+				if (municipalitiesList != null)
+					Log.d("CommunityServerAPI", "RETRIEVED ALL MUNICIPALITIES LIST"
+							+ municipalitiesList.size());
+
+				return municipalitiesList;
+
+			} else {
+
+				Log.d("CommunityServerAPI",
+						"GET ALL MUNICIPALITIES NOT SUCCEEDED : HTTP STATUS "
+								+ response.getStatusLine().getStatusCode()
+								+ "  "
+								+ response.getStatusLine().getReasonPhrase());
+
+				return null;
+
+			}
+
+		} catch (java.net.SocketException se) {
+
+			Log.d("CommunityServerAPI", "GET ALL MUNICIPALITIES NETWORK ERROR SE"
+					+ se.getMessage());
+			se.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (java.net.SocketTimeoutException stoe) {
+
+			Log.d("CommunityServerAPI", "GET ALL MUNICIPALITIES NETWORK ERROR STOE"
+					+ stoe.getMessage());
+			stoe.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (javax.net.ssl.SSLException ssle) {
+
+			Log.d("CommunityServerAPI", "GET ALL MUNICIPALITIES NETWORK ERROR SSLE"
+					+ ssle.getMessage());
+			ssle.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		}
+
+		catch (Exception ex) {
+
+			Log.d("CommunityServerAPI",
+					"GET ALL MUNICIPALITIES " + ex.getMessage());
+			ex.printStackTrace();
+			return null;
+
+		}
+
+	}
+
+	public static List<org.fao.sola.clients.android.opentenure.network.response.Commune> getCommunes() {
+
+		SharedPreferences OpenTenurePreferences = PreferenceManager
+				.getDefaultSharedPreferences(OpenTenureApplication.getContext());
+
+		String csUrl = OpenTenurePreferences.getString(
+				OpenTenurePreferencesActivity.CS_URL_PREF,
+				OpenTenureApplication._DEFAULT_COMMUNITY_SERVER);
+
+		if (csUrl.trim().equals(""))
+			csUrl = OpenTenureApplication._DEFAULT_COMMUNITY_SERVER;
+
+		String url = String.format(
+				CommunityServerAPIUtilities.HTTPS_GETALLCOMMUNES, csUrl);
+		HttpGet request = new HttpGet(url);
+
+		AndroidHttpClient client = OpenTenureApplication.getHttpClient();
+
+		try {
+
+			HttpResponse response = client.execute(request);
+
+			setServerProtoVersion(response);
+
+			String json = CommunityServerAPIUtilities.Slurp(response
+					.getEntity().getContent(), 1024);
+
+			if (response.getStatusLine().getStatusCode() == (HttpStatus.SC_OK)) {
+
+				Log.d("CommunityServerAPI", "GET ALL COMMUNES JSON RESPONSE "
+						+ json);
+
+				Type listType = new TypeToken<ArrayList<org.fao.sola.clients.android.opentenure.network.response.Commune>>() {
+				}.getType();
+				List<org.fao.sola.clients.android.opentenure.network.response.Commune> communesList = new Gson()
+						.fromJson(json, listType);
+
+				if (communesList != null)
+					Log.d("CommunityServerAPI", "RETRIEVED ALL COMMUNES LIST"
+							+ communesList.size());
+
+				return communesList;
+
+			} else {
+
+				Log.d("CommunityServerAPI",
+						"GET ALL COMMUNES NOT SUCCEEDED : HTTP STATUS "
+								+ response.getStatusLine().getStatusCode()
+								+ "  "
+								+ response.getStatusLine().getReasonPhrase());
+
+				return null;
+
+			}
+
+		} catch (java.net.SocketException se) {
+
+			Log.d("CommunityServerAPI", "GET ALL COMMUNES NETWORK ERROR SE"
+					+ se.getMessage());
+			se.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (java.net.SocketTimeoutException stoe) {
+
+			Log.d("CommunityServerAPI", "GET ALL COMMUNES NETWORK ERROR STOE"
+					+ stoe.getMessage());
+			stoe.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (javax.net.ssl.SSLException ssle) {
+
+			Log.d("CommunityServerAPI", "GET ALL COMMUNES NETWORK ERROR SSLE"
+					+ ssle.getMessage());
+			ssle.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		}
+
+		catch (Exception ex) {
+
+			Log.d("CommunityServerAPI",
+					"GET ALL COMMUNES " + ex.getMessage());
+			ex.printStackTrace();
+			return null;
+
+		}
+
+	}
+
+	public static List<org.fao.sola.clients.android.opentenure.network.response.MaritalStatus> getMaritalStatuses() {
+
+		SharedPreferences OpenTenurePreferences = PreferenceManager
+				.getDefaultSharedPreferences(OpenTenureApplication.getContext());
+
+		String csUrl = OpenTenurePreferences.getString(
+				OpenTenurePreferencesActivity.CS_URL_PREF,
+				OpenTenureApplication._DEFAULT_COMMUNITY_SERVER);
+
+		if (csUrl.trim().equals(""))
+			csUrl = OpenTenureApplication._DEFAULT_COMMUNITY_SERVER;
+
+		String url = String.format(
+				CommunityServerAPIUtilities.HTTPS_GETMARITALSTATUSES, csUrl);
+		HttpGet request = new HttpGet(url);
+
+		AndroidHttpClient client = OpenTenureApplication.getHttpClient();
+
+		try {
+
+			HttpResponse response = client.execute(request);
+
+			setServerProtoVersion(response);
+
+			String json = CommunityServerAPIUtilities.Slurp(response
+					.getEntity().getContent(), 1024);
+
+			if (response.getStatusLine().getStatusCode() == (HttpStatus.SC_OK)) {
+
+				Log.d("CommunityServerAPI", "GET MARITAL STATUSES JSON RESPONSE "
+						+ json);
+
+				Type listType = new TypeToken<ArrayList<org.fao.sola.clients.android.opentenure.network.response.MaritalStatus>>() {
+				}.getType();
+				List<org.fao.sola.clients.android.opentenure.network.response.MaritalStatus> maritalStatusesList = new Gson()
+						.fromJson(json, listType);
+
+				if (maritalStatusesList != null)
+					Log.d("CommunityServerAPI", "RETRIEVED MARITAL STATUSES LIST"
+							+ maritalStatusesList.size());
+
+				return maritalStatusesList;
+
+			} else {
+
+				Log.d("CommunityServerAPI",
+						"GET MARITAL STATUSES NOT SUCCEEDED : HTTP STATUS "
+								+ response.getStatusLine().getStatusCode()
+								+ "  "
+								+ response.getStatusLine().getReasonPhrase());
+
+				return null;
+
+			}
+
+		} catch (java.net.SocketException se) {
+
+			Log.d("CommunityServerAPI", "GET ALL MARITAL STATUSES NETWORK ERROR SE"
+					+ se.getMessage());
+			se.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (java.net.SocketTimeoutException stoe) {
+
+			Log.d("CommunityServerAPI", "GET ALL MARITAL STATUSES NETWORK ERROR STOE"
+					+ stoe.getMessage());
+			stoe.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (javax.net.ssl.SSLException ssle) {
+
+			Log.d("CommunityServerAPI", "GET ALL MARITAL STATUSES NETWORK ERROR SSLE"
+					+ ssle.getMessage());
+			ssle.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		}
+
+		catch (Exception ex) {
+
+			Log.d("CommunityServerAPI",
+					"GET ALL MARITAL STATUSES ERROR " + ex.getMessage());
+			ex.printStackTrace();
+			return null;
+
+		}
+
+	}
+
+	public static List<org.fao.sola.clients.android.opentenure.network.response.LandProject> getLandProjects() {
+
+		SharedPreferences OpenTenurePreferences = PreferenceManager
+				.getDefaultSharedPreferences(OpenTenureApplication.getContext());
+
+		String csUrl = OpenTenurePreferences.getString(
+				OpenTenurePreferencesActivity.CS_URL_PREF,
+				OpenTenureApplication._DEFAULT_COMMUNITY_SERVER);
+
+		if (csUrl.trim().equals(""))
+			csUrl = OpenTenureApplication._DEFAULT_COMMUNITY_SERVER;
+
+		String url = String.format(
+				CommunityServerAPIUtilities.HTTPS_GETLANDPROJECTS, csUrl);
+		HttpGet request = new HttpGet(url);
+
+		AndroidHttpClient client = OpenTenureApplication.getHttpClient();
+
+		try {
+
+			HttpResponse response = client.execute(request);
+
+			setServerProtoVersion(response);
+
+			String json = CommunityServerAPIUtilities.Slurp(response
+					.getEntity().getContent(), 1024);
+
+			if (response.getStatusLine().getStatusCode() == (HttpStatus.SC_OK)) {
+
+				Log.d("CommunityServerAPI", "GET LAND PROJECTS JSON RESPONSE "
+						+ json);
+
+				Type listType = new TypeToken<ArrayList<org.fao.sola.clients.android.opentenure.network.response.LandProject>>() {
+				}.getType();
+				List<org.fao.sola.clients.android.opentenure.network.response.LandProject> landProjectsList = new Gson()
+						.fromJson(json, listType);
+
+				if (landProjectsList != null)
+					Log.d("CommunityServerAPI", "RETRIEVED LAND PROJECTS LIST"
+							+ landProjectsList.size());
+
+				return landProjectsList;
+
+			} else {
+
+				Log.d("CommunityServerAPI",
+						"GET LAND PROJECTS NOT SUCCEEDED : HTTP STATUS "
+								+ response.getStatusLine().getStatusCode()
+								+ "  "
+								+ response.getStatusLine().getReasonPhrase());
+
+				return null;
+
+			}
+
+		} catch (java.net.SocketException se) {
+
+			Log.d("CommunityServerAPI", "GET ALL LAND PROJECTS NETWORK ERROR SE"
+					+ se.getMessage());
+			se.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (java.net.SocketTimeoutException stoe) {
+
+			Log.d("CommunityServerAPI", "GET ALL LAND PROJECTS NETWORK ERROR STOE"
+					+ stoe.getMessage());
+			stoe.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (javax.net.ssl.SSLException ssle) {
+
+			Log.d("CommunityServerAPI", "GET ALL LAND PROJECTS NETWORK ERROR SSLE"
+					+ ssle.getMessage());
+			ssle.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		}
+
+		catch (Exception ex) {
+
+			Log.d("CommunityServerAPI",
+					"GET ALL LAND PROJECTS ERROR " + ex.getMessage());
+			ex.printStackTrace();
+			return null;
+
+		}
+
+	}
+
+	public static List<org.fao.sola.clients.android.opentenure.network.response.AdjacencyType> getAdjacencyTypes() {
+
+		SharedPreferences OpenTenurePreferences = PreferenceManager
+				.getDefaultSharedPreferences(OpenTenureApplication.getContext());
+
+		String csUrl = OpenTenurePreferences.getString(
+				OpenTenurePreferencesActivity.CS_URL_PREF,
+				OpenTenureApplication._DEFAULT_COMMUNITY_SERVER);
+
+		if (csUrl.trim().equals(""))
+			csUrl = OpenTenureApplication._DEFAULT_COMMUNITY_SERVER;
+
+		String url = String.format(
+				CommunityServerAPIUtilities.HTTPS_GETADJACENCYTYPES, csUrl);
+		HttpGet request = new HttpGet(url);
+
+		AndroidHttpClient client = OpenTenureApplication.getHttpClient();
+
+		try {
+
+			HttpResponse response = client.execute(request);
+
+			setServerProtoVersion(response);
+
+			String json = CommunityServerAPIUtilities.Slurp(response
+					.getEntity().getContent(), 1024);
+
+			if (response.getStatusLine().getStatusCode() == (HttpStatus.SC_OK)) {
+
+				Log.d("CommunityServerAPI", "GET ADJACENCY TYPES JSON RESPONSE "
+						+ json);
+
+				Type listType = new TypeToken<ArrayList<org.fao.sola.clients.android.opentenure.network.response.AdjacencyType>>() {
+				}.getType();
+				List<org.fao.sola.clients.android.opentenure.network.response.AdjacencyType> landProjectsList = new Gson()
+						.fromJson(json, listType);
+
+				if (landProjectsList != null)
+					Log.d("CommunityServerAPI", "RETRIEVED ADJACENCY TYPES LIST"
+							+ landProjectsList.size());
+
+				return landProjectsList;
+
+			} else {
+
+				Log.d("CommunityServerAPI",
+						"GET ADJACENCY TYPES NOT SUCCEEDED : HTTP STATUS "
+								+ response.getStatusLine().getStatusCode()
+								+ "  "
+								+ response.getStatusLine().getReasonPhrase());
+
+				return null;
+
+			}
+
+		} catch (java.net.SocketException se) {
+
+			Log.d("CommunityServerAPI", "GET ALL ADJACENCY TYPES NETWORK ERROR SE"
+					+ se.getMessage());
+			se.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (java.net.SocketTimeoutException stoe) {
+
+			Log.d("CommunityServerAPI", "GET ALL ADJACENCY TYPES NETWORK ERROR STOE"
+					+ stoe.getMessage());
+			stoe.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		} catch (javax.net.ssl.SSLException ssle) {
+
+			Log.d("CommunityServerAPI", "GET ALL ADJACENCY TYPES NETWORK ERROR SSLE"
+					+ ssle.getMessage());
+			ssle.printStackTrace();
+			OpenTenureApplication.getInstance().setNetworkError(true);
+			return null;
+		}
+
+		catch (Exception ex) {
+
+			Log.d("CommunityServerAPI",
+					"GET ALL ADJACENCY TYPES ERROR " + ex.getMessage());
+			ex.printStackTrace();
+			return null;
+
+		}
+	}
+
 	public static String getCommunityArea() {
 
 		SharedPreferences OpenTenurePreferences = PreferenceManager

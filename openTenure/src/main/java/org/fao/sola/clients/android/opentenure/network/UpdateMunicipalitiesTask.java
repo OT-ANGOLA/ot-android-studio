@@ -43,17 +43,17 @@ public class UpdateMunicipalitiesTask extends AsyncTask<String, Void, List<Munic
 
 	@Override
 	protected List<Municipality> doInBackground(String... params) {
-		List<Municipality> countries = CommunityServerAPI.getMunicipalities();
-		return countries;
+		List<Municipality> municipalities = CommunityServerAPI.getMunicipalities();
+		return municipalities;
 	}
 
 	@Override
-	protected void onPostExecute(List<Municipality> countries) {
+	protected void onPostExecute(List<Municipality> municipalities) {
 
-		if (countries != null && (countries.size() > 0)) {
+		if (municipalities != null && (municipalities.size() > 0)) {
 
-			org.fao.sola.clients.android.opentenure.model.Province.setAllProvincesInactive();
-			for (Iterator<Municipality> iterator = countries.iterator(); iterator
+			org.fao.sola.clients.android.opentenure.model.Municipality.setAllMunicipalitiesInactive();
+			for (Iterator<Municipality> iterator = municipalities.iterator(); iterator
 					.hasNext();) {
 				Municipality networkMunicipality = (Municipality) iterator.next();
 
@@ -63,8 +63,8 @@ public class UpdateMunicipalitiesTask extends AsyncTask<String, Void, List<Munic
 				modelMunicipality.setCode(networkMunicipality.getCode());
 				modelMunicipality.setDisplayValue(networkMunicipality.getDisplayValue());
 				modelMunicipality.setProvinceCode(networkMunicipality.getProvinceCode());
-				if (org.fao.sola.clients.android.opentenure.model.Province
-						.getProvince(networkMunicipality.getCode()) == null)
+				if (org.fao.sola.clients.android.opentenure.model.Municipality
+						.getMunicipality(networkMunicipality.getCode()) == null)
 
 					modelMunicipality.add();
 				else

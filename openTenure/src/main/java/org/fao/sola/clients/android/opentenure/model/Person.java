@@ -32,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -180,13 +181,36 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person [" + "personId=" + personId + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
-				+ ", placeOfBirth=" + placeOfBirth + ",gender=" + gender
-				+ ", emailAddress=" + emailAddress + ", postalAddress="
-				+ postalAddress + ", personType=" + personType
-				+ ", mobilePhoneNumber=" + mobilePhoneNumber
-				+ ", contactPhoneNumber=" + contactPhoneNumber + "]";
+		return "Person{" +
+				"personId='" + personId + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", otherName='" + otherName + '\'' +
+				", dateOfBirth=" + dateOfBirth +
+				", idIssuanceDate=" + idIssuanceDate +
+				", idExpiryDate=" + idExpiryDate +
+				", idIssuanceCountryCode='" + idIssuanceCountryCode + '\'' +
+				", idIssuanceProvinceCode='" + idIssuanceProvinceCode + '\'' +
+				", idIssuanceMunicipalityCode='" + idIssuanceMunicipalityCode + '\'' +
+				", idIssuanceCommuneCode='" + idIssuanceCommuneCode + '\'' +
+				", birthCountryCode='" + birthCountryCode + '\'' +
+				", birthCommuneCode='" + birthCommuneCode + '\'' +
+				", residenceCommuneCode='" + residenceCommuneCode + '\'' +
+				", placeOfBirth='" + placeOfBirth + '\'' +
+				", emailAddress='" + emailAddress + '\'' +
+				", postalAddress='" + postalAddress + '\'' +
+				", mobilePhoneNumber='" + mobilePhoneNumber + '\'' +
+				", contactPhoneNumber='" + contactPhoneNumber + '\'' +
+				", gender='" + gender + '\'' +
+				", maritalStatusCode='" + maritalStatusCode + '\'' +
+				", idType='" + idType + '\'' +
+				", idNumber='" + idNumber + '\'' +
+				", motherName='" + motherName + '\'' +
+				", fatherName='" + fatherName + '\'' +
+				", beneficiaryName='" + beneficiaryName + '\'' +
+				", beneficiaryIdNumber='" + beneficiaryIdNumber + '\'' +
+				", personType='" + personType + '\'' +
+				'}';
 	}
 
 	public String getPersonId() {
@@ -279,7 +303,37 @@ public class Person {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("INSERT INTO PERSON(PERSON_ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, PLACE_OF_BIRTH, EMAIL_ADDRESS, POSTAL_ADDRESS, MOBILE_PHONE_NUMBER, CONTACT_PHONE_NUMBER, GENDER, ID_TYPE, ID_NUMBER, PERSON_TYPE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO PERSON(" +
+							"PERSON_ID, " +
+							"FIRST_NAME, " +
+							"LAST_NAME, " +
+							"DATE_OF_BIRTH, " +
+							"PLACE_OF_BIRTH, " +
+							"EMAIL_ADDRESS, " +
+							"POSTAL_ADDRESS, " +
+							"MOBILE_PHONE_NUMBER, " +
+							"CONTACT_PHONE_NUMBER, " +
+							"GENDER, " +
+							"ID_TYPE, " +
+							"ID_NUMBER, " +
+							"PERSON_TYPE, " +
+							"OTHER_NAME, " +
+							"ID_ISSUANCE_DATE, " +
+							"ID_EXPIRY_DATE, " +
+							"ID_ISSUANCE_COUNTRY_CODE, " +
+							"ID_ISSUANCE_PROVINCE_CODE, " +
+							"ID_ISSUANCE_MUNICIPALITY_CODE, " +
+							"ID_ISSUANCE_COMMUNE_CODE, " +
+							"BIRTH_COUNTRY_CODE, " +
+							"BIRTH_COMMUNE_CODE, " +
+							"RESIDENCE_COMMUNE_CODE, " +
+							"MARITAL_STATUS_CODE, " +
+							"FATHER_NAME, " +
+							"MOTHER_NAME, " +
+							"BENEFICIARY_NAME, " +
+							"BENEFICIARY_ID_NUMBER " +
+							") " +
+							"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, person.getPersonId());
 			statement.setString(2, person.getFirstName());
 			if (person.getLastName() != null)
@@ -296,6 +350,21 @@ public class Person {
 			statement.setString(11, person.getIdType());
 			statement.setString(12, person.getIdNumber());
 			statement.setString(13, person.getPersonType());
+			statement.setString(14, person.getOtherName());
+			statement.setDate(15, person.getIdIssuanceDate());
+			statement.setDate(16, person.getIdExpiryDate());
+			statement.setString(17, person.getIdIssuanceCountryCode());
+			statement.setString(18, person.getIdIssuanceProvinceCode());
+			statement.setString(19, person.getIdIssuanceMunicipalityCode());
+			statement.setString(20, person.getIdIssuanceCommuneCode());
+			statement.setString(21, person.getBirthCountryCode());
+			statement.setString(22, person.getBirthCommuneCode());
+			statement.setString(23, person.getResidenceCommuneCode());
+			statement.setString(24, person.getMaritalStatusCode());
+			statement.setString(25, person.getFatherName());
+			statement.setString(26, person.getMotherName());
+			statement.setString(27, person.getBeneficiaryName());
+			statement.setString(28, person.getBeneficiaryIdNumber());
 			result = statement.executeUpdate();
 
 			FileSystemUtilities.createClaimantFolder(person.getPersonId());
@@ -329,10 +398,43 @@ public class Person {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("INSERT INTO PERSON(PERSON_ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, PLACE_OF_BIRTH, EMAIL_ADDRESS, POSTAL_ADDRESS, MOBILE_PHONE_NUMBER, CONTACT_PHONE_NUMBER, GENDER, ID_TYPE, ID_NUMBER, PERSON_TYPE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO PERSON(" +
+							"PERSON_ID, " +
+							"FIRST_NAME, " +
+							"LAST_NAME, " +
+							"DATE_OF_BIRTH, " +
+							"PLACE_OF_BIRTH, " +
+							"EMAIL_ADDRESS, " +
+							"POSTAL_ADDRESS, " +
+							"MOBILE_PHONE_NUMBER, " +
+							"CONTACT_PHONE_NUMBER, " +
+							"GENDER, " +
+							"ID_TYPE, " +
+							"ID_NUMBER, " +
+							"PERSON_TYPE, " +
+							"OTHER_NAME, " +
+							"ID_ISSUANCE_DATE, " +
+							"ID_EXPIRY_DATE, " +
+							"ID_ISSUANCE_COUNTRY_CODE, " +
+							"ID_ISSUANCE_PROVINCE_CODE, " +
+							"ID_ISSUANCE_MUNICIPALITY_CODE, " +
+							"ID_ISSUANCE_COMMUNE_CODE, " +
+							"BIRTH_COUNTRY_CODE, " +
+							"BIRTH_COMMUNE_CODE, " +
+							"RESIDENCE_COMMUNE_CODE, " +
+							"MARITAL_STATUS_CODE, " +
+							"FATHER_NAME, " +
+							"MOTHER_NAME, " +
+							"BENEFICIARY_NAME, " +
+							"BENEFICIARY_ID_NUMBER " +
+							") " +
+							"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, getPersonId());
 			statement.setString(2, getFirstName());
-			statement.setString(3, getLastName());
+			if (getLastName() != null)
+				statement.setString(3, getLastName());
+			else
+				statement.setString(3, "");
 			statement.setDate(4, getDateOfBirth());
 			statement.setString(5, getPlaceOfBirth());
 			statement.setString(6, getEmailAddress());
@@ -343,6 +445,21 @@ public class Person {
 			statement.setString(11, getIdType());
 			statement.setString(12, getIdNumber());
 			statement.setString(13, getPersonType());
+			statement.setString(14, getOtherName());
+			statement.setDate(15, getIdIssuanceDate());
+			statement.setDate(16, getIdExpiryDate());
+			statement.setString(17, getIdIssuanceCountryCode());
+			statement.setString(18, getIdIssuanceProvinceCode());
+			statement.setString(19, getIdIssuanceMunicipalityCode());
+			statement.setString(20, getIdIssuanceCommuneCode());
+			statement.setString(21, getBirthCountryCode());
+			statement.setString(22, getBirthCommuneCode());
+			statement.setString(23, getResidenceCommuneCode());
+			statement.setString(24, getMaritalStatusCode());
+			statement.setString(25, getFatherName());
+			statement.setString(26, getMotherName());
+			statement.setString(27, getBeneficiaryName());
+			statement.setString(28, getBeneficiaryIdNumber());
 			result = statement.executeUpdate();
 			FileSystemUtilities.createClaimantFolder(getPersonId());
 		} catch (SQLException e) {
@@ -456,7 +573,35 @@ public class Person {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("UPDATE PERSON SET FIRST_NAME=?, LAST_NAME=?, DATE_OF_BIRTH=?, PLACE_OF_BIRTH=?, EMAIL_ADDRESS=?, POSTAL_ADDRESS=?, MOBILE_PHONE_NUMBER=?, CONTACT_PHONE_NUMBER=?, GENDER=?, ID_TYPE=?, ID_NUMBER=?, PERSON_TYPE=? WHERE PERSON_ID=?");
+					.prepareStatement("UPDATE PERSON SET " +
+							"FIRST_NAME=?, " +
+							"LAST_NAME=?, " +
+							"DATE_OF_BIRTH=?, " +
+							"PLACE_OF_BIRTH=?, " +
+							"EMAIL_ADDRESS=?, " +
+							"POSTAL_ADDRESS=?, " +
+							"MOBILE_PHONE_NUMBER=?, " +
+							"CONTACT_PHONE_NUMBER=?, " +
+							"GENDER=?, " +
+							"ID_TYPE=?, " +
+							"ID_NUMBER=?, " +
+							"PERSON_TYPE=?, " +
+							"OTHER_NAME=?, " +
+							"ID_ISSUANCE_DATE=?, " +
+							"ID_EXPIRY_DATE=?, " +
+							"ID_ISSUANCE_COUNTRY_CODE=?, " +
+							"ID_ISSUANCE_PROVINCE_CODE=?, " +
+							"ID_ISSUANCE_MUNICIPALITY_CODE=?, " +
+							"ID_ISSUANCE_COMMUNE_CODE=?, " +
+							"BIRTH_COUNTRY_CODE=?, " +
+							"BIRTH_COMMUNE_CODE=?, " +
+							"RESIDENCE_COMMUNE_CODE=?, " +
+							"MARITAL_STATUS_CODE=?, " +
+							"FATHER_NAME=?, " +
+							"MOTHER_NAME=?, " +
+							"BENEFICIARY_NAME=?, " +
+							"BENEFICIARY_ID_NUMBER=? " +
+							"WHERE PERSON_ID=?");
 			statement.setString(1, person.getFirstName());
 			statement.setString(2, person.getLastName());
 			statement.setDate(3, person.getDateOfBirth());
@@ -469,7 +614,22 @@ public class Person {
 			statement.setString(10, person.getIdType());
 			statement.setString(11, person.getIdNumber());
 			statement.setString(12, person.getPersonType());
-			statement.setString(13, person.getPersonId());
+			statement.setString(13, person.getOtherName());
+			statement.setDate(14, person.getIdIssuanceDate());
+			statement.setDate(15, person.getIdExpiryDate());
+			statement.setString(16, person.getIdIssuanceCountryCode());
+			statement.setString(17, person.getIdIssuanceProvinceCode());
+			statement.setString(18, person.getIdIssuanceMunicipalityCode());
+			statement.setString(19, person.getIdIssuanceCommuneCode());
+			statement.setString(20, person.getBirthCountryCode());
+			statement.setString(21, person.getBirthCommuneCode());
+			statement.setString(22, person.getResidenceCommuneCode());
+			statement.setString(23, person.getMaritalStatusCode());
+			statement.setString(24, person.getFatherName());
+			statement.setString(25, person.getMotherName());
+			statement.setString(26, person.getBeneficiaryName());
+			statement.setString(27, person.getBeneficiaryIdNumber());
+			statement.setString(28, person.getPersonId());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -502,7 +662,35 @@ public class Person {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("UPDATE PERSON SET FIRST_NAME=?, LAST_NAME=?, DATE_OF_BIRTH=?, PLACE_OF_BIRTH=?, EMAIL_ADDRESS=?, POSTAL_ADDRESS=?, MOBILE_PHONE_NUMBER=?, CONTACT_PHONE_NUMBER=?, GENDER=?, ID_TYPE=?, ID_NUMBER=?, PERSON_TYPE=? WHERE PERSON_ID=?");
+					.prepareStatement("UPDATE PERSON SET " +
+							"FIRST_NAME=?, " +
+							"LAST_NAME=?, " +
+							"DATE_OF_BIRTH=?, " +
+							"PLACE_OF_BIRTH=?, " +
+							"EMAIL_ADDRESS=?, " +
+							"POSTAL_ADDRESS=?, " +
+							"MOBILE_PHONE_NUMBER=?, " +
+							"CONTACT_PHONE_NUMBER=?, " +
+							"GENDER=?, " +
+							"ID_TYPE=?, " +
+							"ID_NUMBER=?, " +
+							"PERSON_TYPE=?, " +
+							"OTHER_NAME=?, " +
+							"ID_ISSUANCE_DATE=?, " +
+							"ID_EXPIRY_DATE=?, " +
+							"ID_ISSUANCE_COUNTRY_CODE=?, " +
+							"ID_ISSUANCE_PROVINCE_CODE=?, " +
+							"ID_ISSUANCE_MUNICIPALITY_CODE=?, " +
+							"ID_ISSUANCE_COMMUNE_CODE=?, " +
+							"BIRTH_COUNTRY_CODE=?, " +
+							"BIRTH_COMMUNE_CODE=?, " +
+							"RESIDENCE_COMMUNE_CODE=?, " +
+							"MARITAL_STATUS_CODE=?, " +
+							"FATHER_NAME=?, " +
+							"MOTHER_NAME=?, " +
+							"BENEFICIARY_NAME=?, " +
+							"BENEFICIARY_ID_NUMBER=? " +
+							"WHERE PERSON_ID=?");
 			statement.setString(1, getFirstName());
 			statement.setString(2, getLastName());
 			statement.setDate(3, getDateOfBirth());
@@ -515,7 +703,22 @@ public class Person {
 			statement.setString(10, getIdType());
 			statement.setString(11, getIdNumber());
 			statement.setString(12, getPersonType());
-			statement.setString(13, getPersonId());
+			statement.setString(13, getOtherName());
+			statement.setDate(14, getIdIssuanceDate());
+			statement.setDate(15, getIdExpiryDate());
+			statement.setString(16, getIdIssuanceCountryCode());
+			statement.setString(17, getIdIssuanceProvinceCode());
+			statement.setString(18, getIdIssuanceMunicipalityCode());
+			statement.setString(19, getIdIssuanceCommuneCode());
+			statement.setString(20, getBirthCountryCode());
+			statement.setString(21, getBirthCommuneCode());
+			statement.setString(22, getResidenceCommuneCode());
+			statement.setString(23, getMaritalStatusCode());
+			statement.setString(24, getFatherName());
+			statement.setString(25, getMotherName());
+			statement.setString(26, getBeneficiaryName());
+			statement.setString(27, getBeneficiaryIdNumber());
+			statement.setString(28, getPersonId());
 			result = statement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -571,7 +774,36 @@ public class Person {
 		try {
 
 			statement = connection
-					.prepareStatement("SELECT FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, PLACE_OF_BIRTH, EMAIL_ADDRESS, POSTAL_ADDRESS, MOBILE_PHONE_NUMBER, CONTACT_PHONE_NUMBER, GENDER, ID_TYPE, ID_NUMBER, PERSON_TYPE FROM PERSON PER WHERE PER.PERSON_ID=?");
+					.prepareStatement("SELECT " +
+							"FIRST_NAME, " +
+							"LAST_NAME, " +
+							"DATE_OF_BIRTH, " +
+							"PLACE_OF_BIRTH, " +
+							"EMAIL_ADDRESS, " +
+							"POSTAL_ADDRESS, " +
+							"MOBILE_PHONE_NUMBER, " +
+							"CONTACT_PHONE_NUMBER, " +
+							"GENDER, " +
+							"ID_TYPE, " +
+							"ID_NUMBER, " +
+							"PERSON_TYPE, " +
+							"OTHER_NAME, " +
+							"ID_ISSUANCE_DATE, " +
+							"ID_EXPIRY_DATE, " +
+							"ID_ISSUANCE_COUNTRY_CODE, " +
+							"ID_ISSUANCE_PROVINCE_CODE, " +
+							"ID_ISSUANCE_MUNICIPALITY_CODE, " +
+							"ID_ISSUANCE_COMMUNE_CODE, " +
+							"BIRTH_COUNTRY_CODE, " +
+							"BIRTH_COMMUNE_CODE, " +
+							"RESIDENCE_COMMUNE_CODE, " +
+							"MARITAL_STATUS_CODE, " +
+							"FATHER_NAME, " +
+							"MOTHER_NAME, " +
+							"BENEFICIARY_NAME, " +
+							"BENEFICIARY_ID_NUMBER " +
+							"FROM PERSON PER " +
+							"WHERE PER.PERSON_ID=?");
 			statement.setString(1, personId);
 			rs = statement.executeQuery();
 			while (rs.next()) {
@@ -589,6 +821,21 @@ public class Person {
 				person.setIdType(rs.getString(10));
 				person.setIdNumber(rs.getString(11));
 				person.setPersonType(rs.getString(12));
+				person.setPersonType(rs.getString(13));
+				person.setOtherName(rs.getString(14));
+				person.setIdIssuanceDate(rs.getDate(15));
+				person.setIdExpiryDate(rs.getDate(16));
+				person.setIdIssuanceCountryCode(rs.getString(17));
+				person.setIdIssuanceProvinceCode(rs.getString(18));
+				person.setIdIssuanceMunicipalityCode(rs.getString(19));
+				person.setIdIssuanceCommuneCode(rs.getString(20));
+				person.setBirthCountryCode(rs.getString(21));
+				person.setBirthCommuneCode(rs.getString(22));
+				person.setMaritalStatusCode(rs.getString(23));
+				person.setFatherName(rs.getString(24));
+				person.setMotherName(rs.getString(25));
+				person.setBeneficiaryName(rs.getString(26));
+				person.setBeneficiaryIdNumber(rs.getString(27));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -622,7 +869,36 @@ public class Person {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT PERSON_ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, PLACE_OF_BIRTH, EMAIL_ADDRESS, POSTAL_ADDRESS, MOBILE_PHONE_NUMBER, CONTACT_PHONE_NUMBER, GENDER, ID_TYPE, ID_NUMBER, PERSON_TYPE FROM PERSON");
+					.prepareStatement("SELECT " +
+							"PERSON_ID, " +
+							"FIRST_NAME, " +
+							"LAST_NAME, " +
+							"DATE_OF_BIRTH, " +
+							"PLACE_OF_BIRTH, " +
+							"EMAIL_ADDRESS, " +
+							"POSTAL_ADDRESS, " +
+							"MOBILE_PHONE_NUMBER, " +
+							"CONTACT_PHONE_NUMBER, " +
+							"GENDER, " +
+							"ID_TYPE, " +
+							"ID_NUMBER, " +
+							"PERSON_TYPE, " +
+							"OTHER_NAME, " +
+							"ID_ISSUANCE_DATE, " +
+							"ID_EXPIRY_DATE, " +
+							"ID_ISSUANCE_COUNTRY_CODE, " +
+							"ID_ISSUANCE_PROVINCE_CODE, " +
+							"ID_ISSUANCE_MUNICIPALITY_CODE, " +
+							"ID_ISSUANCE_COMMUNE_CODE, " +
+							"BIRTH_COUNTRY_CODE, " +
+							"BIRTH_COMMUNE_CODE, " +
+							"RESIDENCE_COMMUNE_CODE, " +
+							"MARITAL_STATUS_CODE, " +
+							"FATHER_NAME, " +
+							"MOTHER_NAME, " +
+							"BENEFICIARY_NAME, " +
+							"BENEFICIARY_ID_NUMBER " +
+							"FROM PERSON ");
 			rs = statement.executeQuery();
 			while (rs.next()) {
 
@@ -640,6 +916,21 @@ public class Person {
 				person.setIdType(rs.getString(11));
 				person.setIdNumber(rs.getString(12));
 				person.setPersonType(rs.getString(13));
+				person.setPersonType(rs.getString(14));
+				person.setOtherName(rs.getString(15));
+				person.setIdIssuanceDate(rs.getDate(16));
+				person.setIdExpiryDate(rs.getDate(17));
+				person.setIdIssuanceCountryCode(rs.getString(18));
+				person.setIdIssuanceProvinceCode(rs.getString(19));
+				person.setIdIssuanceMunicipalityCode(rs.getString(20));
+				person.setIdIssuanceCommuneCode(rs.getString(21));
+				person.setBirthCountryCode(rs.getString(22));
+				person.setBirthCommuneCode(rs.getString(23));
+				person.setMaritalStatusCode(rs.getString(24));
+				person.setFatherName(rs.getString(25));
+				person.setMotherName(rs.getString(26));
+				person.setBeneficiaryName(rs.getString(27));
+				person.setBeneficiaryIdNumber(rs.getString(28));
 				persons.add(person);
 			}
 		} catch (SQLException e) {
@@ -941,6 +1232,21 @@ public class Person {
 		copy.setPlaceOfBirth(this.placeOfBirth);
 		copy.setPostalAddress(this.postalAddress);
 		copy.setFirstName(this.firstName);
+		copy.setIdExpiryDate(this.idExpiryDate);
+		copy.setIdIssuanceDate(this.idIssuanceDate);
+		copy.setOtherName(this.otherName);
+		copy.setIdIssuanceCountryCode(this.idIssuanceCountryCode);
+		copy.setIdIssuanceProvinceCode(this.idIssuanceProvinceCode);
+		copy.setIdIssuanceMunicipalityCode(this.idIssuanceMunicipalityCode);
+		copy.setIdIssuanceCommuneCode(this.idIssuanceCommuneCode);
+		copy.setBirthCountryCode(this.birthCountryCode);
+		copy.setBirthCommuneCode(this.birthCommuneCode);
+		copy.setResidenceCommuneCode(this.residenceCommuneCode);
+		copy.setMaritalStatusCode(this.maritalStatusCode);
+		copy.setMotherName(this.motherName);
+		copy.setFatherName(this.fatherName);
+		copy.setBeneficiaryName(this.beneficiaryName);
+		copy.setBeneficiaryIdNumber(this.beneficiaryIdNumber);
 
 		return copy;
 	}
@@ -948,15 +1254,149 @@ public class Person {
 	String personId;
 	String firstName;
 	String lastName;
+	String otherName;
 	java.sql.Date dateOfBirth;
+	java.sql.Date idIssuanceDate;
+	java.sql.Date idExpiryDate;
+	String idIssuanceCountryCode;
+	String idIssuanceProvinceCode;
+	String idIssuanceMunicipalityCode;
+	String idIssuanceCommuneCode;
+	String birthCountryCode;
+	String birthCommuneCode;
+	String residenceCommuneCode;
 	String placeOfBirth;
 	String emailAddress;
 	String postalAddress;
 	String mobilePhoneNumber;
 	String contactPhoneNumber;
 	String gender;
+	String maritalStatusCode;
 	String idType;
 	String idNumber;
+	String motherName;
+	String fatherName;
+	String beneficiaryName;
+	String beneficiaryIdNumber;
 	String personType;
 
+	public String getOtherName() {
+		return otherName;
+	}
+
+	public void setOtherName(String otherName) {
+		this.otherName = otherName;
+	}
+
+	public Date getIdIssuanceDate() {
+		return idIssuanceDate;
+	}
+
+	public void setIdIssuanceDate(Date idIssuanceDate) {
+		this.idIssuanceDate = idIssuanceDate;
+	}
+
+	public Date getIdExpiryDate() {
+		return idExpiryDate;
+	}
+
+	public void setIdExpiryDate(Date idExpiryDate) {
+		this.idExpiryDate = idExpiryDate;
+	}
+
+	public String getIdIssuanceCountryCode() {
+		return idIssuanceCountryCode;
+	}
+
+	public void setIdIssuanceCountryCode(String idIssuanceCountryCode) {
+		this.idIssuanceCountryCode = idIssuanceCountryCode;
+	}
+
+	public String getIdIssuanceProvinceCode() {
+		return idIssuanceProvinceCode;
+	}
+
+	public void setIdIssuanceProvinceCode(String idIssuanceProvinceCode) {
+		this.idIssuanceProvinceCode = idIssuanceProvinceCode;
+	}
+
+	public String getIdIssuanceMunicipalityCode() {
+		return idIssuanceMunicipalityCode;
+	}
+
+	public void setIdIssuanceMunicipalityCode(String idIssuanceMunicipalityCode) {
+		this.idIssuanceMunicipalityCode = idIssuanceMunicipalityCode;
+	}
+
+	public String getIdIssuanceCommuneCode() {
+		return idIssuanceCommuneCode;
+	}
+
+	public void setIdIssuanceCommuneCode(String idIssuanceCommuneCode) {
+		this.idIssuanceCommuneCode = idIssuanceCommuneCode;
+	}
+
+	public String getBirthCountryCode() {
+		return birthCountryCode;
+	}
+
+	public void setBirthCountryCode(String birthCountryCode) {
+		this.birthCountryCode = birthCountryCode;
+	}
+
+	public String getBirthCommuneCode() {
+		return birthCommuneCode;
+	}
+
+	public void setBirthCommuneCode(String birthCommuneCode) {
+		this.birthCommuneCode = birthCommuneCode;
+	}
+
+	public String getResidenceCommuneCode() {
+		return residenceCommuneCode;
+	}
+
+	public void setResidenceCommuneCode(String residenceCommuneCode) {
+		this.residenceCommuneCode = residenceCommuneCode;
+	}
+
+	public String getMaritalStatusCode() {
+		return maritalStatusCode;
+	}
+
+	public void setMaritalStatusCode(String maritalStatusCode) {
+		this.maritalStatusCode = maritalStatusCode;
+	}
+
+	public String getMotherName() {
+		return motherName;
+	}
+
+	public void setMotherName(String motherName) {
+		this.motherName = motherName;
+	}
+
+	public String getFatherName() {
+		return fatherName;
+	}
+
+	public void setFatherName(String fatherName) {
+		this.fatherName = fatherName;
+	}
+
+	public String getBeneficiaryName() {
+		return beneficiaryName;
+	}
+
+	public void setBeneficiaryName(String beneficiaryName) {
+		this.beneficiaryName = beneficiaryName;
+	}
+
+	public String getBeneficiaryIdNumber() {
+		return beneficiaryIdNumber;
+	}
+
+	public void setBeneficiaryIdNumber(String beneficiaryIdNumber) {
+		this.beneficiaryIdNumber = beneficiaryIdNumber;
+	}
 }

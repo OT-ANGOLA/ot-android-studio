@@ -48,12 +48,12 @@ public class UpdateLandProjectsTask extends AsyncTask<String, Void, List<LandPro
 	}
 
 	@Override
-	protected void onPostExecute(List<LandProject> countries) {
+	protected void onPostExecute(List<LandProject> projects) {
 
-		if (countries != null && (countries.size() > 0)) {
+		if (projects != null && (projects.size() > 0)) {
 
 			org.fao.sola.clients.android.opentenure.model.LandProject.setAllLandProjectsInctive();
-			for (Iterator<LandProject> iterator = countries.iterator(); iterator
+			for (Iterator<LandProject> iterator = projects.iterator(); iterator
 					.hasNext();) {
 				LandProject networkLandProject = (LandProject) iterator.next();
 
@@ -62,8 +62,8 @@ public class UpdateLandProjectsTask extends AsyncTask<String, Void, List<LandPro
 				modelLandProject.setDescription(networkLandProject.getDescription());
 				modelLandProject.setCode(networkLandProject.getCode());
 				modelLandProject.setDisplayValue(networkLandProject.getDisplayValue());
-				if (org.fao.sola.clients.android.opentenure.model.Country
-						.getCountry(networkLandProject.getCode()) == null)
+				if (org.fao.sola.clients.android.opentenure.model.LandProject
+						.getLandProject(networkLandProject.getCode()) == null)
 
 					modelLandProject.add();
 				else

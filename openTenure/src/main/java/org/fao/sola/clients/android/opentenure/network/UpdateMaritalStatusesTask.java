@@ -48,12 +48,12 @@ public class UpdateMaritalStatusesTask extends AsyncTask<String, Void, List<Mari
 	}
 
 	@Override
-	protected void onPostExecute(List<MaritalStatus> countries) {
+	protected void onPostExecute(List<MaritalStatus> maritalStatuses) {
 
-		if (countries != null && (countries.size() > 0)) {
+		if (maritalStatuses != null && (maritalStatuses.size() > 0)) {
 
 			org.fao.sola.clients.android.opentenure.model.MaritalStatus.setAllMaritalStatusesInactive();
-			for (Iterator<MaritalStatus> iterator = countries.iterator(); iterator
+			for (Iterator<MaritalStatus> iterator = maritalStatuses.iterator(); iterator
 					.hasNext();) {
 				MaritalStatus networkMaritalStatus = (MaritalStatus) iterator.next();
 
@@ -62,8 +62,8 @@ public class UpdateMaritalStatusesTask extends AsyncTask<String, Void, List<Mari
 				modelMaritalStatus.setDescription(networkMaritalStatus.getDescription());
 				modelMaritalStatus.setCode(networkMaritalStatus.getCode());
 				modelMaritalStatus.setDisplayValue(networkMaritalStatus.getDisplayValue());
-				if (org.fao.sola.clients.android.opentenure.model.Country
-						.getCountry(networkMaritalStatus.getCode()) == null)
+				if (org.fao.sola.clients.android.opentenure.model.MaritalStatus
+						.getMaritalStatus(networkMaritalStatus.getCode()) == null)
 
 					modelMaritalStatus.add();
 				else

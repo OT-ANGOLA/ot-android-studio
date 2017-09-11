@@ -63,8 +63,8 @@ public class UpdateCommunesTask extends AsyncTask<String, Void, List<Commune>> {
 				modelCommune.setCode(networkCommune.getCode());
 				modelCommune.setDisplayValue(networkCommune.getDisplayValue());
 				modelCommune.setMunicipalityCode(networkCommune.getMunicipalityCode());
-				if (org.fao.sola.clients.android.opentenure.model.Province
-						.getProvince(networkCommune.getCode()) == null)
+				if (org.fao.sola.clients.android.opentenure.model.Commune
+						.getCommune(networkCommune.getCode()) == null)
 
 					modelCommune.add();
 				else

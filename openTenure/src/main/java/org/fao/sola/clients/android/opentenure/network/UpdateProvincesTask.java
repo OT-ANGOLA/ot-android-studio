@@ -43,17 +43,17 @@ public class UpdateProvincesTask extends AsyncTask<String, Void, List<Province>>
 
 	@Override
 	protected List<Province> doInBackground(String... params) {
-		List<Province> countries = CommunityServerAPI.getProvinces();
-		return countries;
+		List<Province> provinces = CommunityServerAPI.getProvinces();
+		return provinces;
 	}
 
 	@Override
-	protected void onPostExecute(List<Province> countries) {
+	protected void onPostExecute(List<Province> provinces) {
 
-		if (countries != null && (countries.size() > 0)) {
+		if (provinces != null && (provinces.size() > 0)) {
 
 			org.fao.sola.clients.android.opentenure.model.Province.setAllProvincesInactive();
-			for (Iterator<Province> iterator = countries.iterator(); iterator
+			for (Iterator<Province> iterator = provinces.iterator(); iterator
 					.hasNext();) {
 				Province networkProvince = (Province) iterator.next();
 

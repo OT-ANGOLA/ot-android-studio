@@ -97,6 +97,54 @@ public class Claim {
 		this.additionalInfo = additionalInfo;
 	}
 
+	public boolean isHasConstruction() {
+		return hasConstruction;
+	}
+
+	public void setHasConstruction(boolean hasConstruction) {
+		this.hasConstruction = hasConstruction;
+	}
+
+	public Date getConstructionDate() {
+		return constructionDate;
+	}
+
+	public void setConstructionDate(Date constructionDate) {
+		this.constructionDate = constructionDate;
+	}
+
+	public String getLandProjectCode() {
+		return landProjectCode;
+	}
+
+	public void setLandProjectCode(String landProjectCode) {
+		this.landProjectCode = landProjectCode;
+	}
+
+	public String getBlockNumber() {
+		return blockNumber;
+	}
+
+	public void setBlockNumber(String blockNumber) {
+		this.blockNumber = blockNumber;
+	}
+
+	public String getNeighborhood() {
+		return neighborhood;
+	}
+
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
+	}
+
+	public String getCommuneCode() {
+		return communeCode;
+	}
+
+	public void setCommuneCode(String communeCode) {
+		this.communeCode = communeCode;
+	}
+
 	Database db = OpenTenureApplication.getInstance().getDatabase();
 
 	public Claim() {
@@ -124,21 +172,40 @@ public class Claim {
 
 	@Override
 	public String toString() {
-		return "Claim [" + "claimId=" + claimId + ", status=" + status
-				+ ", claimNumber=" + claimNumber + ", type=" + type + ", name="
-				+ name + ", person=" + person + ", propertyLocations="
-				+ Arrays.toString(propertyLocations.toArray()) + ", vertices="
-				+ Arrays.toString(vertices.toArray()) + ", additionalInfo="
-				+ Arrays.toString(additionalInfo.toArray())
-				+ ", challengedClaim=" + challengedClaim + ", notes=" + notes
-				+ ", challengeExpiryDate=" + challengeExpiryDate
-				+ ", dateOfStart=" + dateOfStart + ", version=" + version
-				+ ", claimArea=" + claimArea
-				+ ", challengingClaims="
-				// + Arrays.toString(challengingClaims.toArray())
-				+ ", attachments=" + Arrays.toString(attachments.toArray())
-				+ ", shares=" + Arrays.toString(shares.toArray())
-				+ ", availableShares=" + availableShares + "]";
+		return "Claim{" +
+				"claimId='" + claimId + '\'' +
+				", name='" + name + '\'' +
+				", type='" + type + '\'' +
+				", status='" + status + '\'' +
+				", person=" + person +
+				", personId='" + personId + '\'' +
+				", dateOfStart=" + dateOfStart +
+				", challengedClaim=" + challengedClaim +
+				", challengedClaimId='" + challengedClaimId + '\'' +
+				", adjacenciesNotes=" + adjacenciesNotes +
+				", vertices=" + Arrays.toString(vertices.toArray()) +
+//				", holesVertices=" + Arrays.toString(holesVertices.toArray()) +
+				", propertyLocations=" + Arrays.toString(propertyLocations.toArray()) +
+				", additionalInfo=" + Arrays.toString(additionalInfo.toArray()) +
+//				", challengingClaims=" + Arrays.toString(challengingClaims.toArray()) +
+				", attachments=" + Arrays.toString(attachments.toArray()) +
+				", shares=" + Arrays.toString(shares.toArray()) +
+				", challengeExpiryDate=" + challengeExpiryDate +
+				", availableShares=" + availableShares +
+				", landUse='" + landUse + '\'' +
+				", notes='" + notes + '\'' +
+				", claimNumber='" + claimNumber + '\'' +
+				", recorderName='" + recorderName + '\'' +
+				", version='" + version + '\'' +
+				", claimArea=" + claimArea +
+				", dynamicForm=" + dynamicForm +
+				", hasConstruction=" + hasConstruction +
+				", constructionDate=" + constructionDate +
+				", landProjectCode='" + landProjectCode + '\'' +
+				", blockNumber='" + blockNumber + '\'' +
+				", neighborhood='" + neighborhood + '\'' +
+				", communeCode='" + communeCode + '\'' +
+				'}';
 	}
 
 	public String getType() {
@@ -448,7 +515,27 @@ public class Claim {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("INSERT INTO CLAIM(CLAIM_ID, STATUS, CLAIM_NUMBER, NAME, TYPE, PERSON_ID, CHALLENGED_CLAIM_ID, CHALLANGE_EXPIRY_DATE,DATE_OF_START, LAND_USE, NOTES, RECORDER_NAME, VERSION, SURVEY_FORM) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO CLAIM(" +
+							"CLAIM_ID, " +
+							"STATUS, " +
+							"CLAIM_NUMBER, " +
+							"NAME, " +
+							"TYPE, " +
+							"PERSON_ID, " +
+							"CHALLENGED_CLAIM_ID, " +
+							"CHALLANGE_EXPIRY_DATE, " +
+							"DATE_OF_START, " +
+							"LAND_USE, NOTES, " +
+							"RECORDER_NAME, " +
+							"VERSION, " +
+							"SURVEY_FORM, " +
+							"HAS_CONSTRUCTION, " +
+							"CONSTRUCTION_DATE, " +
+							"LAND_PROJECT_CODE, " +
+							"BLOCK_NUMBER, " +
+							"NEIGHBORHOOD, " +
+							"COMMUNE_CODE " +
+							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, claim.getClaimId());
 			statement.setString(2, claim.getStatus());
 			statement.setString(3, claim.getClaimNumber());
@@ -474,6 +561,12 @@ public class Claim {
 			} else {
 				statement.setCharacterStream(14, null);
 			}
+			statement.setBoolean(15, claim.isHasConstruction());
+			statement.setDate(16, claim.getConstructionDate());
+			statement.setString(17, claim.getLandProjectCode());
+			statement.setString(18, claim.getBlockNumber());
+			statement.setString(19, claim.getNeighborhood());
+			statement.setString(20, claim.getCommuneCode());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -506,7 +599,28 @@ public class Claim {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("INSERT INTO CLAIM(CLAIM_ID, STATUS, CLAIM_NUMBER, NAME, TYPE, PERSON_ID, CHALLENGED_CLAIM_ID, CHALLANGE_EXPIRY_DATE,DATE_OF_START, LAND_USE, NOTES,RECORDER_NAME,VERSION, SURVEY_FORM) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO CLAIM(" +
+							"CLAIM_ID, " +
+							"STATUS, " +
+							"CLAIM_NUMBER, " +
+							"NAME, " +
+							"TYPE, " +
+							"PERSON_ID, " +
+							"CHALLENGED_CLAIM_ID, " +
+							"CHALLANGE_EXPIRY_DATE, " +
+							"DATE_OF_START, " +
+							"LAND_USE, " +
+							"NOTES, " +
+							"RECORDER_NAME, " +
+							"VERSION, " +
+							"SURVEY_FORM, " +
+							"HAS_CONSTRUCTION, " +
+							"CONSTRUCTION_DATE, " +
+							"LAND_PROJECT_CODE, " +
+							"BLOCK_NUMBER, " +
+							"NEIGHBORHOOD, " +
+							"COMMUNE_CODE " +
+							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, getClaimId());
 			statement.setString(2, getStatus());
 			statement.setString(3, getClaimNumber());
@@ -531,6 +645,12 @@ public class Claim {
 			} else {
 				statement.setCharacterStream(14, null);
 			}
+			statement.setBoolean(15, isHasConstruction());
+			statement.setDate(16, getConstructionDate());
+			statement.setString(17, getLandProjectCode());
+			statement.setString(18, getBlockNumber());
+			statement.setString(19, getNeighborhood());
+			statement.setString(20, getCommuneCode());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -563,7 +683,27 @@ public class Claim {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("UPDATE CLAIM SET STATUS=?, CLAIM_NUMBER=?, NAME=?, PERSON_ID=?, TYPE=?,CHALLENGED_CLAIM_ID=?, CHALLANGE_EXPIRY_DATE=?, DATE_OF_START=?, LAND_USE=?, NOTES=?, RECORDER_NAME=?, VERSION=? , SURVEY_FORM=? WHERE CLAIM_ID=?");
+					.prepareStatement("UPDATE CLAIM SET " +
+							"STATUS=?, " +
+							"CLAIM_NUMBER=?, " +
+							"NAME=?, " +
+							"PERSON_ID=?, " +
+							"TYPE=?, " +
+							"CHALLENGED_CLAIM_ID=?, " +
+							"CHALLANGE_EXPIRY_DATE=?, " +
+							"DATE_OF_START=?, " +
+							"LAND_USE=?, " +
+							"NOTES=?, " +
+							"RECORDER_NAME=?, " +
+							"VERSION=?, " +
+							"SURVEY_FORM=?, " +
+							"HAS_CONSTRUCTION=?, " +
+							"CONSTRUCTION_DATE=?, " +
+							"LAND_PROJECT_CODE=?, " +
+							"BLOCK_NUMBER=?, " +
+							"NEIGHBORHOOD=?, " +
+							"COMMUNE_CODE=? " +
+							"WHERE CLAIM_ID=?");
 			statement.setString(1, claim.getStatus());
 			statement.setString(2, claim.getClaimNumber());
 			statement.setString(3, claim.getName());
@@ -587,7 +727,13 @@ public class Claim {
 			} else {
 				statement.setCharacterStream(13, null);
 			}
-			statement.setString(14, claim.getClaimId());
+			statement.setBoolean(14, claim.isHasConstruction());
+			statement.setDate(15, claim.getConstructionDate());
+			statement.setString(16, claim.getLandProjectCode());
+			statement.setString(17, claim.getBlockNumber());
+			statement.setString(18, claim.getNeighborhood());
+			statement.setString(19, claim.getCommuneCode());
+			statement.setString(20, claim.getClaimId());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -619,7 +765,27 @@ public class Claim {
 
 			localConnection = db.getConnection();
 			statement = localConnection
-					.prepareStatement("UPDATE CLAIM SET STATUS=?, CLAIM_NUMBER=?,NAME=?, PERSON_ID=?, TYPE=?, CHALLENGED_CLAIM_ID=?, CHALLANGE_EXPIRY_DATE=?, DATE_OF_START=?, LAND_USE=?, NOTES=?, RECORDER_NAME=?, VERSION=?, SURVEY_FORM=?  WHERE CLAIM_ID=?");
+					.prepareStatement("UPDATE CLAIM SET " +
+							"STATUS=?, " +
+							"CLAIM_NUMBER=?, " +
+							"NAME=?, " +
+							"PERSON_ID=?, " +
+							"TYPE=?, " +
+							"CHALLENGED_CLAIM_ID=?, " +
+							"CHALLANGE_EXPIRY_DATE=?, " +
+							"DATE_OF_START=?, " +
+							"LAND_USE=?, " +
+							"NOTES=?, " +
+							"RECORDER_NAME=?, " +
+							"VERSION=?, " +
+							"SURVEY_FORM=?, " +
+							"HAS_CONSTRUCTION=?, " +
+							"CONSTRUCTION_DATE=?, " +
+							"LAND_PROJECT_CODE=?, " +
+							"BLOCK_NUMBER=?, " +
+							"NEIGHBORHOOD=?, " +
+							"COMMUNE_CODE=? " +
+							"WHERE CLAIM_ID=?");
 			statement.setString(1, getStatus());
 			statement.setString(2, getClaimNumber());
 			statement.setString(3, getName());
@@ -644,7 +810,13 @@ public class Claim {
 			} else {
 				statement.setCharacterStream(13, null);
 			}
-			statement.setString(14, getClaimId());
+			statement.setBoolean(14, isHasConstruction());
+			statement.setDate(15, getConstructionDate());
+			statement.setString(16, getLandProjectCode());
+			statement.setString(17, getBlockNumber());
+			statement.setString(18, getNeighborhood());
+			statement.setString(19, getCommuneCode());
+			statement.setString(20, getClaimId());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -678,7 +850,29 @@ public class Claim {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT STATUS, CLAIM_NUMBER, NAME, PERSON_ID, TYPE, CHALLENGED_CLAIM_ID, CHALLANGE_EXPIRY_DATE, DATE_OF_START, LAND_USE, NOTES, RECORDER_NAME, VERSION, CLAIM_AREA, SURVEY_FORM FROM CLAIM WHERE CLAIM_ID=?");
+					.prepareStatement("SELECT " +
+							"STATUS, " +
+							"CLAIM_NUMBER, " +
+							"NAME, " +
+							"PERSON_ID, " +
+							"TYPE, " +
+							"CHALLENGED_CLAIM_ID, " +
+							"CHALLANGE_EXPIRY_DATE, " +
+							"DATE_OF_START, " +
+							"LAND_USE, " +
+							"NOTES, " +
+							"RECORDER_NAME, " +
+							"VERSION, " +
+							"CLAIM_AREA, " +
+							"SURVEY_FORM, " +
+							"HAS_CONSTRUCTION, " +
+							"CONSTRUCTION_DATE, " +
+							"LAND_PROJECT_CODE, " +
+							"BLOCK_NUMBER, " +
+							"NEIGHBORHOOD, " +
+							"COMMUNE_CODE " +
+							"FROM CLAIM " +
+							"WHERE CLAIM_ID=?");
 			statement.setString(1, claimId);
 			rs = statement.executeQuery();
 			while (rs.next()) {
@@ -704,6 +898,12 @@ public class Claim {
 				} else {
 					claim.setDynamicForm(new FormPayload());
 				}
+				claim.setHasConstruction(rs.getBoolean(15));
+				claim.setConstructionDate(rs.getDate(16));
+				claim.setLandProjectCode(rs.getString(17));
+				claim.setBlockNumber(rs.getString(18));
+				claim.setNeighborhood(rs.getString(19));
+				claim.setCommuneCode(rs.getString(20));
 			}
 
 		} catch (SQLException e) {
@@ -739,7 +939,29 @@ public class Claim {
 		try {
 
 			statement = externalConnection
-					.prepareStatement("SELECT STATUS, CLAIM_NUMBER, NAME, PERSON_ID, TYPE, CHALLENGED_CLAIM_ID, CHALLANGE_EXPIRY_DATE, DATE_OF_START, LAND_USE, NOTES, RECORDER_NAME, VERSION, CLAIM_AREA, SURVEY_FORM FROM CLAIM WHERE CLAIM_ID=?");
+					.prepareStatement("SELECT " +
+							"STATUS, " +
+							"CLAIM_NUMBER, " +
+							"NAME, " +
+							"PERSON_ID, " +
+							"TYPE, " +
+							"CHALLENGED_CLAIM_ID, " +
+							"CHALLANGE_EXPIRY_DATE, " +
+							"DATE_OF_START, " +
+							"LAND_USE, " +
+							"NOTES, " +
+							"RECORDER_NAME, " +
+							"VERSION, " +
+							"CLAIM_AREA, " +
+							"SURVEY_FORM, " +
+							"HAS_CONSTRUCTION, " +
+							"CONSTRUCTION_DATE, " +
+							"LAND_PROJECT_CODE, " +
+							"BLOCK_NUMBER, " +
+							"NEIGHBORHOOD, " +
+							"COMMUNE_CODE " +
+							"FROM CLAIM " +
+							"WHERE CLAIM_ID=?");
 			statement.setString(1, claimId);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
@@ -765,6 +987,12 @@ public class Claim {
 				} else {
 					claim.setDynamicForm(new FormPayload());
 				}
+				claim.setHasConstruction(rs.getBoolean(15));
+				claim.setConstructionDate(rs.getDate(16));
+				claim.setLandProjectCode(rs.getString(17));
+				claim.setBlockNumber(rs.getString(18));
+				claim.setNeighborhood(rs.getString(19));
+				claim.setCommuneCode(rs.getString(20));
 			}
 
 		} catch (SQLException e) {
@@ -789,7 +1017,29 @@ public class Claim {
 		try {
 
 			statement = externalConnection
-					.prepareStatement("SELECT CLAIM_ID, STATUS, CLAIM_NUMBER, NAME, PERSON_ID, TYPE, CHALLENGED_CLAIM_ID, CHALLANGE_EXPIRY_DATE, DATE_OF_START, LAND_USE, NOTES, RECORDER_NAME, VERSION, CLAIM_AREA, SURVEY_FORM FROM CLAIM");
+					.prepareStatement("SELECT " +
+							"CLAIM_ID, " +
+							"STATUS, " +
+							"CLAIM_NUMBER, " +
+							"NAME, " +
+							"PERSON_ID, " +
+							"TYPE, " +
+							"CHALLENGED_CLAIM_ID, " +
+							"CHALLANGE_EXPIRY_DATE, " +
+							"DATE_OF_START, " +
+							"LAND_USE, " +
+							"NOTES, " +
+							"RECORDER_NAME, " +
+							"VERSION, " +
+							"CLAIM_AREA, " +
+							"SURVEY_FORM, " +
+							"HAS_CONSTRUCTION, " +
+							"CONSTRUCTION_DATE, " +
+							"LAND_PROJECT_CODE, " +
+							"BLOCK_NUMBER, " +
+							"NEIGHBORHOOD, " +
+							"COMMUNE_CODE " +
+							"FROM CLAIM");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				String claimId = rs.getString(1);
@@ -815,6 +1065,12 @@ public class Claim {
 				} else {
 					claim.setDynamicForm(new FormPayload());
 				}
+				claim.setHasConstruction(rs.getBoolean(15));
+				claim.setConstructionDate(rs.getDate(16));
+				claim.setLandProjectCode(rs.getString(17));
+				claim.setBlockNumber(rs.getString(18));
+				claim.setNeighborhood(rs.getString(19));
+				claim.setCommuneCode(rs.getString(20));
 				claim.setVertices(Vertex.getVertices(claimId,
 						externalConnection));
 				claim.setPropertyLocations(PropertyLocation
@@ -852,7 +1108,26 @@ public class Claim {
 		try {
 
 			statement = externalConnection
-					.prepareStatement("SELECT CLAIM_ID, STATUS, CLAIM_NUMBER, NAME, TYPE, CHALLANGE_EXPIRY_DATE, DATE_OF_START, LAND_USE, NOTES, RECORDER_NAME, VERSION, CLAIM_AREA FROM CLAIM");
+					.prepareStatement("SELECT " +
+							"CLAIM_ID, " +
+							"STATUS, " +
+							"CLAIM_NUMBER, " +
+							"NAME, " +
+							"TYPE, " +
+							"CHALLANGE_EXPIRY_DATE, " +
+							"DATE_OF_START, " +
+							"LAND_USE, " +
+							"NOTES, " +
+							"RECORDER_NAME, " +
+							"VERSION, " +
+							"CLAIM_AREA, " +
+							"HAS_CONSTRUCTION, " +
+							"CONSTRUCTION_DATE, " +
+							"LAND_PROJECT_CODE, " +
+							"BLOCK_NUMBER, " +
+							"NEIGHBORHOOD, " +
+							"COMMUNE_CODE " +
+							"FROM CLAIM");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				String claimId = rs.getString(1);
@@ -869,6 +1144,12 @@ public class Claim {
 				claim.setRecorderName(rs.getString(10));
 				claim.setVersion(rs.getString(11));
 				claim.setClaimArea(rs.getInt(12));
+				claim.setHasConstruction(rs.getBoolean(13));
+				claim.setConstructionDate(rs.getDate(14));
+				claim.setLandProjectCode(rs.getString(15));
+				claim.setBlockNumber(rs.getString(16));
+				claim.setNeighborhood(rs.getString(17));
+				claim.setCommuneCode(rs.getString(18));
 				claim.setAdditionalInfo(new ArrayList<AdditionalInfo>()); // No
 																			// longer
 																			// used
@@ -933,12 +1214,19 @@ public class Claim {
 		try {
 
 			statement = externalConnection.prepareStatement("SELECT "
-					+ "CLAIM.CLAIM_ID, " + "CLAIM.STATUS, " + "CLAIM.NAME, "
-					+ "CLAIM.TYPE, " + "PERSON.PERSON_ID, "
-					+ "PERSON.FIRST_NAME, " + "PERSON.LAST_NAME, "
-					+ "VERTEX.VERTEX_ID, " + "VERTEX.SEQUENCE_NUMBER, "
-					+ "VERTEX.GPS_LAT, " + "VERTEX.GPS_LON, "
-					+ "VERTEX.MAP_LAT, " + "VERTEX.MAP_LON "
+					+ "CLAIM.CLAIM_ID, "
+					+ "CLAIM.STATUS, "
+					+ "CLAIM.NAME, "
+					+ "CLAIM.TYPE, "
+					+ "PERSON.PERSON_ID, "
+					+ "PERSON.FIRST_NAME, "
+					+ "PERSON.LAST_NAME, "
+					+ "VERTEX.VERTEX_ID, "
+					+ "VERTEX.SEQUENCE_NUMBER, "
+					+ "VERTEX.GPS_LAT, "
+					+ "VERTEX.GPS_LON, "
+					+ "VERTEX.MAP_LAT, "
+					+ "VERTEX.MAP_LON "
 					+ "FROM CLAIM, PERSON, VERTEX "
 					+ "WHERE CLAIM.PERSON_ID=PERSON.PERSON_ID "
 					+ "AND CLAIM.CLAIM_ID=VERTEX.CLAIM_ID "
@@ -1541,5 +1829,11 @@ public class Claim {
 	private String version;
 	private long claimArea;
 	private FormPayload dynamicForm;
+	private boolean hasConstruction;
+	private Date constructionDate;
+	private String landProjectCode;
+	private String blockNumber;
+	private String neighborhood;
+	private String communeCode;
 
 }

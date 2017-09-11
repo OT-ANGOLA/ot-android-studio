@@ -39,10 +39,48 @@ public class AdjacenciesNotes {
 	static Database db = OpenTenureApplication.getInstance().getDatabase();
 
 	private String northAdjacency;
-	private String southAjacency;
+	private String northAdjacencyTypeCode;
+	private String southAdjacency;
+	private String southAdjacencyTypeCode;
 	private String eastAdjacency;
+	private String eastAdjacencyTypeCode;
 	private String westAdjacency;
+	private String westAdjacencyTypeCode;
 	private String claimId;
+
+	public String getNorthAdjacencyTypeCode() {
+		return northAdjacencyTypeCode;
+	}
+
+	public void setNorthAdjacencyTypeCode(String northAdjacencyTypeCode) {
+		this.northAdjacencyTypeCode = northAdjacencyTypeCode;
+	}
+
+
+	public String getSouthAdjacencyTypeCode() {
+		return southAdjacencyTypeCode;
+	}
+
+	public void setSouthAdjacencyTypeCode(String southAdjacencyTypeCode) {
+		this.southAdjacencyTypeCode = southAdjacencyTypeCode;
+	}
+
+	public String getWestAdjacencyTypeCode() {
+		return westAdjacencyTypeCode;
+	}
+
+	public void setWestAdjacencyTypeCode(String westAdjacencyTypeCode) {
+		this.westAdjacencyTypeCode = westAdjacencyTypeCode;
+	}
+
+
+	public String getEastAdjacencyTypeCode() {
+		return eastAdjacencyTypeCode;
+	}
+
+	public void setEastAdjacencyTypeCode(String eastAdjacencyTypeCode) {
+		this.eastAdjacencyTypeCode = eastAdjacencyTypeCode;
+	}
 
 	public String getNorthAdjacency() {
 		return northAdjacency;
@@ -53,11 +91,11 @@ public class AdjacenciesNotes {
 	}
 
 	public String getSouthAdjacency() {
-		return southAjacency;
+		return southAdjacency;
 	}
 
 	public void setSouthAdjacency(String southAdjacency) {
-		this.southAjacency = southAdjacency;
+		this.southAdjacency = southAdjacency;
 	}
 
 	public String getEastAdjacency() {
@@ -86,9 +124,16 @@ public class AdjacenciesNotes {
 
 	@Override
 	public String toString() {
-		return "AdjacenciesNotes [" + "northAdjacency=" + northAdjacency
-				+ ", southAdjacency=" + southAjacency + ", eastAdjacency="
-				+ eastAdjacency + ", westAdjacency=" + westAdjacency + "]";
+		return "AdjacenciesNotes ["
+				+ "northAdjacency=" + northAdjacency
+				+ ", northAdjacencyTypeCode=" + northAdjacencyTypeCode
+				+ ", southAdjacency=" + southAdjacency
+				+ ", southAdjacencyTypeCode=" + southAdjacencyTypeCode
+				+ ", eastAdjacency=" + eastAdjacency
+				+ ", eastAdjacencyTypeCode=" + eastAdjacencyTypeCode
+				+ ", westAdjacency=" + westAdjacency
+				+ ", westAdjacencyTypeCode=" + westAdjacencyTypeCode
+				+ "]";
 	}
 
 	public static int createAdjacenciesNotes(AdjacenciesNotes adjacenciesNotes) {
@@ -101,12 +146,26 @@ public class AdjacenciesNotes {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement(" INSERT INTO ADJACENCIES_NOTES ( CLAIM_ID, NORTH_ADJACENCY, SOUTH_ADJACENCY, EAST_ADJACENCY,WEST_ADJACENCY) VALUES(?,?,?,?,?)");
+					.prepareStatement(" INSERT INTO ADJACENCIES_NOTES (" +
+							"CLAIM_ID, " +
+							"NORTH_ADJACENCY, " +
+							"NORTH_ADJACENCY_TYPE_CODE, " +
+							"SOUTH_ADJACENCY, " +
+							"SOUTH_ADJACENCY_TYPE_CODE, " +
+							"EAST_ADJACENCY, " +
+							"EAST_ADJACENCY_TYPE_CODE, " +
+							"WEST_ADJACENCY, " +
+							"WEST_ADJACENCY_TYPE_CODE" +
+							") VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, adjacenciesNotes.getClaimId());
 			statement.setString(2, adjacenciesNotes.getNorthAdjacency());
-			statement.setString(3, adjacenciesNotes.getSouthAdjacency());
-			statement.setString(4, adjacenciesNotes.getEastAdjacency());
-			statement.setString(5, adjacenciesNotes.getWestAdjacency());
+			statement.setString(3, adjacenciesNotes.getNorthAdjacencyTypeCode());
+			statement.setString(4, adjacenciesNotes.getSouthAdjacency());
+			statement.setString(5, adjacenciesNotes.getSouthAdjacencyTypeCode());
+			statement.setString(6, adjacenciesNotes.getEastAdjacency());
+			statement.setString(7, adjacenciesNotes.getEastAdjacencyTypeCode());
+			statement.setString(8, adjacenciesNotes.getWestAdjacency());
+			statement.setString(9, adjacenciesNotes.getWestAdjacencyTypeCode());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -141,12 +200,26 @@ public class AdjacenciesNotes {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement(" INSERT INTO ADJACENCIES_NOTES ( CLAIM_ID, NORTH_ADJACENCY, SOUTH_ADJACENCY, EAST_ADJACENCY,WEST_ADJACENCY) VALUES(?,?,?,?,?)");
+					.prepareStatement(" INSERT INTO ADJACENCIES_NOTES (" +
+							"CLAIM_ID, " +
+							"NORTH_ADJACENCY, " +
+							"NORTH_ADJACENCY_TYPE_CODE, " +
+							"SOUTH_ADJACENCY, " +
+							"SOUTH_ADJACENCY_TYPE_CODE, " +
+							"EAST_ADJACENCY, " +
+							"EAST_ADJACENCY_TYPE_CODE, " +
+							"WEST_ADJACENCY, " +
+							"WEST_ADJACENCY_TYPE_CODE" +
+							") VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, getClaimId());
 			statement.setString(2, getNorthAdjacency());
-			statement.setString(3, getSouthAdjacency());
-			statement.setString(4, getEastAdjacency());
-			statement.setString(5, getWestAdjacency());
+			statement.setString(3, getNorthAdjacencyTypeCode());
+			statement.setString(4, getSouthAdjacency());
+			statement.setString(5, getSouthAdjacencyTypeCode());
+			statement.setString(6, getEastAdjacency());
+			statement.setString(7, getEastAdjacencyTypeCode());
+			statement.setString(8, getWestAdjacency());
+			statement.setString(9, getWestAdjacencyTypeCode());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -272,13 +345,26 @@ public class AdjacenciesNotes {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement(" UPDATE ADJACENCIES_NOTES SET NORTH_ADJACENCY=?, SOUTH_ADJACENCY=?, EAST_ADJACENCY=?, WEST_ADJACENCY=? WHERE CLAIM_ID=? ");
+					.prepareStatement(" UPDATE ADJACENCIES_NOTES SET " +
+							"NORTH_ADJACENCY=?, " +
+							"NORTH_ADJACENCY_TYPE_CODE=?, " +
+							"SOUTH_ADJACENCY=?, " +
+							"SOUTH_ADJACENCY_TYPE_CODE=?, " +
+							"EAST_ADJACENCY=?, " +
+							"EAST_ADJACENCY_TYPE_CODE=?, " +
+							"WEST_ADJACENCY=?, " +
+							"WEST_ADJACENCY_TYPE_CODE=? " +
+							"WHERE CLAIM_ID=? ");
 
-			statement.setString(5, adjacenciesNotes.getClaimId());
+			statement.setString(9, adjacenciesNotes.getClaimId());
 			statement.setString(1, adjacenciesNotes.getNorthAdjacency());
-			statement.setString(2, adjacenciesNotes.getSouthAdjacency());
-			statement.setString(3, adjacenciesNotes.getEastAdjacency());
-			statement.setString(4, adjacenciesNotes.getWestAdjacency());
+			statement.setString(2, adjacenciesNotes.getNorthAdjacencyTypeCode());
+			statement.setString(3, adjacenciesNotes.getSouthAdjacency());
+			statement.setString(4, adjacenciesNotes.getSouthAdjacencyTypeCode());
+			statement.setString(5, adjacenciesNotes.getEastAdjacency());
+			statement.setString(6, adjacenciesNotes.getEastAdjacencyTypeCode());
+			statement.setString(7, adjacenciesNotes.getWestAdjacency());
+			statement.setString(8, adjacenciesNotes.getWestAdjacencyTypeCode());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -313,12 +399,26 @@ public class AdjacenciesNotes {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("UPDATE ADJACENCIES_NOTES SET NORTH_ADJACENCY=?, SOUTH_ADJACENCY=?, EAST_ADJACENCY=?, WEST_ADJACENCY=? WHERE CLAIM_ID=?");
-			statement.setString(5, getClaimId());
+					.prepareStatement(" UPDATE ADJACENCIES_NOTES SET " +
+							"NORTH_ADJACENCY=?, " +
+							"NORTH_ADJACENCY_TYPE_CODE=?, " +
+							"SOUTH_ADJACENCY=?, " +
+							"SOUTH_ADJACENCY_TYPE_CODE=?, " +
+							"EAST_ADJACENCY=?, " +
+							"EAST_ADJACENCY_TYPE_CODE=?, " +
+							"WEST_ADJACENCY=?, " +
+							"WEST_ADJACENCY_TYPE_CODE=? " +
+							"WHERE CLAIM_ID=? ");
+
+			statement.setString(9, getClaimId());
 			statement.setString(1, getNorthAdjacency());
-			statement.setString(2, getSouthAdjacency());
-			statement.setString(3, getEastAdjacency());
-			statement.setString(4, getWestAdjacency());
+			statement.setString(2, getNorthAdjacencyTypeCode());
+			statement.setString(3, getSouthAdjacency());
+			statement.setString(4, getSouthAdjacencyTypeCode());
+			statement.setString(5, getEastAdjacency());
+			statement.setString(6, getEastAdjacencyTypeCode());
+			statement.setString(7, getWestAdjacency());
+			statement.setString(8, getWestAdjacencyTypeCode());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -354,16 +454,30 @@ public class AdjacenciesNotes {
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT NORTH_ADJACENCY, SOUTH_ADJACENCY, EAST_ADJACENCY ,WEST_ADJACENCY FROM ADJACENCIES_NOTES WHERE CLAIM_ID=?");
+					.prepareStatement("SELECT " +
+							"NORTH_ADJACENCY, " +
+							"NORTH_ADJACENCY_TYPE_CODE, " +
+							"SOUTH_ADJACENCY, " +
+							"SOUTH_ADJACENCY_TYPE_CODE, " +
+							"EAST_ADJACENCY, " +
+							"EAST_ADJACENCY_TYPE_CODE, " +
+							"WEST_ADJACENCY, " +
+							"WEST_ADJACENCY_TYPE_CODE " +
+							"FROM ADJACENCIES_NOTES " +
+							"WHERE CLAIM_ID=?");
 			statement.setString(1, claimId);
 			rs = statement.executeQuery();
 			while (rs.next()) {
 				adjacenciesNotes = new AdjacenciesNotes();
 				adjacenciesNotes.setClaimId(claimId);
 				adjacenciesNotes.setNorthAdjacency(rs.getString(1));
-				adjacenciesNotes.setSouthAdjacency(rs.getString(2));
-				adjacenciesNotes.setEastAdjacency(rs.getString(3));
-				adjacenciesNotes.setWestAdjacency(rs.getString(4));
+				adjacenciesNotes.setNorthAdjacencyTypeCode(rs.getString(2));
+				adjacenciesNotes.setSouthAdjacency(rs.getString(3));
+				adjacenciesNotes.setSouthAdjacencyTypeCode(rs.getString(4));
+				adjacenciesNotes.setEastAdjacency(rs.getString(5));
+				adjacenciesNotes.setEastAdjacencyTypeCode(rs.getString(6));
+				adjacenciesNotes.setWestAdjacency(rs.getString(7));
+				adjacenciesNotes.setWestAdjacencyTypeCode(rs.getString(8));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

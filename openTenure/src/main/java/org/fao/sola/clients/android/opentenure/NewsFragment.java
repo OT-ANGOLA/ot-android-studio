@@ -37,14 +37,21 @@ import org.fao.sola.clients.android.opentenure.model.Link;
 import org.fao.sola.clients.android.opentenure.network.AlertInitializationTask;
 import org.fao.sola.clients.android.opentenure.network.LoginActivity;
 import org.fao.sola.clients.android.opentenure.network.LogoutTask;
+import org.fao.sola.clients.android.opentenure.network.UpdateAdjacencyTypesTask;
 import org.fao.sola.clients.android.opentenure.network.UpdateClaimTypesTask;
+import org.fao.sola.clients.android.opentenure.network.UpdateCommunesTask;
 import org.fao.sola.clients.android.opentenure.network.UpdateCommunityArea;
+import org.fao.sola.clients.android.opentenure.network.UpdateCountriesTask;
 import org.fao.sola.clients.android.opentenure.network.UpdateDocumentTypesTask;
 import org.fao.sola.clients.android.opentenure.network.UpdateIdTypesTask;
+import org.fao.sola.clients.android.opentenure.network.UpdateLandProjectsTask;
 import org.fao.sola.clients.android.opentenure.network.UpdateLandUsesTask;
 import org.fao.sola.clients.android.opentenure.network.UpdateLanguagesTask;
+import org.fao.sola.clients.android.opentenure.network.UpdateMaritalStatusesTask;
+import org.fao.sola.clients.android.opentenure.network.UpdateMunicipalitiesTask;
 import org.fao.sola.clients.android.opentenure.network.UpdateParcelGeoRequiredTask;
 import org.fao.sola.clients.android.opentenure.network.API.CommunityServerAPI;
+import org.fao.sola.clients.android.opentenure.network.UpdateProvincesTask;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -652,6 +659,55 @@ public class NewsFragment extends ListFragment {
 					"starting tasks for form retrieval");
 			FormRetriever formRetriever = new FormRetriever(getActivity());
 			formRetriever.execute();
+		}
+		if (!OpenTenureApplication.getInstance().isCheckedAdjacencyTypes()) {
+			Log.d(this.getClass().getName(),
+					"starting tasks for adjacency types download");
+
+			UpdateAdjacencyTypesTask updateAdj = new UpdateAdjacencyTypesTask();
+			updateAdj.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+		if (!OpenTenureApplication.getInstance().isCheckedMaritalStatuses()) {
+			Log.d(this.getClass().getName(),
+					"starting tasks for marital statuses download");
+
+			UpdateMaritalStatusesTask marital = new UpdateMaritalStatusesTask();
+			marital.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+		if (!OpenTenureApplication.getInstance().isCheckedLandProjects()) {
+			Log.d(this.getClass().getName(),
+					"starting tasks for land projects download");
+
+			UpdateLandProjectsTask projects = new UpdateLandProjectsTask();
+			projects.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+		if (!OpenTenureApplication.getInstance().isCheckedCountries()) {
+			Log.d(this.getClass().getName(),
+					"starting tasks for countries download");
+
+			UpdateCountriesTask countries = new UpdateCountriesTask();
+			countries.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+		if (!OpenTenureApplication.getInstance().isCheckedProvinces()) {
+			Log.d(this.getClass().getName(),
+					"starting tasks for provinces download");
+
+			UpdateProvincesTask provinces = new UpdateProvincesTask();
+			provinces.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+		if (!OpenTenureApplication.getInstance().isCheckedMunicipalities()) {
+			Log.d(this.getClass().getName(),
+					"starting tasks for municipalities download");
+
+			UpdateMunicipalitiesTask municipalities = new UpdateMunicipalitiesTask();
+			municipalities.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+		if (!OpenTenureApplication.getInstance().isCheckedCommunes()) {
+			Log.d(this.getClass().getName(),
+					"starting tasks for communes download");
+
+			UpdateCommunesTask communes = new UpdateCommunesTask();
+			communes.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		}
 
 		String serverProtoVersion = CommunityServerAPI.getServerProtoVersion();

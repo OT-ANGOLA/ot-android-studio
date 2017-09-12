@@ -37,7 +37,7 @@
     <string name="action_add_claimant">បញ្ចូលអ្នកទាមទា</string>
     <string name="action_select_challenge">ជ្រើសរើសយកដីទាមទារដើម្បីប្តឹងតវ៉ា</string>
     <string name="action_claim_map_snapshot">ភ្ជាប់រូបភាពនៃផែនទីដែលទាមទា</string>
-    <string name="title_news">ព័ត៌មាន</string>
+    <string name="title_news">Home</string>
     <string name="title_map">ផែនទីសហគមន៍</string>
     <string name="title_claims">បញ្ជីឈ្មោះទាមទា</string>
     <string name="title_persons">បុគ្គល</string>

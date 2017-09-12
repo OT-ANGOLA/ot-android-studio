@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Open Tenure</string>
+    <string name="app_name">SGAT</string>
     <string name="preload">Membuka gambar</string>
     <string name="action_settings">Pengaturan</string>
     <string name="action_search">Cari</string>
@@ -59,7 +59,7 @@
     <string name="action_add_claimant">Tambahkan pengklaim</string>
     <string name="action_select_challenge">Pilih klaim menjadi  ajakan</string>
     <string name="action_claim_map_snapshot">Lampirkan snaphot dari klaim peta</string>
-    <string name="title_news">Berita</string>
+    <string name="title_news">Home</string>
     <string name="title_map">Peta komunitas</string>
     <string name="title_claims">Daftra klaim</string>
     <string name="title_persons">Orang</string>

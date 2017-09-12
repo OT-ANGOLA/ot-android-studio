@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Open Tenure</string>
+    <string name="app_name">SGAT</string>
     <string name="preload">Открытие картинки</string>
     <string name="action_settings">Настройки</string>
     <string name="action_search">Поиск</string>
@@ -45,7 +45,7 @@
     <string name="action_add_claimant">Добавить заявителя</string>
     <string name="action_select_challenge">Выберите заявление для оспаривания</string>
     <string name="action_claim_map_snapshot">Прикрепить снимок карты для этого заявления</string>
-    <string name="title_news">Новости</string>
+    <string name="title_news">Home</string>
     <string name="title_map">Карта общины</string>
     <string name="title_claims">Список заявлений</string>
     <string name="title_persons">Лица</string>

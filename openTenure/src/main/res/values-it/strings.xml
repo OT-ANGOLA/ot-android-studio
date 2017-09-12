@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Open Tenure</string>
+    <string name="app_name">SGAT</string>
     <string name="preload">Immagine di apertura</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_search">Cerca</string>
@@ -49,7 +49,7 @@
     <string name="action_rotate">Ruota la mappa usando la bussola del dispositivo</string>
     <string name="action_stop_rotating">Non ruotare la mappa</string>
     <string name="action_claim_map_snapshot">Allega una foto della mappa di questa richiesta</string>
-    <string name="title_news">Notizie</string>
+    <string name="title_news">Home</string>
     <string name="title_map">Mappa della Comunita\'</string>
     <string name="title_claims">Lista delle Richieste</string>
     <string name="title_persons">Persone</string>

@@ -31,7 +31,7 @@
     <string name="action_rotate">تدوير الخارطة باستخدام بوصلة الجهاز</string>
     <string name="action_stop_rotating">أوقف تدوير الخارطة</string>
     <string name="action_claim_map_snapshot">إرفاق لقطة عن خريطة هذا الادعاء</string>
-    <string name="title_news">الأخبار</string>
+    <string name="title_news">Home</string>
     <string name="title_map"> خارطة المجتمع</string>
     <string name="title_claims">قائمة الادعاءات</string>
     <string name="title_persons">الأشخاص</string>

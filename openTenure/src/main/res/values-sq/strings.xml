@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Open Tenure</string>
+    <string name="app_name">SGAT</string>
     <string name="preload">Duke hapur imazhin</string>
     <string name="action_settings">Konfigurimet</string>
     <string name="action_search">Kërko</string>
@@ -31,7 +31,7 @@
     <string name="action_rotate">Rrotullo hartën duke përdorur kompasin e pajisjes</string>
     <string name="action_stop_rotating">Ndalo rrotullimin e hartës</string>
     <string name="action_claim_map_snapshot">Bashkëngjit një foto të hartës të këtij pretendimi</string>
-    <string name="title_news">Të reja</string>
+    <string name="title_news">Home</string>
     <string name="title_map">Harta e Komunitetit</string>
     <string name="title_claims">Lista e pretendimeve</string>
     <string name="title_persons">Personat</string>

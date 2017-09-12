@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SGAT</string>
+    <string name="app_name">SGAT Client</string>
     <string name="preload">Immagine di apertura</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_search">Cerca</string>

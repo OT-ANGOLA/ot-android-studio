@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/home/administrator/StudioProjects/ot-android/aFileChooser/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v11/values-v11.xml",
+        "outputFile": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v11\\values-v11.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 104
                 },
                 "from": {
-                    "file": "/home/administrator/StudioProjects/ot-android/aFileChooser/build/intermediates/bundles/debug/res/values-v11/values-v11.xml",
+                    "file": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\build\\intermediates\\bundles\\debug\\res\\values-v11\\values-v11.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

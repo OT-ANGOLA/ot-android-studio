@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/home/administrator/StudioProjects/ot-android/aFileChooser/build/intermediates/incremental/mergeDebugResources/merged.dir/values-pt-rBR/values-pt-rBR.xml",
+        "outputFile": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pt-rBR\\values-pt-rBR.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 111
                 },
                 "from": {
-                    "file": "/home/administrator/StudioProjects/ot-android/aFileChooser/src/main/res/values-pt-rBR/strings.xml",
+                    "file": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\src\\main\\res\\values-pt-rBR\\strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 2,
-                        "startOffset": 224,
+                        "startOffset": 229,
                         "endColumn": 58,
-                        "endOffset": 280
+                        "endOffset": 285
                     }
                 }
             },
@@ -30,13 +30,13 @@
                     "endOffset": 167
                 },
                 "from": {
-                    "file": "/home/administrator/StudioProjects/ot-android/aFileChooser/src/main/res/values-pt-rBR/strings.xml",
+                    "file": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\src\\main\\res\\values-pt-rBR\\strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 2,
-                        "startOffset": 85,
+                        "startOffset": 88,
                         "endColumn": 53,
-                        "endOffset": 136
+                        "endOffset": 139
                     }
                 }
             },
@@ -49,13 +49,13 @@
                     "endOffset": 245
                 },
                 "from": {
-                    "file": "/home/administrator/StudioProjects/ot-android/aFileChooser/src/main/res/values-pt-rBR/strings.xml",
+                    "file": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\src\\main\\res\\values-pt-rBR\\strings.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 2,
-                        "startOffset": 283,
+                        "startOffset": 289,
                         "endColumn": 75,
-                        "endOffset": 356
+                        "endOffset": 362
                     }
                 }
             },
@@ -68,13 +68,13 @@
                     "endOffset": 332
                 },
                 "from": {
-                    "file": "/home/administrator/StudioProjects/ot-android/aFileChooser/src/main/res/values-pt-rBR/strings.xml",
+                    "file": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\src\\main\\res\\values-pt-rBR\\strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 2,
-                        "startOffset": 139,
+                        "startOffset": 143,
                         "endColumn": 84,
-                        "endOffset": 221
+                        "endOffset": 225
                     }
                 }
             }

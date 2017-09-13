@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/home/administrator/StudioProjects/ot-android/aFileChooser/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ko/values-ko.xml",
+        "outputFile": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ko\\values-ko.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 96
                 },
                 "from": {
-                    "file": "/home/administrator/StudioProjects/ot-android/aFileChooser/src/main/res/values-ko/strings.xml",
+                    "file": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\src\\main\\res\\values-ko\\strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 2,
-                        "startOffset": 189,
+                        "startOffset": 194,
                         "endColumn": 43,
-                        "endOffset": 230
+                        "endOffset": 235
                     }
                 }
             },
@@ -30,13 +30,13 @@
                     "endOffset": 147
                 },
                 "from": {
-                    "file": "/home/administrator/StudioProjects/ot-android/aFileChooser/src/main/res/values-ko/strings.xml",
+                    "file": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\src\\main\\res\\values-ko\\strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 2,
-                        "startOffset": 84,
+                        "startOffset": 87,
                         "endColumn": 48,
-                        "endOffset": 130
+                        "endOffset": 133
                     }
                 }
             },
@@ -49,13 +49,13 @@
                     "endOffset": 205
                 },
                 "from": {
-                    "file": "/home/administrator/StudioProjects/ot-android/aFileChooser/src/main/res/values-ko/strings.xml",
+                    "file": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\src\\main\\res\\values-ko\\strings.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 2,
-                        "startOffset": 233,
+                        "startOffset": 239,
                         "endColumn": 55,
-                        "endOffset": 286
+                        "endOffset": 292
                     }
                 }
             },
@@ -68,13 +68,13 @@
                     "endOffset": 263
                 },
                 "from": {
-                    "file": "/home/administrator/StudioProjects/ot-android/aFileChooser/src/main/res/values-ko/strings.xml",
+                    "file": "C:\\Users\\anton\\StudioProjects\\ot-android-studio-angola\\aFileChooser\\src\\main\\res\\values-ko\\strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 2,
-                        "startOffset": 133,
+                        "startOffset": 137,
                         "endColumn": 55,
-                        "endOffset": 186
+                        "endOffset": 190
                     }
                 }
             }

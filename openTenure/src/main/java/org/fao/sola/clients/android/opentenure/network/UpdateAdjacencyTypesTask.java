@@ -43,17 +43,17 @@ public class UpdateAdjacencyTypesTask extends AsyncTask<String, Void, List<Adjac
 
 	@Override
 	protected List<AdjacencyType> doInBackground(String... params) {
-		List<AdjacencyType> landProjects = CommunityServerAPI.getAdjacencyTypes();
-		return landProjects;
+		List<AdjacencyType> adjacencyTypes = CommunityServerAPI.getAdjacencyTypes();
+		return adjacencyTypes;
 	}
 
 	@Override
-	protected void onPostExecute(List<AdjacencyType> countries) {
+	protected void onPostExecute(List<AdjacencyType> adjacencyTypes) {
 
-		if (countries != null && (countries.size() > 0)) {
+		if (adjacencyTypes != null && (adjacencyTypes.size() > 0)) {
 
 			org.fao.sola.clients.android.opentenure.model.AdjacencyType.setAllAdjacencyTypesInctive();
-			for (Iterator<AdjacencyType> iterator = countries.iterator(); iterator
+			for (Iterator<AdjacencyType> iterator = adjacencyTypes.iterator(); iterator
 					.hasNext();) {
 				AdjacencyType networkAdjacencyType = (AdjacencyType) iterator.next();
 
@@ -62,8 +62,8 @@ public class UpdateAdjacencyTypesTask extends AsyncTask<String, Void, List<Adjac
 				modelAdjacencyType.setDescription(networkAdjacencyType.getDescription());
 				modelAdjacencyType.setCode(networkAdjacencyType.getCode());
 				modelAdjacencyType.setDisplayValue(networkAdjacencyType.getDisplayValue());
-				if (org.fao.sola.clients.android.opentenure.model.Country
-						.getCountry(networkAdjacencyType.getCode()) == null)
+				if (org.fao.sola.clients.android.opentenure.model.AdjacencyType
+						.getAdjacencyType(networkAdjacencyType.getCode()) == null)
 
 					modelAdjacencyType.add();
 				else

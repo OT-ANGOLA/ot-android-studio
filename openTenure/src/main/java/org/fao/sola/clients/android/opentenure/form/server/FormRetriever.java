@@ -173,7 +173,7 @@ public class FormRetriever extends AsyncTask<Void, Integer, Integer> {
 			String formsBody = getBody(formsStream);
 			Log.d(this.getClass().getName(), "Got all dynamic survey forms: " + formsBody);
 
-			if (formsBody.trim().equals("[]") || formsBody.trim().equals("[{}]"))
+			if (formsBody.trim().equals("[]") || formsBody.trim().equals("[{}]")|| formsBody.trim().equals("{}"))
 				return 100;
 
 			FormTemplate[] forms = FormTemplate.fromJsonArray(formsBody);

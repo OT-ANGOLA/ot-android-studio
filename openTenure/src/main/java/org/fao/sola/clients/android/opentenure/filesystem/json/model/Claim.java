@@ -96,15 +96,27 @@ public class Claim {
 	@SerializedName("northAdjacency")
 	String northAdjacency;
 
+	@SerializedName("northAdjacencyTypeCode")
+	String northAdjacencyTypeCode;
+
 	@SerializedName("southAdjacency")
 	String southAdjacency;
+
+	@SerializedName("southAdjacencyTypeCode")
+	String southAdjacencyTypeCode;
 
 	@SerializedName("westAdjacency")
 	String westAdjacency;
 
+	@SerializedName("westAdjacencyTypeCode")
+	String westAdjacencyTypeCode;
+
 	@SerializedName("eastAdjacency")
 	String eastAdjacency;
-	
+
+	@SerializedName("eastAdjacencyTypeCode")
+	String eastAdjacencyTypeCode;
+
 	@SerializedName("claimArea")
 	long claimArea;
 	
@@ -118,6 +130,118 @@ public class Claim {
 	@JsonIgnore(true)
 	String serverUrl;
 
+	public String getNorthAdjacencyTypeCode() {
+		return northAdjacencyTypeCode;
+	}
+
+	public void setNorthAdjacencyTypeCode(String northAdjacencyTypeCode) {
+		this.northAdjacencyTypeCode = northAdjacencyTypeCode;
+	}
+
+	public String getSouthAdjacencyTypeCode() {
+		return southAdjacencyTypeCode;
+	}
+
+	public void setSouthAdjacencyTypeCode(String southAdjacencyTypeCode) {
+		this.southAdjacencyTypeCode = southAdjacencyTypeCode;
+	}
+
+	public String getWestAdjacencyTypeCode() {
+		return westAdjacencyTypeCode;
+	}
+
+	public void setWestAdjacencyTypeCode(String westAdjacencyTypeCode) {
+		this.westAdjacencyTypeCode = westAdjacencyTypeCode;
+	}
+
+	public String getEastAdjacencyTypeCode() {
+		return eastAdjacencyTypeCode;
+	}
+
+	public void setEastAdjacencyTypeCode(String eastAdjacencyTypeCode) {
+		this.eastAdjacencyTypeCode = eastAdjacencyTypeCode;
+	}
+
+	public String getIssuanceDate() {
+		return issuanceDate;
+	}
+
+	public void setIssuanceDate(String issuanceDate) {
+		this.issuanceDate = issuanceDate;
+	}
+
+	public String getPlotNumber() {
+		return plotNumber;
+	}
+
+	public void setPlotNumber(String plotNumber) {
+		this.plotNumber = plotNumber;
+	}
+
+	public String getBlockNumber() {
+		return blockNumber;
+	}
+
+	public void setBlockNumber(String blockNumber) {
+		this.blockNumber = blockNumber;
+	}
+
+	public boolean isHasConstructions() {
+		return hasConstructions;
+	}
+
+	public void setHasConstructions(boolean hasConstructions) {
+		this.hasConstructions = hasConstructions;
+	}
+
+	public String getConstructionDate() {
+		return constructionDate;
+	}
+
+	public void setConstructionDate(String constructionDate) {
+		this.constructionDate = constructionDate;
+	}
+
+	public String getNeighborhood() {
+		return neighborhood;
+	}
+
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
+	}
+
+	public String getLandProjectCode() {
+		return landProjectCode;
+	}
+
+	public void setLandProjectCode(String landProjectCode) {
+		this.landProjectCode = landProjectCode;
+	}
+
+	public String getCommuneCode() {
+		return communeCode;
+	}
+
+	public void setCommuneCode(String communeCode) {
+		this.communeCode = communeCode;
+	}
+
+	@SerializedName("issuanceDate")
+	String issuanceDate;
+	@SerializedName("blockNumber")
+	String blockNumber;
+	@SerializedName("plotNumber")
+	String plotNumber;
+	@SerializedName("hasConstructions")
+	boolean hasConstructions;
+	@SerializedName("constructionDate")
+	String constructionDate;
+	@SerializedName("neighborhood")
+	String neighborhood;
+	@SerializedName("landProjectCode")
+	String landProjectCode;
+	@SerializedName("communeCode")
+	String communeCode;
 
 	public String getId() {
 		return id;

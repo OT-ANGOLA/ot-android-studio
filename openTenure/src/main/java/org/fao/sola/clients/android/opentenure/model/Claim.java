@@ -58,11 +58,7 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.geom.Polygon;
-import com.vividsolutions.jts.geom.util.GeometryTransformer;
 
 public class Claim {
 
@@ -97,12 +93,12 @@ public class Claim {
 		this.additionalInfo = additionalInfo;
 	}
 
-	public boolean isHasConstruction() {
-		return hasConstruction;
+	public boolean isHasConstructions() {
+		return hasConstructions;
 	}
 
-	public void setHasConstruction(boolean hasConstruction) {
-		this.hasConstruction = hasConstruction;
+	public void setHasConstructions(boolean hasConstructions) {
+		this.hasConstructions = hasConstructions;
 	}
 
 	public Date getConstructionDate() {
@@ -127,6 +123,14 @@ public class Claim {
 
 	public void setBlockNumber(String blockNumber) {
 		this.blockNumber = blockNumber;
+	}
+
+	public String getPlotNumber() {
+		return plotNumber;
+	}
+
+	public void setPlotNumber(String plotNumber) {
+		this.plotNumber = plotNumber;
 	}
 
 	public String getNeighborhood() {
@@ -199,9 +203,10 @@ public class Claim {
 				", version='" + version + '\'' +
 				", claimArea=" + claimArea +
 				", dynamicForm=" + dynamicForm +
-				", hasConstruction=" + hasConstruction +
+				", hasConstructions=" + hasConstructions +
 				", constructionDate=" + constructionDate +
 				", landProjectCode='" + landProjectCode + '\'' +
+				", plotNumber='" + plotNumber + '\'' +
 				", blockNumber='" + blockNumber + '\'' +
 				", neighborhood='" + neighborhood + '\'' +
 				", communeCode='" + communeCode + '\'' +
@@ -532,10 +537,11 @@ public class Claim {
 							"HAS_CONSTRUCTION, " +
 							"CONSTRUCTION_DATE, " +
 							"LAND_PROJECT_CODE, " +
+							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
 							"COMMUNE_CODE " +
-							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, claim.getClaimId());
 			statement.setString(2, claim.getStatus());
 			statement.setString(3, claim.getClaimNumber());
@@ -561,12 +567,13 @@ public class Claim {
 			} else {
 				statement.setCharacterStream(14, null);
 			}
-			statement.setBoolean(15, claim.isHasConstruction());
+			statement.setBoolean(15, claim.isHasConstructions());
 			statement.setDate(16, claim.getConstructionDate());
 			statement.setString(17, claim.getLandProjectCode());
-			statement.setString(18, claim.getBlockNumber());
-			statement.setString(19, claim.getNeighborhood());
-			statement.setString(20, claim.getCommuneCode());
+			statement.setString(18, claim.getPlotNumber());
+			statement.setString(19, claim.getBlockNumber());
+			statement.setString(20, claim.getNeighborhood());
+			statement.setString(21, claim.getCommuneCode());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -617,10 +624,11 @@ public class Claim {
 							"HAS_CONSTRUCTION, " +
 							"CONSTRUCTION_DATE, " +
 							"LAND_PROJECT_CODE, " +
+							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
 							"COMMUNE_CODE " +
-							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, getClaimId());
 			statement.setString(2, getStatus());
 			statement.setString(3, getClaimNumber());
@@ -645,12 +653,13 @@ public class Claim {
 			} else {
 				statement.setCharacterStream(14, null);
 			}
-			statement.setBoolean(15, isHasConstruction());
+			statement.setBoolean(15, isHasConstructions());
 			statement.setDate(16, getConstructionDate());
 			statement.setString(17, getLandProjectCode());
-			statement.setString(18, getBlockNumber());
-			statement.setString(19, getNeighborhood());
-			statement.setString(20, getCommuneCode());
+			statement.setString(18, getPlotNumber());
+			statement.setString(19, getBlockNumber());
+			statement.setString(20, getNeighborhood());
+			statement.setString(21, getCommuneCode());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -700,6 +709,7 @@ public class Claim {
 							"HAS_CONSTRUCTION=?, " +
 							"CONSTRUCTION_DATE=?, " +
 							"LAND_PROJECT_CODE=?, " +
+							"PLOT_NUMBER=?, " +
 							"BLOCK_NUMBER=?, " +
 							"NEIGHBORHOOD=?, " +
 							"COMMUNE_CODE=? " +
@@ -727,13 +737,14 @@ public class Claim {
 			} else {
 				statement.setCharacterStream(13, null);
 			}
-			statement.setBoolean(14, claim.isHasConstruction());
+			statement.setBoolean(14, claim.isHasConstructions());
 			statement.setDate(15, claim.getConstructionDate());
 			statement.setString(16, claim.getLandProjectCode());
-			statement.setString(17, claim.getBlockNumber());
-			statement.setString(18, claim.getNeighborhood());
-			statement.setString(19, claim.getCommuneCode());
-			statement.setString(20, claim.getClaimId());
+			statement.setString(17, claim.getPlotNumber());
+			statement.setString(18, claim.getBlockNumber());
+			statement.setString(19, claim.getNeighborhood());
+			statement.setString(20, claim.getCommuneCode());
+			statement.setString(21, claim.getClaimId());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -782,6 +793,7 @@ public class Claim {
 							"HAS_CONSTRUCTION=?, " +
 							"CONSTRUCTION_DATE=?, " +
 							"LAND_PROJECT_CODE=?, " +
+							"PLOT_NUMBER=?, " +
 							"BLOCK_NUMBER=?, " +
 							"NEIGHBORHOOD=?, " +
 							"COMMUNE_CODE=? " +
@@ -810,13 +822,14 @@ public class Claim {
 			} else {
 				statement.setCharacterStream(13, null);
 			}
-			statement.setBoolean(14, isHasConstruction());
+			statement.setBoolean(14, isHasConstructions());
 			statement.setDate(15, getConstructionDate());
 			statement.setString(16, getLandProjectCode());
-			statement.setString(17, getBlockNumber());
-			statement.setString(18, getNeighborhood());
-			statement.setString(19, getCommuneCode());
-			statement.setString(20, getClaimId());
+			statement.setString(17, getPlotNumber());
+			statement.setString(18, getBlockNumber());
+			statement.setString(19, getNeighborhood());
+			statement.setString(20, getCommuneCode());
+			statement.setString(21, getClaimId());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -868,6 +881,7 @@ public class Claim {
 							"HAS_CONSTRUCTION, " +
 							"CONSTRUCTION_DATE, " +
 							"LAND_PROJECT_CODE, " +
+							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
 							"COMMUNE_CODE " +
@@ -898,12 +912,13 @@ public class Claim {
 				} else {
 					claim.setDynamicForm(new FormPayload());
 				}
-				claim.setHasConstruction(rs.getBoolean(15));
+				claim.setHasConstructions(rs.getBoolean(15));
 				claim.setConstructionDate(rs.getDate(16));
 				claim.setLandProjectCode(rs.getString(17));
-				claim.setBlockNumber(rs.getString(18));
-				claim.setNeighborhood(rs.getString(19));
-				claim.setCommuneCode(rs.getString(20));
+				claim.setPlotNumber(rs.getString(18));
+				claim.setBlockNumber(rs.getString(19));
+				claim.setNeighborhood(rs.getString(20));
+				claim.setCommuneCode(rs.getString(21));
 			}
 
 		} catch (SQLException e) {
@@ -957,6 +972,7 @@ public class Claim {
 							"HAS_CONSTRUCTION, " +
 							"CONSTRUCTION_DATE, " +
 							"LAND_PROJECT_CODE, " +
+							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
 							"COMMUNE_CODE " +
@@ -987,12 +1003,13 @@ public class Claim {
 				} else {
 					claim.setDynamicForm(new FormPayload());
 				}
-				claim.setHasConstruction(rs.getBoolean(15));
+				claim.setHasConstructions(rs.getBoolean(15));
 				claim.setConstructionDate(rs.getDate(16));
 				claim.setLandProjectCode(rs.getString(17));
-				claim.setBlockNumber(rs.getString(18));
-				claim.setNeighborhood(rs.getString(19));
-				claim.setCommuneCode(rs.getString(20));
+				claim.setPlotNumber(rs.getString(18));
+				claim.setBlockNumber(rs.getString(19));
+				claim.setNeighborhood(rs.getString(20));
+				claim.setCommuneCode(rs.getString(21));
 			}
 
 		} catch (SQLException e) {
@@ -1036,6 +1053,7 @@ public class Claim {
 							"HAS_CONSTRUCTION, " +
 							"CONSTRUCTION_DATE, " +
 							"LAND_PROJECT_CODE, " +
+							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
 							"COMMUNE_CODE " +
@@ -1065,12 +1083,13 @@ public class Claim {
 				} else {
 					claim.setDynamicForm(new FormPayload());
 				}
-				claim.setHasConstruction(rs.getBoolean(15));
+				claim.setHasConstructions(rs.getBoolean(15));
 				claim.setConstructionDate(rs.getDate(16));
 				claim.setLandProjectCode(rs.getString(17));
-				claim.setBlockNumber(rs.getString(18));
-				claim.setNeighborhood(rs.getString(19));
-				claim.setCommuneCode(rs.getString(20));
+				claim.setPlotNumber(rs.getString(18));
+				claim.setBlockNumber(rs.getString(19));
+				claim.setNeighborhood(rs.getString(20));
+				claim.setCommuneCode(rs.getString(21));
 				claim.setVertices(Vertex.getVertices(claimId,
 						externalConnection));
 				claim.setPropertyLocations(PropertyLocation
@@ -1124,6 +1143,7 @@ public class Claim {
 							"HAS_CONSTRUCTION, " +
 							"CONSTRUCTION_DATE, " +
 							"LAND_PROJECT_CODE, " +
+							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
 							"COMMUNE_CODE " +
@@ -1144,12 +1164,13 @@ public class Claim {
 				claim.setRecorderName(rs.getString(10));
 				claim.setVersion(rs.getString(11));
 				claim.setClaimArea(rs.getInt(12));
-				claim.setHasConstruction(rs.getBoolean(13));
+				claim.setHasConstructions(rs.getBoolean(13));
 				claim.setConstructionDate(rs.getDate(14));
 				claim.setLandProjectCode(rs.getString(15));
-				claim.setBlockNumber(rs.getString(16));
-				claim.setNeighborhood(rs.getString(17));
-				claim.setCommuneCode(rs.getString(18));
+				claim.setPlotNumber(rs.getString(16));
+				claim.setBlockNumber(rs.getString(17));
+				claim.setNeighborhood(rs.getString(18));
+				claim.setCommuneCode(rs.getString(19));
 				claim.setAdditionalInfo(new ArrayList<AdditionalInfo>()); // No
 																			// longer
 																			// used
@@ -1829,9 +1850,10 @@ public class Claim {
 	private String version;
 	private long claimArea;
 	private FormPayload dynamicForm;
-	private boolean hasConstruction;
+	private boolean hasConstructions;
 	private Date constructionDate;
 	private String landProjectCode;
+	private String plotNumber;
 	private String blockNumber;
 	private String neighborhood;
 	private String communeCode;

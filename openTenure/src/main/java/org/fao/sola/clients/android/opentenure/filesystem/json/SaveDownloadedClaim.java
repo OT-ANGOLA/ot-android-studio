@@ -208,6 +208,29 @@ public class SaveDownloadedClaim {
 			person.setIdType(claimant.getIdTypeCode());
 			// person.setPlaceOfBirth(claimant.getPlaceOfBirth());
 			person.setPostalAddress(claimant.getAddress());
+			// Angola specific
+			person.setOtherName(claimant.getOtherName());
+			person.setFatherName(claimant.getFatherName());
+			person.setMotherName(claimant.getMotherName());
+			if (claimant.getIdExpiryDate() != null) {
+				date = sdf.parse(claimant.getIdExpiryDate());
+				person.setIdExpiryDate(new java.sql.Date(date.getTime()));
+			}
+			if (claimant.getIdIssuanceDate() != null) {
+				date = sdf.parse(claimant.getIdIssuanceDate());
+				person.setIdIssuanceDate(new java.sql.Date(date.getTime()));
+			}
+			person.setIdIssuanceCountryCode(claimant.getIdIssuanceCountryCode());
+			person.setIdIssuanceProvinceCode(claimant.getIdIssuanceProvinceCode());
+			person.setIdIssuanceMunicipalityCode(claimant.getIdIssuanceMunicipalityCode());
+			person.setIdIssuanceCommuneCode(claimant.getIdIssuanceCommuneCode());
+			person.setBirthCountryCode(claimant.getBirthCountryCode());
+			person.setBirthCommuneCode(claimant.getBirthCommuneCode());
+			person.setResidenceCommuneCode(claimant.getResidenceCommuneCode());
+			person.setBeneficiaryName(claimant.getBeneficiaryName());
+			person.setBeneficiaryIdNumber(claimant.getBeneficiaryIdNumber());
+			person.setMaritalStatusCode(claimant.getMaritalStatusCode());
+
 			if (claimant.isPhysicalPerson())
 				person.setPersonType(Person._PHYSICAL);
 			else
@@ -220,8 +243,19 @@ public class SaveDownloadedClaim {
 			claimDB.setName(downloadedClaim.getDescription());
 			claimDB.setLandUse(downloadedClaim.getLandUseCode());
 			claimDB.setNotes(downloadedClaim.getNotes());
+			// Angola specific
 			claimDB.setRecorderName(downloadedClaim.getRecorderName());
 			claimDB.setVersion(downloadedClaim.getVersion());
+			claimDB.setPlotNumber(downloadedClaim.getPlotNumber());
+			claimDB.setBlockNumber(downloadedClaim.getBlockNumber());
+			claimDB.setHasConstructions(downloadedClaim.isHasConstructions());
+			if (downloadedClaim.getConstructionDate() != null) {
+				date = sdf.parse(downloadedClaim.getConstructionDate());
+				claimDB.setConstructionDate(new java.sql.Date(date.getTime()));
+			}
+			claimDB.setNeighborhood(downloadedClaim.getNeighborhood());
+			claimDB.setLandProjectCode(downloadedClaim.getLandProjectCode());
+			claimDB.setCommuneCode(downloadedClaim.getCommuneCode());
 
 			if (downloadedClaim.getStartDate() != null) {
 				date = sdf.parse(downloadedClaim.getStartDate());
@@ -261,6 +295,15 @@ public class SaveDownloadedClaim {
 					.getEastAdjacency());
 			adjacenciesNotes.setWestAdjacency(downloadedClaim
 					.getWestAdjacency());
+			// Angola specific
+			adjacenciesNotes.setNorthAdjacencyTypeCode(downloadedClaim
+					.getNorthAdjacencyTypeCode());
+			adjacenciesNotes.setSouthAdjacencyTypeCode(downloadedClaim
+					.getSouthAdjacencyTypeCode());
+			adjacenciesNotes.setEastAdjacencyTypeCode(downloadedClaim
+					.getEastAdjacencyTypeCode());
+			adjacenciesNotes.setWestAdjacencyTypeCode(downloadedClaim
+					.getWestAdjacencyTypeCode());
 
 			if (AdjacenciesNotes.getAdjacenciesNotes(downloadedClaim.getId()) == null)
 				adjacenciesNotes.create();
@@ -438,8 +481,8 @@ public class SaveDownloadedClaim {
 
 					personDB2.setContactPhoneNumber(person2.getPhone());
 
-					if (claimant.getBirthDate() != null) {
-						Calendar cal = JsonUtilities.toCalendar(claimant
+					if (person2.getBirthDate() != null) {
+						Calendar cal = JsonUtilities.toCalendar(person2
 								.getBirthDate());
 						birth = cal.getTime();
 					}
@@ -455,12 +498,34 @@ public class SaveDownloadedClaim {
 					personDB2.setPersonId(person2.getId());
 					// personDB2.setPlaceOfBirth(person2.get);
 
-					if (claimant.isPhysicalPerson())
+					if (person2.isPhysicalPerson())
 						personDB2.setPersonType(Person._PHYSICAL);
 					else
 						personDB2.setPersonType(Person._GROUP);
 
 					personDB2.setPostalAddress(person2.getAddress());
+					// Angola specific
+					personDB2.setOtherName(person2.getOtherName());
+					personDB2.setFatherName(person2.getFatherName());
+					personDB2.setMotherName(person2.getMotherName());
+					if (person2.getIdExpiryDate() != null) {
+						date = sdf.parse(person2.getIdExpiryDate());
+						personDB2.setIdExpiryDate(new java.sql.Date(date.getTime()));
+					}
+					if (person2.getIdIssuanceDate() != null) {
+						date = sdf.parse(person2.getIdIssuanceDate());
+						personDB2.setIdIssuanceDate(new java.sql.Date(date.getTime()));
+					}
+					personDB2.setIdIssuanceCountryCode(person2.getIdIssuanceCountryCode());
+					personDB2.setIdIssuanceProvinceCode(person2.getIdIssuanceProvinceCode());
+					personDB2.setIdIssuanceMunicipalityCode(person2.getIdIssuanceMunicipalityCode());
+					personDB2.setIdIssuanceCommuneCode(person2.getIdIssuanceCommuneCode());
+					personDB2.setBirthCountryCode(person2.getBirthCountryCode());
+					personDB2.setBirthCommuneCode(person2.getBirthCommuneCode());
+					personDB2.setResidenceCommuneCode(person2.getResidenceCommuneCode());
+					personDB2.setBeneficiaryName(person2.getBeneficiaryName());
+					personDB2.setBeneficiaryIdNumber(person2.getBeneficiaryIdNumber());
+					personDB2.setMaritalStatusCode(person2.getMaritalStatusCode());
 
 					if (Person.getPerson(person2.getId()) == null)
 						Person.createPerson(personDB2);

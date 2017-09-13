@@ -185,6 +185,29 @@ public class SaveZippedClaim {
 			person.setIdType(claimant.getIdTypeCode());
 			// person.setPlaceOfBirth(claimant.getPlaceOfBirth());
 			person.setPostalAddress(claimant.getAddress());
+			// Angola specific
+			person.setOtherName(claimant.getOtherName());
+			person.setFatherName(claimant.getFatherName());
+			person.setMotherName(claimant.getMotherName());
+			if (claimant.getIdExpiryDate() != null) {
+				date = sdf.parse(claimant.getIdExpiryDate());
+				person.setIdExpiryDate(new java.sql.Date(date.getTime()));
+			}
+			if (claimant.getIdIssuanceDate() != null) {
+				date = sdf.parse(claimant.getIdIssuanceDate());
+				person.setIdIssuanceDate(new java.sql.Date(date.getTime()));
+			}
+			person.setIdIssuanceCountryCode(claimant.getIdIssuanceCountryCode());
+			person.setIdIssuanceProvinceCode(claimant.getIdIssuanceProvinceCode());
+			person.setIdIssuanceMunicipalityCode(claimant.getIdIssuanceMunicipalityCode());
+			person.setIdIssuanceCommuneCode(claimant.getIdIssuanceCommuneCode());
+			person.setBirthCountryCode(claimant.getBirthCountryCode());
+			person.setBirthCommuneCode(claimant.getBirthCommuneCode());
+			person.setResidenceCommuneCode(claimant.getResidenceCommuneCode());
+			person.setBeneficiaryName(claimant.getBeneficiaryName());
+			person.setBeneficiaryIdNumber(claimant.getBeneficiaryIdNumber());
+			person.setMaritalStatusCode(claimant.getMaritalStatusCode());
+
 			if (claimant.isPhysicalPerson())
 				person.setPersonType(Person._PHYSICAL);
 			else
@@ -197,6 +220,19 @@ public class SaveZippedClaim {
 			claimDB.setName(zippedClaim.getDescription());
 			claimDB.setLandUse(zippedClaim.getLandUseCode());
 			claimDB.setNotes(zippedClaim.getNotes());
+			// Angola specific
+			claimDB.setRecorderName(zippedClaim.getRecorderName());
+			claimDB.setVersion(zippedClaim.getVersion());
+			claimDB.setPlotNumber(zippedClaim.getPlotNumber());
+			claimDB.setBlockNumber(zippedClaim.getBlockNumber());
+			claimDB.setHasConstructions(zippedClaim.isHasConstructions());
+			if (zippedClaim.getConstructionDate() != null) {
+				date = sdf.parse(zippedClaim.getConstructionDate());
+				claimDB.setConstructionDate(new java.sql.Date(date.getTime()));
+			}
+			claimDB.setNeighborhood(zippedClaim.getNeighborhood());
+			claimDB.setLandProjectCode(zippedClaim.getLandProjectCode());
+			claimDB.setCommuneCode(zippedClaim.getCommuneCode());
 			claimDB.setRecorderName(zippedClaim.getRecorderName());
 			claimDB.setVersion(zippedClaim.getVersion());
 
@@ -234,6 +270,15 @@ public class SaveZippedClaim {
 			adjacenciesNotes.setSouthAdjacency(zippedClaim.getSouthAdjacency());
 			adjacenciesNotes.setEastAdjacency(zippedClaim.getEastAdjacency());
 			adjacenciesNotes.setWestAdjacency(zippedClaim.getWestAdjacency());
+			// Angola specific
+			adjacenciesNotes.setNorthAdjacencyTypeCode(zippedClaim
+					.getNorthAdjacencyTypeCode());
+			adjacenciesNotes.setSouthAdjacencyTypeCode(zippedClaim
+					.getSouthAdjacencyTypeCode());
+			adjacenciesNotes.setEastAdjacencyTypeCode(zippedClaim
+					.getEastAdjacencyTypeCode());
+			adjacenciesNotes.setWestAdjacencyTypeCode(zippedClaim
+					.getWestAdjacencyTypeCode());
 
 			if (AdjacenciesNotes.getAdjacenciesNotes(zippedClaim.getId()) == null)
 				adjacenciesNotes.create();
@@ -424,8 +469,8 @@ public class SaveZippedClaim {
 
 					personDB2.setContactPhoneNumber(person2.getPhone());
 
-					if (claimant.getBirthDate() != null) {
-						Calendar cal = JsonUtilities.toCalendar(claimant
+					if (person2.getBirthDate() != null) {
+						Calendar cal = JsonUtilities.toCalendar(person2
 								.getBirthDate());
 						birth = cal.getTime();
 					}
@@ -441,12 +486,34 @@ public class SaveZippedClaim {
 					personDB2.setPersonId(person2.getId());
 					// personDB2.setPlaceOfBirth(person2.get);
 
-					if (claimant.isPhysicalPerson())
+					if (person2.isPhysicalPerson())
 						personDB2.setPersonType(Person._PHYSICAL);
 					else
 						personDB2.setPersonType(Person._GROUP);
 
 					personDB2.setPostalAddress(person2.getAddress());
+					// Angola specific
+					personDB2.setOtherName(person2.getOtherName());
+					personDB2.setFatherName(person2.getFatherName());
+					personDB2.setMotherName(person2.getMotherName());
+					if (person2.getIdExpiryDate() != null) {
+						date = sdf.parse(person2.getIdExpiryDate());
+						personDB2.setIdExpiryDate(new java.sql.Date(date.getTime()));
+					}
+					if (person2.getIdIssuanceDate() != null) {
+						date = sdf.parse(person2.getIdIssuanceDate());
+						personDB2.setIdIssuanceDate(new java.sql.Date(date.getTime()));
+					}
+					personDB2.setIdIssuanceCountryCode(person2.getIdIssuanceCountryCode());
+					personDB2.setIdIssuanceProvinceCode(person2.getIdIssuanceProvinceCode());
+					personDB2.setIdIssuanceMunicipalityCode(person2.getIdIssuanceMunicipalityCode());
+					personDB2.setIdIssuanceCommuneCode(person2.getIdIssuanceCommuneCode());
+					personDB2.setBirthCountryCode(person2.getBirthCountryCode());
+					personDB2.setBirthCommuneCode(person2.getBirthCommuneCode());
+					personDB2.setResidenceCommuneCode(person2.getResidenceCommuneCode());
+					personDB2.setBeneficiaryName(person2.getBeneficiaryName());
+					personDB2.setBeneficiaryIdNumber(person2.getBeneficiaryIdNumber());
+					personDB2.setMaritalStatusCode(person2.getMaritalStatusCode());
 
 					if (Person.getPerson(person2.getId()) == null)
 						Person.createPerson(personDB2);

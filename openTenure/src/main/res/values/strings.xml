@@ -558,4 +558,5 @@
     <string name="beneficiary_name_label">Beneficiary name</string>
     <string name="beneficiary_id_number_label">Beneficiary ID number</string>
     <string name="marital_status_label">Marital status</string>
+    <string name="plot_number_label">Plot number</string>
 </resources>

@@ -46,9 +46,143 @@ public class Claimant {
 	@SerializedName("birthDate")   private String birthDate;
 	@SerializedName("genderCode")  private String genderCode;
 	@SerializedName("person") 	   private boolean isPhysicalPerson;
+	@SerializedName("otherName")  private String otherName;
+	@SerializedName("fatherName")  private String fatherName;
+	@SerializedName("motherName")  private String motherName;
+	@SerializedName("idExpiryDate")  private String idExpiryDate;
+	@SerializedName("idIssuanceDate")  private String idIssuanceDate;
+	@SerializedName("idIssuanceCountryCode")  private String idIssuanceCountryCode;
+	@SerializedName("idIssuanceProvinceCode")  private String idIssuanceProvinceCode;
+	@SerializedName("idIssuanceMunicipalityCode")  private String idIssuanceMunicipalityCode;
+	@SerializedName("idIssuanceCommuneCode")  private String idIssuanceCommuneCode;
+	@SerializedName("birthCountryCode")  private String birthCountryCode;
+	@SerializedName("birthCommuneCode")  private String birthCommuneCode;
+	@SerializedName("residenceCommuneCode")  private String residenceCommuneCode;
+	@SerializedName("beneficiaryName")  private String beneficiaryName;
+	@SerializedName("beneficiaryIdNumber")  private String beneficiaryIdNumber;
+	@SerializedName("maritalStatusCode")  private String maritalStatusCode;
 
-	
-	
+
+	public String getOtherName() {
+		return otherName;
+	}
+
+	public void setOtherName(String otherName) {
+		this.otherName = otherName;
+	}
+
+	public String getFatherName() {
+		return fatherName;
+	}
+
+	public void setFatherName(String fatherName) {
+		this.fatherName = fatherName;
+	}
+
+	public String getMotherName() {
+		return motherName;
+	}
+
+	public void setMotherName(String motherName) {
+		this.motherName = motherName;
+	}
+
+	public String getIdIssuanceDate() {
+		return idIssuanceDate;
+	}
+
+	public String getIdExpiryDate() {
+		return idExpiryDate;
+	}
+
+	public void setIdExpiryDate(String idExpiryDate) {
+		this.idExpiryDate = idExpiryDate;
+	}
+
+	public void setIdIssuanceDate(String idIssuanceDate) {
+		this.idIssuanceDate = idIssuanceDate;
+	}
+
+	public String getIdIssuanceCountryCode() {
+		return idIssuanceCountryCode;
+	}
+
+	public void setIdIssuanceCountryCode(String idIssuanceCountryCode) {
+		this.idIssuanceCountryCode = idIssuanceCountryCode;
+	}
+
+	public String getIdIssuanceProvinceCode() {
+		return idIssuanceProvinceCode;
+	}
+
+	public void setIdIssuanceProvinceCode(String idIssuanceProvinceCode) {
+		this.idIssuanceProvinceCode = idIssuanceProvinceCode;
+	}
+
+	public String getIdIssuanceMunicipalityCode() {
+		return idIssuanceMunicipalityCode;
+	}
+
+	public void setIdIssuanceMunicipalityCode(String idIssuanceMunicipalityCode) {
+		this.idIssuanceMunicipalityCode = idIssuanceMunicipalityCode;
+	}
+
+	public String getIdIssuanceCommuneCode() {
+		return idIssuanceCommuneCode;
+	}
+
+	public void setIdIssuanceCommuneCode(String idIssuanceCommuneCode) {
+		this.idIssuanceCommuneCode = idIssuanceCommuneCode;
+	}
+
+	public String getBirthCountryCode() {
+		return birthCountryCode;
+	}
+
+	public void setBirthCountryCode(String birthCountryCode) {
+		this.birthCountryCode = birthCountryCode;
+	}
+
+	public String getBirthCommuneCode() {
+		return birthCommuneCode;
+	}
+
+	public void setBirthCommuneCode(String birthCommuneCode) {
+		this.birthCommuneCode = birthCommuneCode;
+	}
+
+	public String getResidenceCommuneCode() {
+		return residenceCommuneCode;
+	}
+
+	public void setResidenceCommuneCode(String residenceCommuneCode) {
+		this.residenceCommuneCode = residenceCommuneCode;
+	}
+
+	public String getBeneficiaryName() {
+		return beneficiaryName;
+	}
+
+	public void setBeneficiaryName(String beneficiaryName) {
+		this.beneficiaryName = beneficiaryName;
+	}
+
+	public String getBeneficiaryIdNumber() {
+		return beneficiaryIdNumber;
+	}
+
+	public void setBeneficiaryIdNumber(String beneficiaryIdNumber) {
+		this.beneficiaryIdNumber = beneficiaryIdNumber;
+	}
+
+	public String getMaritalStatusCode() {
+		return maritalStatusCode;
+	}
+
+	public void setMaritalStatusCode(String maritalStatusCode) {
+		this.maritalStatusCode = maritalStatusCode;
+	}
+
 	public String getId() {
 		return id;
 	}

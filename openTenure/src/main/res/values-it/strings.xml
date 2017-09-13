@@ -534,5 +534,6 @@
     <string name="new_hole">Nuova lacuna</string>
     <string name="action_add_hole">Aggiungi a lacuna</string>
     <string name="title_select_hole">Scegli una lacuna</string>
+    <string name="plot_number_label">Numero di trama</string>
 
 </resources>

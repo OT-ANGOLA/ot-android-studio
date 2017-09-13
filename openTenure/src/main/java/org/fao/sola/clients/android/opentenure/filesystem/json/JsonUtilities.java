@@ -165,6 +165,15 @@ public class JsonUtilities {
 							.getWestAdjacency());
 					tempClaim.setEastAdjacency(adjacenciesNotes
 							.getEastAdjacency());
+					// Angola specific
+					tempClaim.setNorthAdjacencyTypeCode(adjacenciesNotes
+							.getNorthAdjacencyTypeCode());
+					tempClaim.setSouthAdjacencyTypeCode(adjacenciesNotes
+							.getSouthAdjacencyTypeCode());
+					tempClaim.setWestAdjacencyTypeCode(adjacenciesNotes
+							.getWestAdjacencyTypeCode());
+					tempClaim.setEastAdjacencyTypeCode(adjacenciesNotes
+							.getEastAdjacencyTypeCode());
 				}
 				tempClaim.setTypeCode(claim.getType());
 				if (claim.getDateOfStart() != null)
@@ -203,6 +212,23 @@ public class JsonUtilities {
 					person.setPhysicalPerson(true);
 				else
 					person.setPhysicalPerson(false);
+
+				// Angola specific
+				person.setOtherName(claim.getPerson().getOtherName());
+				person.setFatherName(claim.getPerson().getFatherName());
+				person.setMotherName(claim.getPerson().getMotherName());
+				person.setIdExpiryDate(sdf.format(claim.getPerson().getIdExpiryDate()));
+				person.setIdIssuanceDate(sdf.format(claim.getPerson().getIdIssuanceDate()));
+				person.setIdIssuanceCountryCode(claim.getPerson().getIdIssuanceCountryCode());
+				person.setIdIssuanceProvinceCode(claim.getPerson().getIdIssuanceProvinceCode());
+				person.setIdIssuanceMunicipalityCode(claim.getPerson().getIdIssuanceMunicipalityCode());
+				person.setIdIssuanceCommuneCode(claim.getPerson().getIdIssuanceCommuneCode());
+				person.setBirthCountryCode(claim.getPerson().getBirthCountryCode());
+				person.setBirthCommuneCode(claim.getPerson().getBirthCommuneCode());
+				person.setResidenceCommuneCode(claim.getPerson().getResidenceCommuneCode());
+				person.setBeneficiaryName(claim.getPerson().getBeneficiaryName());
+				person.setBeneficiaryIdNumber(claim.getPerson().getBeneficiaryIdNumber());
+				person.setMaritalStatusCode(claim.getPerson().getMaritalStatusCode());
 
 				tempClaim.setClaimant(person);
 
@@ -325,6 +351,22 @@ public class JsonUtilities {
 						personJson.setPhone(personDB.getContactPhoneNumber());
 						personJson.setIdNumber(personDB.getIdNumber());
 						personJson.setIdTypeCode(personDB.getIdType());
+						// Angola specific
+						personJson.setOtherName(personDB.getOtherName());
+						personJson.setFatherName(personDB.getFatherName());
+						personJson.setMotherName(personDB.getMotherName());
+						personJson.setIdExpiryDate(sdf.format(personDB.getIdExpiryDate()));
+						personJson.setIdIssuanceDate(sdf.format(personDB.getIdIssuanceDate()));
+						personJson.setIdIssuanceCountryCode(personDB.getIdIssuanceCountryCode());
+						personJson.setIdIssuanceProvinceCode(personDB.getIdIssuanceProvinceCode());
+						personJson.setIdIssuanceMunicipalityCode(personDB.getIdIssuanceMunicipalityCode());
+						personJson.setIdIssuanceCommuneCode(personDB.getIdIssuanceCommuneCode());
+						personJson.setBirthCountryCode(personDB.getBirthCountryCode());
+						personJson.setBirthCommuneCode(personDB.getBirthCommuneCode());
+						personJson.setResidenceCommuneCode(personDB.getResidenceCommuneCode());
+						personJson.setBeneficiaryName(personDB.getBeneficiaryName());
+						personJson.setBeneficiaryIdNumber(personDB.getBeneficiaryIdNumber());
+						personJson.setMaritalStatusCode(personDB.getMaritalStatusCode());
 
 						ownersJson.add(personJson);
 
@@ -369,6 +411,14 @@ public class JsonUtilities {
 
 				tempClaim.setShares(shares);
 				// tempClaim.setAdditionaInfo(xMetadata);
+				// Angola specific
+				tempClaim.setBlockNumber(claim.getBlockNumber());
+				tempClaim.setPlotNumber(claim.getPlotNumber());
+				tempClaim.setHasConstructions(claim.isHasConstructions());
+				tempClaim.setConstructionDate(sdf.format(claim.getConstructionDate()));
+				tempClaim.setNeighborhood(claim.getNeighborhood());
+				tempClaim.setLandProjectCode(claim.getLandProjectCode());
+				tempClaim.setCommuneCode(claim.getCommuneCode());
 
 				try {
 					Gson gson = new GsonBuilder()

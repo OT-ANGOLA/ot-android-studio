@@ -29,9 +29,13 @@ package org.fao.sola.clients.android.opentenure;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.fao.sola.clients.android.opentenure.model.AdjacenciesNotes;
 import org.fao.sola.clients.android.opentenure.model.Adjacency;
+import org.fao.sola.clients.android.opentenure.model.AdjacencyType;
 import org.fao.sola.clients.android.opentenure.model.Claim;
 
 import android.app.Activity;
@@ -49,6 +53,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +62,8 @@ public class AdjacentClaimsFragment extends ListFragment {
 	private View rootView;
 	private ClaimDispatcher claimActivity;
 	private ModeDispatcher modeActivity;
+	private Map<String, String> keyValueAdjacencyTypeMap;
+	private Map<String, String> valueKeyAdjacencyTypeMap;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -180,14 +187,30 @@ public class AdjacentClaimsFragment extends ListFragment {
 		adjacenciesNotes.setNorthAdjacency(((EditText) rootView
 				.findViewById(R.id.north_adjacency)).getText().toString());
 
+		String northAdjacencyTypeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.northAdjacencyTypeSpinner)).getSelectedItem();
+		adjacenciesNotes.setNorthAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(northAdjacencyTypeDispValue));
+
 		adjacenciesNotes.setEastAdjacency(((EditText) rootView
 				.findViewById(R.id.east_adjacency)).getText().toString());
+
+		String eastAdjacencyTypeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.eastAdjacencyTypeSpinner)).getSelectedItem();
+		adjacenciesNotes.setEastAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(eastAdjacencyTypeDispValue));
 
 		adjacenciesNotes.setSouthAdjacency(((EditText) rootView
 				.findViewById(R.id.south_adjacency)).getText().toString());
 
+		String southAdjacencyTypeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.southAdjacencyTypeSpinner)).getSelectedItem();
+		adjacenciesNotes.setSouthAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(southAdjacencyTypeDispValue));
+
 		adjacenciesNotes.setWestAdjacency(((EditText) rootView
 				.findViewById(R.id.west_adjacency)).getText().toString());
+
+		String westAdjacencyTypeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.westAdjacencyTypeSpinner)).getSelectedItem();
+		adjacenciesNotes.setWestAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(westAdjacencyTypeDispValue));
 
 		int result = AdjacenciesNotes.createAdjacenciesNotes(adjacenciesNotes);
 
@@ -228,14 +251,30 @@ public class AdjacentClaimsFragment extends ListFragment {
 		adjacenciesNotes.setNorthAdjacency(((EditText) rootView
 				.findViewById(R.id.north_adjacency)).getText().toString());
 
+		String northAdjacencyTypeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.northAdjacencyTypeSpinner)).getSelectedItem();
+		adjacenciesNotes.setNorthAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(northAdjacencyTypeDispValue));
+
 		adjacenciesNotes.setEastAdjacency(((EditText) rootView
 				.findViewById(R.id.east_adjacency)).getText().toString());
+
+		String eastAdjacencyTypeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.eastAdjacencyTypeSpinner)).getSelectedItem();
+		adjacenciesNotes.setEastAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(eastAdjacencyTypeDispValue));
 
 		adjacenciesNotes.setSouthAdjacency(((EditText) rootView
 				.findViewById(R.id.south_adjacency)).getText().toString());
 
+		String southAdjacencyTypeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.southAdjacencyTypeSpinner)).getSelectedItem();
+		adjacenciesNotes.setSouthAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(southAdjacencyTypeDispValue));
+
 		adjacenciesNotes.setWestAdjacency(((EditText) rootView
 				.findViewById(R.id.west_adjacency)).getText().toString());
+
+		String westAdjacencyTypeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.westAdjacencyTypeSpinner)).getSelectedItem();
+		adjacenciesNotes.setWestAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(westAdjacencyTypeDispValue));
 
 		int result = AdjacenciesNotes.updateAdjacenciesNotes(adjacenciesNotes);
 
@@ -308,6 +347,7 @@ public class AdjacentClaimsFragment extends ListFragment {
 
 		AdjacenciesNotes adNotes = AdjacenciesNotes.getAdjacenciesNotes(claim
 				.getClaimId());
+		AdjacencyType at = new AdjacencyType();
 
 		if (claim != null && adNotes != null) {
 
@@ -323,6 +363,37 @@ public class AdjacentClaimsFragment extends ListFragment {
 			((EditText) rootView.findViewById(R.id.west_adjacency))
 					.setText(adNotes.getWestAdjacency());
 
+			Spinner northAdjacencyType = (Spinner) rootView
+					.findViewById(R.id.northAdjacencyTypeSpinner);
+			Spinner southAdjacencyType = (Spinner) rootView
+					.findViewById(R.id.southAdjacencyTypeSpinner);
+			Spinner eastAdjacencyType = (Spinner) rootView
+					.findViewById(R.id.eastAdjacencyTypeSpinner);
+			Spinner westAdjacencyType = (Spinner) rootView
+					.findViewById(R.id.westAdjacencyTypeSpinner);
+
+			keyValueAdjacencyTypeMap = at.getKeyValueMap(OpenTenureApplication
+					.getInstance().getLocalization(),true);
+			valueKeyAdjacencyTypeMap = at.getValueKeyMap(OpenTenureApplication
+					.getInstance().getLocalization(),true);
+
+			List<String> atlist = new ArrayList<String>();
+			SortedSet<String> keys;
+			keys = new TreeSet<String>(keyValueAdjacencyTypeMap.keySet());
+			for (String key : keys) {
+				String value = keyValueAdjacencyTypeMap.get(key);
+				atlist.add(value);
+				// do something
+			}
+
+			ArrayAdapter<String> dataAdapterAdjacency = new ArrayAdapter<String>(
+					OpenTenureApplication.getContext(), R.layout.my_spinner,
+					atlist) {
+			};
+			northAdjacencyType.setAdapter(dataAdapterAdjacency);
+			southAdjacencyType.setAdapter(dataAdapterAdjacency);
+			eastAdjacencyType.setAdapter(dataAdapterAdjacency);
+			westAdjacencyType.setAdapter(dataAdapterAdjacency);
 			if (modeActivity.getMode().compareTo(ModeDispatcher.Mode.MODE_RO) == 0) {
 				((EditText) rootView.findViewById(R.id.north_adjacency))
 						.setFocusable(false);
@@ -343,6 +414,22 @@ public class AdjacentClaimsFragment extends ListFragment {
 						.setFocusable(false);
 				((EditText) rootView.findViewById(R.id.west_adjacency))
 				.setLongClickable(false);
+				((Spinner) rootView.findViewById(R.id.northAdjacencyTypeSpinner))
+						.setFocusable(false);
+				((Spinner) rootView.findViewById(R.id.northAdjacencyTypeSpinner))
+						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.southAdjacencyTypeSpinner))
+						.setFocusable(false);
+				((Spinner) rootView.findViewById(R.id.southAdjacencyTypeSpinner))
+						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.eastAdjacencyTypeSpinner))
+						.setFocusable(false);
+				((Spinner) rootView.findViewById(R.id.eastAdjacencyTypeSpinner))
+						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.westAdjacencyTypeSpinner))
+						.setFocusable(false);
+				((Spinner) rootView.findViewById(R.id.westAdjacencyTypeSpinner))
+						.setClickable(false);
 			}
 
 		}

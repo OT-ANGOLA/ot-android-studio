@@ -217,8 +217,9 @@ public class JsonUtilities {
 				person.setOtherName(claim.getPerson().getOtherName());
 				person.setFatherName(claim.getPerson().getFatherName());
 				person.setMotherName(claim.getPerson().getMotherName());
-				person.setIdExpiryDate(sdf.format(claim.getPerson().getIdExpiryDate()));
-				person.setIdIssuanceDate(sdf.format(claim.getPerson().getIdIssuanceDate()));
+                if(claim.getPerson().getIdIssuanceDate() != null){
+                    person.setIdIssuanceDate(sdf.format(claim.getPerson().getIdIssuanceDate()));
+                }
 				person.setIdIssuanceCountryCode(claim.getPerson().getIdIssuanceCountryCode());
 				person.setIdIssuanceProvinceCode(claim.getPerson().getIdIssuanceProvinceCode());
 				person.setIdIssuanceMunicipalityCode(claim.getPerson().getIdIssuanceMunicipalityCode());
@@ -355,8 +356,9 @@ public class JsonUtilities {
 						personJson.setOtherName(personDB.getOtherName());
 						personJson.setFatherName(personDB.getFatherName());
 						personJson.setMotherName(personDB.getMotherName());
-						personJson.setIdExpiryDate(sdf.format(personDB.getIdExpiryDate()));
-						personJson.setIdIssuanceDate(sdf.format(personDB.getIdIssuanceDate()));
+                        if(personDB.getIdIssuanceDate() != null){
+                            personJson.setIdIssuanceDate(sdf.format(personDB.getIdIssuanceDate()));
+                        }
 						personJson.setIdIssuanceCountryCode(personDB.getIdIssuanceCountryCode());
 						personJson.setIdIssuanceProvinceCode(personDB.getIdIssuanceProvinceCode());
 						personJson.setIdIssuanceMunicipalityCode(personDB.getIdIssuanceMunicipalityCode());
@@ -415,7 +417,9 @@ public class JsonUtilities {
 				tempClaim.setBlockNumber(claim.getBlockNumber());
 				tempClaim.setPlotNumber(claim.getPlotNumber());
 				tempClaim.setHasConstructions(claim.isHasConstructions());
-				tempClaim.setConstructionDate(sdf.format(claim.getConstructionDate()));
+                if(claim.getConstructionDate() != null){
+                    tempClaim.setConstructionDate(sdf.format(claim.getConstructionDate()));
+                }
 				tempClaim.setNeighborhood(claim.getNeighborhood());
 				tempClaim.setLandProjectCode(claim.getLandProjectCode());
 				tempClaim.setCommuneCode(claim.getCommuneCode());

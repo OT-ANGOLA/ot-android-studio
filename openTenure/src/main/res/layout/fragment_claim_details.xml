@@ -58,7 +58,7 @@
             android:background="@android:color/white"
             android:hint="@string/claim_name"
             android:inputType="textCapWords"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
+            android:textAppearance="?android:attr/textAppearanceMedium">
         </EditText>
 
         <TextView
@@ -106,6 +106,143 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/land_project_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:paddingBottom="8dp"
+            android:paddingTop="10dp"
+            android:text="@string/land_project_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="36dp"
+            android:background="@android:color/white" >
+
+            <Spinner
+                android:id="@+id/landProjectSpinner"
+                android:layout_width="350dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/commune_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:paddingBottom="8dp"
+            android:paddingTop="10dp"
+            android:text="@string/commune_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="36dp"
+            android:background="@android:color/white" >
+
+            <Spinner
+                android:id="@+id/communeSpinner"
+                android:layout_width="350dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/block_number_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:paddingBottom="8dp"
+            android:text="@string/block_number_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/block_number_input_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@android:color/white"
+            android:hint="@string/block_number_label"
+            android:inputType="textCapWords"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/plot_number_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:paddingBottom="8dp"
+            android:text="@string/plot_number_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/plot_number_input_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@android:color/white"
+            android:hint="@string/plot_number_label"
+            android:inputType="textCapWords"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/neighborhood_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:paddingBottom="8dp"
+            android:text="@string/neighborhood_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/neighborhood_input_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@android:color/white"
+            android:hint="@string/neighborhood_label"
+            android:inputType="textCapWords"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </EditText>
+
+        <Switch
+            android:id="@+id/has_constructions_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/has_construction_label"/>
+
+        <TextView
+            android:id="@+id/construction_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:paddingBottom="8dp"
+            android:paddingTop="10sp"
+            android:text="@string/construction_date_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/construction_date_input_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:hint="@string/date_of_start"
+            android:inputType="date"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </EditText>
 
         <TextView
             android:id="@+id/date_of_start_label"

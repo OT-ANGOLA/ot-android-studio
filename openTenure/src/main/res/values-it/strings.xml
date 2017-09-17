@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SGAT Client</string>
     <string name="preload">Immagine di apertura</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_search">Cerca</string>
@@ -535,5 +534,12 @@
     <string name="action_add_hole">Aggiungi a lacuna</string>
     <string name="title_select_hole">Scegli una lacuna</string>
     <string name="plot_number_label">Numero di trama</string>
+    <string name="other_name">Altro nome</string>
+    <string name="other_name_label">Altro nome*</string>
+    <string name="mother_name_label">Nome della madre*</string>
+    <string name="mother_name">Nome della madre</string>
+    <string name="father_name_label">Nome del padre*</string>
+    <string name="father_name">Nome del padre</string>
+    <string name="app_name">ALIMS Mobile</string>
 
 </resources>

@@ -49,7 +49,6 @@ public class Claimant {
 	@SerializedName("otherName")  private String otherName;
 	@SerializedName("fatherName")  private String fatherName;
 	@SerializedName("motherName")  private String motherName;
-	@SerializedName("idExpiryDate")  private String idExpiryDate;
 	@SerializedName("idIssuanceDate")  private String idIssuanceDate;
 	@SerializedName("idIssuanceCountryCode")  private String idIssuanceCountryCode;
 	@SerializedName("idIssuanceProvinceCode")  private String idIssuanceProvinceCode;
@@ -89,14 +88,6 @@ public class Claimant {
 
 	public String getIdIssuanceDate() {
 		return idIssuanceDate;
-	}
-
-	public String getIdExpiryDate() {
-		return idExpiryDate;
-	}
-
-	public void setIdExpiryDate(String idExpiryDate) {
-		this.idExpiryDate = idExpiryDate;
 	}
 
 	public void setIdIssuanceDate(String idIssuanceDate) {

@@ -530,7 +530,8 @@ public class Claim {
 							"CHALLENGED_CLAIM_ID, " +
 							"CHALLANGE_EXPIRY_DATE, " +
 							"DATE_OF_START, " +
-							"LAND_USE, NOTES, " +
+							"LAND_USE, " +
+							"NOTES, " +
 							"RECORDER_NAME, " +
 							"VERSION, " +
 							"SURVEY_FORM, " +

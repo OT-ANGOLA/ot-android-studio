@@ -42,8 +42,12 @@ import java.util.TreeSet;
 
 import org.fao.sola.clients.android.opentenure.button.listener.ConfirmExit;
 import org.fao.sola.clients.android.opentenure.filesystem.FileSystemUtilities;
+import org.fao.sola.clients.android.opentenure.model.Commune;
+import org.fao.sola.clients.android.opentenure.model.Country;
 import org.fao.sola.clients.android.opentenure.model.IdType;
+import org.fao.sola.clients.android.opentenure.model.Municipality;
 import org.fao.sola.clients.android.opentenure.model.Person;
+import org.fao.sola.clients.android.opentenure.model.Province;
 
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
@@ -90,6 +94,14 @@ public class PersonFragment extends Fragment {
 	private boolean allowSave = true;
 	private Map<String, String> keyValueMapIdTypes;
 	private Map<String, String> valueKeyMapIdTypes;
+	private Map<String, String> keyValueCountryMap;
+	private Map<String, String> valueKeyCountryMap;
+	private Map<String, String> keyValueProvinceMap;
+	private Map<String, String> valueKeyProvinceMap;
+	private Map<String, String> keyValueMunicipalityMap;
+	private Map<String, String> valueKeyMunicipalityMap;
+	private Map<String, String> keyValueCommuneMap;
+	private Map<String, String> valueKeyCommuneMap;
 	boolean isPerson = true;
 	boolean onlyActive = true;
 	
@@ -253,7 +265,7 @@ public class PersonFragment extends Fragment {
 
 				@Override
 				public void onDateSet(DatePicker view, int year,
-						int monthOfYear, int dayOfMonth) {
+									  int monthOfYear, int dayOfMonth) {
 					localCalendar.set(Calendar.YEAR, year);
 					localCalendar.set(Calendar.MONTH, monthOfYear);
 					localCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -268,8 +280,64 @@ public class PersonFragment extends Fragment {
 				public boolean onLongClick(View v) {
 					new DatePickerDialog(rootView.getContext(), date,
 							localCalendar.get(Calendar.YEAR), localCalendar
-									.get(Calendar.MONTH), localCalendar
-									.get(Calendar.DAY_OF_MONTH)).show();
+							.get(Calendar.MONTH), localCalendar
+							.get(Calendar.DAY_OF_MONTH)).show();
+					return true;
+				}
+			});
+
+			EditText idIssuanceDate = (EditText) rootView
+					.findViewById(R.id.id_issuance_date_input_field);
+
+			final DatePickerDialog.OnDateSetListener issuanceDate = new DatePickerDialog.OnDateSetListener() {
+
+				@Override
+				public void onDateSet(DatePicker view, int year,
+									  int monthOfYear, int dayOfMonth) {
+					localCalendar.set(Calendar.YEAR, year);
+					localCalendar.set(Calendar.MONTH, monthOfYear);
+					localCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+					updateIssuanceDate();
+				}
+
+			};
+
+			idIssuanceDate.setOnLongClickListener(new OnLongClickListener() {
+
+				@Override
+				public boolean onLongClick(View v) {
+					new DatePickerDialog(rootView.getContext(), issuanceDate,
+							localCalendar.get(Calendar.YEAR), localCalendar
+							.get(Calendar.MONTH), localCalendar
+							.get(Calendar.DAY_OF_MONTH)).show();
+					return true;
+				}
+			});
+
+			EditText idExpiryDate = (EditText) rootView
+					.findViewById(R.id.id_expiry_date_input_field);
+
+			final DatePickerDialog.OnDateSetListener expiryDate = new DatePickerDialog.OnDateSetListener() {
+
+				@Override
+				public void onDateSet(DatePicker view, int year,
+									  int monthOfYear, int dayOfMonth) {
+					localCalendar.set(Calendar.YEAR, year);
+					localCalendar.set(Calendar.MONTH, monthOfYear);
+					localCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+					updateDoB();
+				}
+
+			};
+
+			idExpiryDate.setOnLongClickListener(new OnLongClickListener() {
+
+				@Override
+				public boolean onLongClick(View v) {
+					new DatePickerDialog(rootView.getContext(), expiryDate,
+							localCalendar.get(Calendar.YEAR), localCalendar
+							.get(Calendar.MONTH), localCalendar
+							.get(Calendar.DAY_OF_MONTH)).show();
 					return true;
 				}
 			});
@@ -315,8 +383,22 @@ public class PersonFragment extends Fragment {
 				.findViewById(R.id.id_type_spinner);
 		Spinner spinnerGender = (Spinner) rootView
 				.findViewById(R.id.gender_spinner);
+		Spinner spinnerIdIssuanceCountry = (Spinner) rootView
+				.findViewById(R.id.id_issuance_country);
+		Spinner spinnerIdIssuanceProvince = (Spinner) rootView
+				.findViewById(R.id.id_issuance_province);
+		Spinner spinnerIdIssuanceMunicipality = (Spinner) rootView
+				.findViewById(R.id.id_issuance_municipality);
+		Spinner spinnerIdIssuanceCommune = (Spinner) rootView
+				.findViewById(R.id.id_issuance_commune);
+		Spinner spinnerResidenceCommune = (Spinner) rootView
+				.findViewById(R.id.residence_commune);
 
 		IdType it = new IdType();
+		Country co = new Country();
+		Province pr = new Province();
+		Municipality mu = new Municipality();
+		Commune com = new Commune();
 
 		SortedSet<String> keys;
 
@@ -334,17 +416,99 @@ public class PersonFragment extends Fragment {
 			// do something
 		}
 
+		ArrayAdapter<String> dataAdapterIT = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				idTypelist) {
+		};
+		spinnerIT.setAdapter(dataAdapterIT);
+
+		/* Mapping country localization */
+		keyValueCountryMap = co.getKeyValueMap(OpenTenureApplication
+				.getInstance().getLocalization(),onlyActive);
+		valueKeyCountryMap = co.getValueKeyMap(OpenTenureApplication
+				.getInstance().getLocalization(),onlyActive);
+
+		List<String> countrylist = new ArrayList<String>();
+		keys = new TreeSet<String>(keyValueCountryMap.keySet());
+		for (String key : keys) {
+			String value = keyValueCountryMap.get(key);
+			countrylist.add(value);
+			// do something
+		}
+
+		ArrayAdapter<String> dataAdapterCO = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				countrylist) {
+		};
+		spinnerIdIssuanceCountry.setAdapter(dataAdapterCO);
+
+		/* Mapping province localization */
+		keyValueProvinceMap = pr.getKeyValueMap(OpenTenureApplication
+				.getInstance().getLocalization(),onlyActive);
+		valueKeyProvinceMap = pr.getValueKeyMap(OpenTenureApplication
+				.getInstance().getLocalization(),onlyActive);
+
+		List<String> provincelist = new ArrayList<String>();
+		keys = new TreeSet<String>(keyValueProvinceMap.keySet());
+		for (String key : keys) {
+			String value = keyValueProvinceMap.get(key);
+			provincelist.add(value);
+			// do something
+		}
+
+		ArrayAdapter<String> dataAdapterPR = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				provincelist) {
+		};
+		spinnerIdIssuanceProvince.setAdapter(dataAdapterPR);
+
+		/* Mapping municipality localization */
+		keyValueMunicipalityMap = mu.getKeyValueMap(OpenTenureApplication
+				.getInstance().getLocalization(),onlyActive);
+		valueKeyMunicipalityMap = mu.getValueKeyMap(OpenTenureApplication
+				.getInstance().getLocalization(),onlyActive);
+
+		List<String> municipalitylist = new ArrayList<String>();
+		keys = new TreeSet<String>(keyValueMunicipalityMap.keySet());
+		for (String key : keys) {
+			String value = keyValueMunicipalityMap.get(key);
+			municipalitylist.add(value);
+			// do something
+		}
+
+		ArrayAdapter<String> dataAdapterMU = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				municipalitylist) {
+		};
+		spinnerIdIssuanceMunicipality.setAdapter(dataAdapterMU);
+
+		/* Mapping commune localization */
+		keyValueCommuneMap = com.getKeyValueMap(OpenTenureApplication
+				.getInstance().getLocalization(),onlyActive);
+		valueKeyCommuneMap = com.getValueKeyMap(OpenTenureApplication
+				.getInstance().getLocalization(),onlyActive);
+
+		List<String> communelist = new ArrayList<String>();
+		keys = new TreeSet<String>(keyValueCommuneMap.keySet());
+		for (String key : keys) {
+			String value = keyValueCommuneMap.get(key);
+			communelist.add(value);
+			// do something
+		}
+
+		ArrayAdapter<String> dataAdapterCOM = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				communelist) {
+		};
+		spinnerIdIssuanceCommune.setAdapter(dataAdapterCOM);
+		spinnerResidenceCommune.setAdapter(dataAdapterCOM);
+
 		List<String> genderList = new ArrayList<String>();
 
 		genderList.add(OpenTenureApplication.getContext().getResources()
 				.getString(R.string.gender_masculine));
 		genderList.add(OpenTenureApplication.getContext().getResources()
 				.getString(R.string.gender_feminine));
-
-		ArrayAdapter<String> dataAdapterIT = new ArrayAdapter<String>(
-				OpenTenureApplication.getContext(), R.layout.my_spinner,
-				idTypelist) {
-		};
 
 		ArrayAdapter<String> dataAdapterGender = new ArrayAdapter<String>(
 				OpenTenureApplication.getContext(), R.layout.my_spinner,
@@ -353,7 +517,6 @@ public class PersonFragment extends Fragment {
 
 		// dataAdapterIT.setDropDownViewResource(R.layout.my_spinner);
 
-		spinnerIT.setAdapter(dataAdapterIT);
 		spinnerGender.setAdapter(dataAdapterGender);
 
 	}
@@ -378,6 +541,22 @@ public class PersonFragment extends Fragment {
 		((Spinner) rootView.findViewById(R.id.id_type_spinner))
 				.setSelection(new IdType().getIndexByCodeType(person
 						.getIdType(),onlyActive));
+
+		((Spinner) rootView.findViewById(R.id.id_issuance_country))
+				.setSelection(new Country().getIndexByCodeType(person
+						.getIdIssuanceCountryCode(),onlyActive));
+		((Spinner) rootView.findViewById(R.id.id_issuance_province))
+				.setSelection(new Province().getIndexByCodeType(person
+						.getIdIssuanceProvinceCode(),onlyActive));
+		((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
+				.setSelection(new Municipality().getIndexByCodeType(person
+						.getIdIssuanceMunicipalityCode(),onlyActive));
+		((Spinner) rootView.findViewById(R.id.id_issuance_commune))
+				.setSelection(new Commune().getIndexByCodeType(person
+						.getIdIssuanceCommuneCode(),onlyActive));
+		((Spinner) rootView.findViewById(R.id.residence_commune))
+				.setSelection(new Commune().getIndexByCodeType(person
+						.getResidenceCommuneCode(),onlyActive));
 
 		if (person.getGender().equals("M")) {
 			((Spinner) rootView.findViewById(R.id.gender_spinner))
@@ -415,6 +594,26 @@ public class PersonFragment extends Fragment {
 			((Spinner) rootView.findViewById(R.id.gender_spinner))
 					.setFocusable(false);
 			((Spinner) rootView.findViewById(R.id.gender_spinner))
+					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_country))
+					.setFocusable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_country))
+					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_province))
+					.setFocusable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_province))
+					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
+					.setFocusable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
+					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_commune))
+					.setFocusable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_commune))
+					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.residence_commune))
+					.setFocusable(false);
+			((Spinner) rootView.findViewById(R.id.residence_commune))
 					.setClickable(false);
 			((EditText) rootView.findViewById(R.id.id_number))
 					.setFocusable(false);
@@ -544,6 +743,26 @@ public class PersonFragment extends Fragment {
 		dateOfBirth.setText(sdf.format(localCalendar.getTime()));
 	}
 
+	private void updateIssuanceDate() {
+
+		EditText issuanceDate = (EditText) getView().findViewById(
+				R.id.id_issuance_date_input_field);
+		String myFormat = "yyyy-MM-dd";
+		SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+		issuanceDate.setText(sdf.format(localCalendar.getTime()));
+	}
+
+	private void updateExpiryDate() {
+
+		EditText expiryDate = (EditText) getView().findViewById(
+				R.id.id_expiry_date_input_field);
+		String myFormat = "yyyy-MM-dd";
+		SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+		expiryDate.setText(sdf.format(localCalendar.getTime()));
+	}
+
 	private void updateDoE() {
 
 		EditText date = (EditText) getView().findViewById(
@@ -590,6 +809,26 @@ public class PersonFragment extends Fragment {
 		String idTypeDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.id_type_spinner)).getSelectedItem();
 		person.setIdType(valueKeyMapIdTypes.get(idTypeDispValue));
+
+		String idIssuanceCountryDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_country)).getSelectedItem();
+		person.setIdIssuanceCountryCode(valueKeyCountryMap.get(idIssuanceCountryDispValue));
+
+		String idIssuanceProvinceDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_province)).getSelectedItem();
+		person.setIdIssuanceProvinceCode(valueKeyProvinceMap.get(idIssuanceProvinceDispValue));
+
+		String idIssuanceMunicipalityDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_municipality)).getSelectedItem();
+		person.setIdIssuanceMunicipalityCode(valueKeyMunicipalityMap.get(idIssuanceMunicipalityDispValue));
+
+		String idIssuanceCommuneDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_commune)).getSelectedItem();
+		person.setIdIssuanceCommuneCode(valueKeyCommuneMap.get(idIssuanceCommuneDispValue));
+
+		String residenceCommuneDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.residence_commune)).getSelectedItem();
+		person.setResidenceCommuneCode(valueKeyMapIdTypes.get(residenceCommuneDispValue));
 
 		person.setIdNumber(((EditText) rootView.findViewById(R.id.id_number))
 				.getText().toString());
@@ -789,6 +1028,26 @@ public class PersonFragment extends Fragment {
 		String idTypeDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.id_type_spinner)).getSelectedItem();
 		person.setIdType(valueKeyMapIdTypes.get(idTypeDispValue));
+
+		String idIssuanceCountryDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_country)).getSelectedItem();
+		person.setIdIssuanceCountryCode(valueKeyCountryMap.get(idIssuanceCountryDispValue));
+
+		String idIssuanceProvinceDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_province)).getSelectedItem();
+		person.setIdType(valueKeyProvinceMap.get(idIssuanceProvinceDispValue));
+
+		String idIssuanceMunicipalityDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_municipality)).getSelectedItem();
+		person.setIdIssuanceMunicipalityCode(valueKeyMapIdTypes.get(idIssuanceMunicipalityDispValue));
+
+		String idIssuanceCommuneDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_commune)).getSelectedItem();
+		person.setIdIssuanceCommuneCode(valueKeyMapIdTypes.get(idIssuanceCommuneDispValue));
+
+		String residenceCommuneDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.residence_commune)).getSelectedItem();
+		person.setResidenceCommuneCode(valueKeyMapIdTypes.get(residenceCommuneDispValue));
 
 		person.setIdNumber(((EditText) rootView.findViewById(R.id.id_number))
 				.getText().toString());
@@ -1219,6 +1478,357 @@ public class PersonFragment extends Fragment {
 
 	}
 
+	public boolean isPersonChanged(Person person, View rootView){
+
+		String name = ((EditText) rootView
+				.findViewById(R.id.first_name_input_field)).getText()
+				.toString();
+
+		if (!person.getFirstName().equals(name))
+			return true;
+
+		String lastName = ((EditText) rootView
+				.findViewById(R.id.last_name_input_field)).getText()
+				.toString();
+
+		if (!person.getLastName().equals(lastName))
+			return true;
+
+		String otherName = ((EditText) rootView
+				.findViewById(R.id.other_name_input_field)).getText()
+				.toString();
+
+		if (!person.getOtherName().equals(otherName))
+			return true;
+
+		String motherName = ((EditText) rootView
+				.findViewById(R.id.mother_name_input_field)).getText()
+				.toString();
+
+		if (!person.getMotherName().equals(motherName))
+			return true;
+
+		String fatherName = ((EditText) rootView
+				.findViewById(R.id.father_name_input_field)).getText()
+				.toString();
+
+		if (!person.getFatherName().equals(fatherName))
+			return true;
+
+		String postal_address = ((EditText) rootView
+				.findViewById(R.id.postal_address_input_field))
+				.getText().toString();
+
+		if ((postal_address == null || postal_address
+				.equalsIgnoreCase(""))
+				&& (person.getPostalAddress() != null && !person
+				.getPostalAddress().equals("")))
+			return true;
+
+		else if ((postal_address != null && !postal_address
+				.equalsIgnoreCase(""))
+				&& (person.getPostalAddress() == null || person
+				.getPostalAddress().equals("")))
+			return true;
+
+		else if (!postal_address.equals(person.getPostalAddress()))
+			return true;
+
+		String email = ((EditText) rootView
+				.findViewById(R.id.email_address_input_field))
+				.getText().toString();
+
+		if ((email == null || email.equals(""))
+				&& (person.getEmailAddress() != null && !person
+				.getEmailAddress().equals("")))
+
+			return true;
+
+		else if ((email != null && !email.equals(""))
+				&& (person.getEmailAddress() == null || person
+				.getEmailAddress().equals("")))
+			return true;
+		else if ((email != null && person.getEmailAddress() != null)
+				&& !person.getEmailAddress().equalsIgnoreCase(
+				email))
+			return true;
+
+		String numberId = ((EditText) rootView
+				.findViewById(R.id.id_number)).getText()
+				.toString();
+
+		if ((numberId == null || numberId.equals(""))
+				&& (person.getIdNumber() != null && !person
+				.getIdNumber().equals("")))
+
+			return true;
+		else if ((numberId != null && !numberId.equals(""))
+				&& (person.getIdNumber() == null || person
+				.getIdNumber().equals("")))
+
+			return true;
+
+		else if ((person.getIdNumber() != null && numberId != null)
+				&& !person.getIdNumber().equals(numberId))
+			return true;
+
+		String idType = (String) ((Spinner) rootView
+				.findViewById(R.id.id_type_spinner))
+				.getSelectedItem();
+
+
+		if ((idType != null && person.getIdType() != null)
+				&& !person.getIdType().trim().equals(
+				valueKeyMapIdTypes
+						.get(idType).trim()))
+			return true;
+
+		String idIssuanceCountryCode = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_country))
+				.getSelectedItem();
+
+		if ((idIssuanceCountryCode != null && person.getIdIssuanceCountryCode() != null)
+				&& !person.getIdIssuanceCountryCode().trim().equals(
+				valueKeyCountryMap
+						.get(idIssuanceCountryCode).trim()))
+			return true;
+
+		String idIssuanceProvinceCode = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_province))
+				.getSelectedItem();
+
+		if ((idIssuanceProvinceCode != null && person.getIdIssuanceProvinceCode() != null)
+				&& !person.getIdIssuanceProvinceCode().trim().equals(
+				valueKeyProvinceMap
+						.get(idIssuanceProvinceCode).trim()))
+			return true;
+
+		String idIssuanceMunicipalityCode = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_municipality))
+				.getSelectedItem();
+
+		if ((idIssuanceMunicipalityCode != null && person.getIdIssuanceMunicipalityCode() != null)
+				&& !person.getIdIssuanceMunicipalityCode().trim().equals(
+				valueKeyMunicipalityMap
+						.get(idIssuanceMunicipalityCode).trim()))
+			return true;
+
+		String idIssuanceCommuneCode = (String) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_commune))
+				.getSelectedItem();
+
+		if ((idIssuanceCommuneCode != null && person.getIdIssuanceCommuneCode() != null)
+				&& !person.getIdIssuanceCommuneCode().trim().equals(
+				valueKeyCommuneMap
+						.get(idIssuanceCommuneCode).trim()))
+			return true;
+
+		String residenceCommuneCode = (String) ((Spinner) rootView
+				.findViewById(R.id.residence_commune))
+				.getSelectedItem();
+
+		if ((residenceCommuneCode != null && person.getResidenceCommuneCode() != null)
+				&& !person.getResidenceCommuneCode().trim().equals(
+				valueKeyCommuneMap
+						.get(residenceCommuneCode).trim()))
+			return true;
+
+		String contact = ((EditText) rootView
+				.findViewById(R.id.contact_phone_number_input_field))
+				.getText().toString();
+
+		if ((contact == null || contact.equals(""))
+				&& (person.getContactPhoneNumber() != null && !person
+				.getContactPhoneNumber()
+				.equals("")))
+
+			return true;
+
+		else if ((contact != null && !contact
+				.equals(""))
+				&& (person.getContactPhoneNumber() == null || person
+				.getContactPhoneNumber()
+				.equals("")))
+			return true;
+		else if ((contact != null && person
+				.getContactPhoneNumber() != null)
+				&& !contact.equals(person
+				.getContactPhoneNumber()))
+			return true;
+
+		String dateOfBirth = ((EditText) rootView
+				.findViewById(R.id.date_of_birth_input_field))
+				.getText().toString();
+
+		if (person.getDateOfBirth() == null
+				|| person.getDateOfBirth()
+				.equals("")) {
+
+			if (dateOfBirth != null
+					&& !dateOfBirth.equals(""))
+				return true;
+		} else {
+			java.util.Date dob = null;
+
+			if (dateOfBirth != null
+					&& !dateOfBirth.trim()
+					.equals("")) {
+
+				try {
+					dob = new SimpleDateFormat(
+							"yyyy-MM-dd",
+							Locale.US)
+							.parse(dateOfBirth);
+
+					Date date = new Date(
+							dob.getTime());
+
+					if (person.getDateOfBirth()
+							.compareTo(date) != 0)
+						return true;
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+					dob = null;
+
+				}
+
+			}
+
+		}
+		String idIssuanceDate = ((EditText) rootView
+				.findViewById(R.id.id_issuance_date_input_field))
+				.getText().toString();
+
+		if (person.getIdIssuanceDate() == null) {
+
+			if (!idIssuanceDate.equals(""))
+				return true;
+		} else {
+			java.util.Date iid = null;
+
+			if (!idIssuanceDate.trim().equals("")) {
+
+				try {
+					iid = new SimpleDateFormat(
+							"yyyy-MM-dd",
+							Locale.US)
+							.parse(idIssuanceDate);
+
+					Date date = new Date(
+							iid.getTime());
+
+					if (person.getIdIssuanceDate()
+							.compareTo(date) != 0)
+						return true;
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+					iid = null;
+				}
+			}
+		}
+
+		String idExpiryDate = ((EditText) rootView
+				.findViewById(R.id.id_expiry_date_input_field))
+				.getText().toString();
+
+		if (person.getIdExpiryDate() == null) {
+
+			if (!idExpiryDate.equals(""))
+				return true;
+		} else {
+			java.util.Date ied = null;
+
+			if (!idExpiryDate.trim().equals("")) {
+
+				try {
+					ied = new SimpleDateFormat(
+							"yyyy-MM-dd",
+							Locale.US)
+							.parse(idExpiryDate);
+
+					Date date = new Date(
+							ied.getTime());
+
+					if (person.getIdExpiryDate()
+							.compareTo(date) != 0)
+						return true;
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+					ied = null;
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean personHasValues(Person person, View rootView){
+		String name = ((EditText) rootView
+				.findViewById(R.id.first_name_input_field)).getText()
+				.toString();
+		if (name != null && !name.trim().equals(""))
+			return true;
+
+		String lastName = ((EditText) rootView
+				.findViewById(R.id.last_name_input_field)).getText()
+				.toString();
+		if (lastName != null && !lastName.trim().equals(""))
+			return true;
+
+		String otherName = ((EditText) rootView
+				.findViewById(R.id.other_name_input_field)).getText()
+				.toString();
+		if (otherName != null && !otherName.trim().equals(""))
+			return true;
+
+		String fatherName = ((EditText) rootView
+				.findViewById(R.id.father_name_input_field)).getText()
+				.toString();
+		if (fatherName != null && !fatherName.trim().equals(""))
+			return true;
+
+		String motherName = ((EditText) rootView
+				.findViewById(R.id.mother_name_input_field)).getText()
+				.toString();
+		if (motherName != null && !motherName.trim().equals(""))
+			return true;
+
+		String postal_address = ((EditText) rootView
+				.findViewById(R.id.postal_address_input_field)).getText()
+				.toString();
+
+		if (postal_address != null && !postal_address.trim().equals(""))
+			return true;
+
+		String email = ((EditText) rootView
+				.findViewById(R.id.email_address_input_field)).getText()
+				.toString();
+		if (email != null && !email.trim().equals(""))
+			return true;
+
+		String numberId = ((EditText) rootView.findViewById(R.id.id_number))
+				.getText().toString();
+
+		if (numberId != null && !numberId.trim().equals(""))
+			return true;
+
+		String contact = ((EditText) rootView
+				.findViewById(R.id.contact_phone_number_input_field))
+				.getText().toString();
+		if (contact != null && !contact.trim().equals(""))
+			return true;
+
+		String dateOfBirth = ((EditText) rootView
+				.findViewById(R.id.date_of_birth_input_field)).getText()
+				.toString();
+		if (dateOfBirth != null && !dateOfBirth.trim().equals(""))
+			return true;
+
+		return false;
+	}
+
 	public boolean checkChangesPerson(PersonActivity personActivity) {
 
 		if (valueKeyMapIdTypes == null)
@@ -1226,236 +1836,31 @@ public class PersonFragment extends Fragment {
 					.getValueKeyMap(OpenTenureApplication.getInstance()
 							.getLocalization(),onlyActive);
 
-		View rootView = null;
+		if (valueKeyCountryMap == null)
+			valueKeyCountryMap = new Country()
+					.getValueKeyMap(OpenTenureApplication.getInstance()
+							.getLocalization(),onlyActive);
 
-		boolean changed = false;
+		if (valueKeyProvinceMap == null)
+			valueKeyProvinceMap = new Province()
+					.getValueKeyMap(OpenTenureApplication.getInstance()
+							.getLocalization(),onlyActive);
+
+		if (valueKeyMunicipalityMap == null)
+			valueKeyMunicipalityMap = new Municipality()
+					.getValueKeyMap(OpenTenureApplication.getInstance()
+							.getLocalization(),onlyActive);
+
+		if (valueKeyCommuneMap == null)
+			valueKeyCommuneMap = new Commune()
+					.getValueKeyMap(OpenTenureApplication.getInstance()
+							.getLocalization(),onlyActive);
+
+
 		Person person = Person.getPerson(personActivity.getPersonId());
-		rootView = OpenTenureApplication.getPersonsView();
+		View rootView = OpenTenureApplication.getPersonsView();
 
-		if (person != null) {
-
-			String name = ((EditText) rootView
-					.findViewById(R.id.first_name_input_field)).getText()
-					.toString();
-
-			if (!person.getFirstName().equals(name))
-				changed = true;
-
-			else {
-
-				String lastName = ((EditText) rootView
-						.findViewById(R.id.last_name_input_field)).getText()
-						.toString();
-
-				if (!person.getLastName().equals(lastName))
-					changed = true;
-
-				else {
-
-					String postal_address = ((EditText) rootView
-							.findViewById(R.id.postal_address_input_field))
-							.getText().toString();
-
-					if ((postal_address == null || postal_address
-							.equalsIgnoreCase(""))
-							&& (person.getPostalAddress() != null && !person
-									.getPostalAddress().equals("")))
-
-						changed = true;
-
-					else if ((postal_address != null && !postal_address
-							.equalsIgnoreCase(""))
-							&& (person.getPostalAddress() == null || person
-									.getPostalAddress().equals("")))
-						changed = true;
-
-					else if (!postal_address.equals(person.getPostalAddress()))
-						changed = true;
-
-					else {
-
-						String email = ((EditText) rootView
-								.findViewById(R.id.email_address_input_field))
-								.getText().toString();
-
-						if ((email == null || email.equals(""))
-								&& (person.getEmailAddress() != null && !person
-										.getEmailAddress().equals("")))
-
-							changed = true;
-
-						else if ((email != null && !email.equals(""))
-								&& (person.getEmailAddress() == null || person
-										.getEmailAddress().equals("")))
-							changed = true;
-						else if ((email != null && person.getEmailAddress() != null)
-								&& !person.getEmailAddress().equalsIgnoreCase(
-										email))
-							changed = true;
-
-						else {
-
-							String numberId = ((EditText) rootView
-									.findViewById(R.id.id_number)).getText()
-									.toString();
-
-							if ((numberId == null || numberId.equals(""))
-									&& (person.getIdNumber() != null && !person
-											.getIdNumber().equals("")))
-
-								changed = true;
-							else if ((numberId != null && !numberId.equals(""))
-									&& (person.getIdNumber() == null || person
-											.getIdNumber().equals("")))
-
-								changed = true;
-
-							else if ((person.getIdNumber() != null && numberId != null)
-									&& !person.getIdNumber().equals(numberId))
-								changed = true;
-
-							else {
-
-								String idType = (String) ((Spinner) rootView
-										.findViewById(R.id.id_type_spinner))
-										.getSelectedItem();
-
-
-								if ((idType != null && person.getIdType() != null)
-										&& !person.getIdType().trim().equals(
-											valueKeyMapIdTypes
-														.get(idType).trim()))								
-									changed = true;
-
-								else {
-
-									String contact = ((EditText) rootView
-											.findViewById(R.id.contact_phone_number_input_field))
-											.getText().toString();
-
-									if ((contact == null || contact.equals(""))
-											&& (person.getContactPhoneNumber() != null && !person
-													.getContactPhoneNumber()
-													.equals("")))
-
-										changed = true;
-
-									else if ((contact != null && !contact
-											.equals(""))
-											&& (person.getContactPhoneNumber() == null || person
-													.getContactPhoneNumber()
-													.equals("")))
-										changed = true;
-									else if ((contact != null && person
-											.getContactPhoneNumber() != null)
-											&& !contact.equals(person
-													.getContactPhoneNumber()))
-										changed = true;
-
-									else {
-
-										String dateOfBirth = ((EditText) rootView
-												.findViewById(R.id.date_of_birth_input_field))
-												.getText().toString();
-
-										if (person.getDateOfBirth() == null
-												|| person.getDateOfBirth()
-														.equals("")) {
-
-											if (dateOfBirth != null
-													&& !dateOfBirth.equals(""))
-												changed = true;
-										} else {
-											java.util.Date dob = null;
-
-											if (dateOfBirth != null
-													&& !dateOfBirth.trim()
-															.equals("")) {
-
-												try {
-													dob = new SimpleDateFormat(
-															"yyyy-MM-dd",
-															Locale.US)
-															.parse(dateOfBirth);
-
-													Date date = new Date(
-															dob.getTime());
-
-													if (person.getDateOfBirth()
-															.compareTo(date) != 0)
-														changed = true;
-
-												} catch (ParseException e) {
-													e.printStackTrace();
-													dob = null;
-
-												}
-
-											}
-
-										}
-
-									}
-
-								}
-
-							}
-						}
-
-					}
-
-				}
-
-			}
-
-		} else {
-
-			String name = ((EditText) rootView
-					.findViewById(R.id.first_name_input_field)).getText()
-					.toString();
-			if (name != null && !name.trim().equals(""))
-				changed = true;
-
-			String lastName = ((EditText) rootView
-					.findViewById(R.id.last_name_input_field)).getText()
-					.toString();
-			if (lastName != null && !lastName.trim().equals(""))
-				changed = true;
-
-			String postal_address = ((EditText) rootView
-					.findViewById(R.id.postal_address_input_field)).getText()
-					.toString();
-
-			if (postal_address != null && !postal_address.trim().equals(""))
-				changed = true;
-
-			String email = ((EditText) rootView
-					.findViewById(R.id.email_address_input_field)).getText()
-					.toString();
-			if (email != null && !email.trim().equals(""))
-				changed = true;
-
-			String numberId = ((EditText) rootView.findViewById(R.id.id_number))
-					.getText().toString();
-
-			if (numberId != null && !numberId.trim().equals(""))
-				changed = true;
-
-			String contact = ((EditText) rootView
-					.findViewById(R.id.contact_phone_number_input_field))
-					.getText().toString();
-			if (contact != null && !contact.trim().equals(""))
-				changed = true;
-
-			String dateOfBirth = ((EditText) rootView
-					.findViewById(R.id.date_of_birth_input_field)).getText()
-					.toString();
-			if (dateOfBirth != null && !dateOfBirth.trim().equals(""))
-				changed = true;
-
-		}
-
-		if (changed) {
+		if ((person != null && isPersonChanged(person, rootView)) || personHasValues(person, rootView)) {
 
 			AlertDialog.Builder saveChangesDialog = new AlertDialog.Builder(
 					rootView.getContext());

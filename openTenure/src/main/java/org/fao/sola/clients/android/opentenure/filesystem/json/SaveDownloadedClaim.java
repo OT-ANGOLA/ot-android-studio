@@ -212,10 +212,6 @@ public class SaveDownloadedClaim {
 			person.setOtherName(claimant.getOtherName());
 			person.setFatherName(claimant.getFatherName());
 			person.setMotherName(claimant.getMotherName());
-			if (claimant.getIdExpiryDate() != null) {
-				date = sdf.parse(claimant.getIdExpiryDate());
-				person.setIdExpiryDate(new java.sql.Date(date.getTime()));
-			}
 			if (claimant.getIdIssuanceDate() != null) {
 				date = sdf.parse(claimant.getIdIssuanceDate());
 				person.setIdIssuanceDate(new java.sql.Date(date.getTime()));
@@ -508,10 +504,6 @@ public class SaveDownloadedClaim {
 					personDB2.setOtherName(person2.getOtherName());
 					personDB2.setFatherName(person2.getFatherName());
 					personDB2.setMotherName(person2.getMotherName());
-					if (person2.getIdExpiryDate() != null) {
-						date = sdf.parse(person2.getIdExpiryDate());
-						personDB2.setIdExpiryDate(new java.sql.Date(date.getTime()));
-					}
 					if (person2.getIdIssuanceDate() != null) {
 						date = sdf.parse(person2.getIdIssuanceDate());
 						personDB2.setIdIssuanceDate(new java.sql.Date(date.getTime()));

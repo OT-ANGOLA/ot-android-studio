@@ -51,7 +51,9 @@ import org.fao.sola.clients.android.opentenure.model.Attachment;
 import org.fao.sola.clients.android.opentenure.model.Claim;
 import org.fao.sola.clients.android.opentenure.model.ClaimStatus;
 import org.fao.sola.clients.android.opentenure.model.ClaimType;
+import org.fao.sola.clients.android.opentenure.model.Commune;
 import org.fao.sola.clients.android.opentenure.model.HoleVertex;
+import org.fao.sola.clients.android.opentenure.model.LandProject;
 import org.fao.sola.clients.android.opentenure.model.LandUse;
 import org.fao.sola.clients.android.opentenure.model.Owner;
 import org.fao.sola.clients.android.opentenure.model.Person;
@@ -86,8 +88,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class ClaimDetailsFragment extends Fragment {
 
@@ -100,6 +104,10 @@ public class ClaimDetailsFragment extends Fragment {
 	private Map<String, String> valueKeyMapLandUse;
 	private Map<String, String> keyValueClaimTypesMap;
 	private Map<String, String> valueKeyClaimTypesMap;
+	private Map<String, String> keyValueCommunesMap;
+	private Map<String, String> valueKeyCommunesMap;
+	private Map<String, String> keyValueLandProjectsMap;
+	private Map<String, String> valueKeyLandProjectsMap;
 	private boolean challengedJustLoaded = false;
 	private final Calendar localCalendar = Calendar.getInstance();
 
@@ -462,11 +470,7 @@ public class ClaimDetailsFragment extends Fragment {
 		for (String key : keys) {
 			String value = keyValueMapLandUse.get(key);
 			landUseslist.add(value);
-
-			// do something
 		}
-
-		// java.util.Collections.sort(landUseslist);
 
 		ArrayAdapter<String> dataAdapterLU = new ArrayAdapter<String>(
 				OpenTenureApplication.getContext(), R.layout.my_spinner,
@@ -475,6 +479,56 @@ public class ClaimDetailsFragment extends Fragment {
 		dataAdapterLU.setDropDownViewResource(R.layout.my_spinner);
 
 		spinnerLU.setAdapter(dataAdapterLU);
+
+		// Land Projects Spinner
+		Spinner spinnerLP = (Spinner) rootView
+				.findViewById(R.id.landProjectSpinner);
+
+		LandProject lp = new LandProject();
+		keyValueLandProjectsMap = lp.getKeyValueMap(OpenTenureApplication
+				.getInstance().getLocalization(), onlyActiveValues);
+		valueKeyLandProjectsMap = lp.getValueKeyMap(OpenTenureApplication
+				.getInstance().getLocalization(), onlyActiveValues);
+
+		List<String> landProjectsList = new ArrayList<String>();
+		keys = new TreeSet<String>(keyValueLandProjectsMap.keySet());
+		for (String key : keys) {
+			String value = keyValueLandProjectsMap.get(key);
+			landProjectsList.add(value);
+		}
+
+		ArrayAdapter<String> dataAdapterLP = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				landProjectsList) {
+		};
+		dataAdapterLP.setDropDownViewResource(R.layout.my_spinner);
+
+		spinnerLP.setAdapter(dataAdapterLP);
+
+		// Communes Spinner
+		Spinner spinnerCO = (Spinner) rootView
+				.findViewById(R.id.communeSpinner);
+
+		Commune co = new Commune();
+		keyValueCommunesMap = co.getKeyValueMap(OpenTenureApplication
+				.getInstance().getLocalization(), onlyActiveValues);
+		valueKeyCommunesMap = co.getValueKeyMap(OpenTenureApplication
+				.getInstance().getLocalization(), onlyActiveValues);
+
+		List<String> communeslist = new ArrayList<String>();
+		keys = new TreeSet<String>(keyValueCommunesMap.keySet());
+		for (String key : keys) {
+			String value = keyValueCommunesMap.get(key);
+			communeslist.add(value);
+		}
+
+		ArrayAdapter<String> dataAdapterCO = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				communeslist) {
+		};
+		dataAdapterCO.setDropDownViewResource(R.layout.my_spinner);
+
+		spinnerCO.setAdapter(dataAdapterCO);
 
 		// Claimant
 		((TextView) rootView.findViewById(R.id.claimant_id)).setTextSize(8);
@@ -506,11 +560,11 @@ public class ClaimDetailsFragment extends Fragment {
 		EditText dateOfStart = (EditText) rootView
 				.findViewById(R.id.date_of_start_input_field);
 
-		final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+		final DatePickerDialog.OnDateSetListener dateOfStartListener = new DatePickerDialog.OnDateSetListener() {
 
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
-					int dayOfMonth) {
+								  int dayOfMonth) {
 				localCalendar.set(Calendar.YEAR, year);
 				localCalendar.set(Calendar.MONTH, monthOfYear);
 				localCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -523,7 +577,33 @@ public class ClaimDetailsFragment extends Fragment {
 
 			@Override
 			public boolean onLongClick(View v) {
-				new DatePickerDialog(rootView.getContext(), date, localCalendar
+				new DatePickerDialog(rootView.getContext(), dateOfStartListener, localCalendar
+						.get(Calendar.YEAR), localCalendar.get(Calendar.MONTH),
+						localCalendar.get(Calendar.DAY_OF_MONTH)).show();
+				return true;
+			}
+		});
+		EditText constructionDate = (EditText) rootView
+				.findViewById(R.id.construction_date_input_field);
+
+		final DatePickerDialog.OnDateSetListener constructionDateListener = new DatePickerDialog.OnDateSetListener() {
+
+			@Override
+			public void onDateSet(DatePicker view, int year, int monthOfYear,
+								  int dayOfMonth) {
+				localCalendar.set(Calendar.YEAR, year);
+				localCalendar.set(Calendar.MONTH, monthOfYear);
+				localCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+				updateCD();
+			}
+
+		};
+
+		constructionDate.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				new DatePickerDialog(rootView.getContext(), constructionDateListener, localCalendar
 						.get(Calendar.YEAR), localCalendar.get(Calendar.MONTH),
 						localCalendar.get(Calendar.DAY_OF_MONTH)).show();
 				return true;
@@ -691,9 +771,28 @@ public class ClaimDetailsFragment extends Fragment {
 						.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
 				((EditText) rootView.findViewById(R.id.claim_name_input_field))
 						.setTextDirection(View.TEXT_DIRECTION_LOCALE);
+				((EditText) rootView.findViewById(R.id.block_number_input_field))
+						.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+				((EditText) rootView.findViewById(R.id.block_number_input_field))
+						.setTextDirection(View.TEXT_DIRECTION_LOCALE);
+				((EditText) rootView.findViewById(R.id.plot_number_input_field))
+						.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+				((EditText) rootView.findViewById(R.id.plot_number_input_field))
+						.setTextDirection(View.TEXT_DIRECTION_LOCALE);
+				((EditText) rootView.findViewById(R.id.neighborhood_input_field))
+						.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+				((EditText) rootView.findViewById(R.id.neighborhood_input_field))
+						.setTextDirection(View.TEXT_DIRECTION_LOCALE);
 			}
 			((EditText) rootView.findViewById(R.id.claim_name_input_field))
 					.setText(claim.getName());
+			((EditText) rootView.findViewById(R.id.block_number_input_field))
+					.setText(claim.getBlockNumber());
+			((EditText) rootView.findViewById(R.id.plot_number_input_field))
+					.setText(claim.getPlotNumber());
+			((EditText) rootView.findViewById(R.id.neighborhood_input_field))
+					.setText(claim.getNeighborhood());
+
 			((Spinner) rootView.findViewById(R.id.claimTypesSpinner))
 					.setSelection(new ClaimType().getIndexByCodeType(
 							claim.getType(), onlyActiveValues));
@@ -702,8 +801,19 @@ public class ClaimDetailsFragment extends Fragment {
 					.setSelection(new LandUse().getIndexByCodeType(
 							claim.getLandUse(), onlyActiveValues));
 
+			((Spinner) rootView.findViewById(R.id.landProjectSpinner))
+					.setSelection(new LandProject().getIndexByCodeType(
+							claim.getLandProjectCode(), onlyActiveValues));
+
+			((Spinner) rootView.findViewById(R.id.communeSpinner))
+					.setSelection(new Commune().getIndexByCodeType(
+							claim.getCommuneCode(), onlyActiveValues));
+
 			((EditText) rootView.findViewById(R.id.claim_notes_input_field))
 					.setText(claim.getNotes());
+
+			((Switch) rootView.findViewById(R.id.has_constructions_switch))
+					.setSelected(claim.isHasConstructions());
 
 			if (claim.getClaimArea() > 0) {
 
@@ -734,9 +844,27 @@ public class ClaimDetailsFragment extends Fragment {
 						.findViewById(R.id.date_of_start_input_field))
 						.setText("");
 			}
+			if (claim.getConstructionDate() != null) {
+
+				((EditText) rootView
+						.findViewById(R.id.construction_date_input_field))
+						.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+								.format(claim.getConstructionDate()));
+			} else {
+				((EditText) rootView
+						.findViewById(R.id.construction_date_input_field))
+						.setText("");
+			}
 			if (modeActivity.getMode().compareTo(ModeDispatcher.Mode.MODE_RO) == 0) {
 				((EditText) rootView.findViewById(R.id.claim_name_input_field))
 						.setFocusable(false);
+				((EditText) rootView.findViewById(R.id.block_number_input_field))
+						.setFocusable(false);
+				((EditText) rootView.findViewById(R.id.plot_number_input_field))
+						.setFocusable(false);
+				((EditText) rootView.findViewById(R.id.neighborhood_input_field))
+						.setFocusable(false);
+
 				((Spinner) rootView.findViewById(R.id.claimTypesSpinner))
 						.setFocusable(false);
 				((Spinner) rootView.findViewById(R.id.claimTypesSpinner))
@@ -746,13 +874,34 @@ public class ClaimDetailsFragment extends Fragment {
 						.setFocusable(false);
 				((Spinner) rootView.findViewById(R.id.landUseSpinner))
 						.setClickable(false);
+
+				((Spinner) rootView.findViewById(R.id.landProjectSpinner))
+						.setFocusable(false);
+				((Spinner) rootView.findViewById(R.id.landProjectSpinner))
+						.setClickable(false);
+
+				((Spinner) rootView.findViewById(R.id.communeSpinner))
+						.setFocusable(false);
+				((Spinner) rootView.findViewById(R.id.communeSpinner))
+						.setClickable(false);
+
+				((Switch) rootView.findViewById(R.id.has_constructions_switch))
+						.setFocusable(false);
+				((Switch) rootView.findViewById(R.id.has_constructions_switch))
+						.setClickable(false);
+
 				((EditText) rootView
 						.findViewById(R.id.date_of_start_input_field))
 						.setFocusable(false);
 				((EditText) rootView
 						.findViewById(R.id.date_of_start_input_field))
 						.setLongClickable(false);
-
+				((EditText) rootView
+						.findViewById(R.id.construction_date_input_field))
+						.setFocusable(false);
+				((EditText) rootView
+						.findViewById(R.id.construction_date_input_field))
+						.setLongClickable(false);
 				((EditText) rootView.findViewById(R.id.claim_notes_input_field))
 						.setFocusable(false);
 
@@ -799,6 +948,14 @@ public class ClaimDetailsFragment extends Fragment {
 		String landUseDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.landUseSpinner)).getSelectedItem();
 		claim.setLandUse(valueKeyMapLandUse.get(landUseDispValue));
+
+		String landProjectDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.landProjectSpinner)).getSelectedItem();
+		claim.setLandProjectCode(valueKeyLandProjectsMap.get(landProjectDispValue));
+
+		String communeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.communeSpinner)).getSelectedItem();
+		claim.setCommuneCode(valueKeyCommunesMap.get(communeDispValue));
 
 		String notes = ((EditText) rootView
 				.findViewById(R.id.claim_notes_input_field)).getText()
@@ -931,6 +1088,16 @@ public class ClaimDetailsFragment extends Fragment {
 		if (claim.getName() == null || claim.getName().trim().equals(""))
 			return 0;
 
+		claim.setBlockNumber(((EditText) rootView
+				.findViewById(R.id.block_number_input_field)).getText()
+				.toString());
+		claim.setPlotNumber(((EditText) rootView
+				.findViewById(R.id.plot_number_input_field)).getText()
+				.toString());
+		claim.setNeighborhood(((EditText) rootView
+				.findViewById(R.id.neighborhood_input_field)).getText()
+				.toString());
+
 		String displayValue = (String) ((Spinner) rootView
 				.findViewById(R.id.claimTypesSpinner)).getSelectedItem();
 		claim.setType(valueKeyClaimTypesMap.get(displayValue));
@@ -938,6 +1105,14 @@ public class ClaimDetailsFragment extends Fragment {
 		String landUseDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.landUseSpinner)).getSelectedItem();
 		claim.setLandUse(valueKeyMapLandUse.get(landUseDispValue));
+
+		String landProjectDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.landProjectSpinner)).getSelectedItem();
+		claim.setLandProjectCode(valueKeyLandProjectsMap.get(landProjectDispValue));
+
+		String communeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.communeSpinner)).getSelectedItem();
+		claim.setCommuneCode(valueKeyCommunesMap.get(communeDispValue));
 
 		String notes = ((EditText) rootView
 				.findViewById(R.id.claim_notes_input_field)).getText()
@@ -963,6 +1138,29 @@ public class ClaimDetailsFragment extends Fragment {
 			} catch (ParseException e) {
 				e.printStackTrace();
 				dob = null;
+				return 2;
+			}
+
+		}
+
+		String constructionDate = ((EditText) rootView
+				.findViewById(R.id.construction_date_input_field)).getText()
+				.toString();
+
+		java.util.Date cd = null;
+
+		if (constructionDate != null && !constructionDate.trim().equals("")) {
+			try {
+
+				cd = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+						.parse(constructionDate);
+
+				if (cd != null)
+					claim.setConstructionDate(new Date(cd.getTime()));
+
+			} catch (ParseException e) {
+				e.printStackTrace();
+				cd = null;
 				return 2;
 			}
 
@@ -1117,199 +1315,264 @@ public class ClaimDetailsFragment extends Fragment {
 		}
 	}
 
-	// public int createPersonAsOwner(Person claimant, String oldClaimantId) {
-	// try {
-	// int share = 0;
-	//
-	// ShareProperty toDelete =
-	// ShareProperty.getOwner(claimActivity.getClaimId(),
-	// oldClaimantId);
-	//
-	// if (toDelete != null) {
-	// share = toDelete.getShares();
-	//
-	// toDelete.delete();
-	// } else {
-	//
-	// List<ShareProperty> owners = Claim.getClaim(claimActivity.getClaimId())
-	// .getOwners();
-	// int sum = 0;
-	//
-	// for (Iterator iterator = owners.iterator(); iterator.hasNext();) {
-	//
-	// ShareProperty owner = (ShareProperty) iterator.next();
-	// sum = sum + owner.getShares();
-	// }
-	//
-	// share = 100 - sum;
-	// }
-	//
-	// ShareProperty owner = new ShareProperty(true);
-	//
-	// owner.setClaimId(claimActivity.getClaimId());
-	// owner.setPersonId(claimant.getPersonId());
-	// owner.setShares(share);
-	//
-	// owner.create();
-	//
-	// return 1;
-	//
-	// } catch (Exception e) {
-	// Log.d("Details", "An error " + e.getMessage());
-	//
-	// e.printStackTrace();
-	//
-	// return 0;
-	// }
-	//
-	// }
+	public boolean isChanged(Claim claim){
+
+		if (!claim.getName().equals(
+				((EditText) rootView
+						.findViewById(R.id.claim_name_input_field))
+						.getText().toString())){
+			Log.d(this.getClass().getName(), "Claim name has changed");
+			return true;
+		}
+
+		String blockNumber = ((EditText) rootView
+				.findViewById(R.id.block_number_input_field))
+				.getText().toString();
+
+		if (((claim.getBlockNumber() == null || claim.getBlockNumber().equalsIgnoreCase("")) ^ !blockNumber.equalsIgnoreCase(""))
+				|| (!blockNumber.equalsIgnoreCase(claim.getBlockNumber()))){
+			Log.d(this.getClass().getName(), "Block number has changed");
+			return true;
+		}
+
+		String plotNumber = ((EditText) rootView
+				.findViewById(R.id.plot_number_input_field))
+				.getText().toString();
+
+		if (((claim.getPlotNumber() == null || claim.getPlotNumber().equalsIgnoreCase("")) ^ !plotNumber.equalsIgnoreCase(""))
+				|| (!plotNumber.equalsIgnoreCase(claim.getPlotNumber()))){
+			Log.d(this.getClass().getName(), "Plot number has changed");
+			return true;
+		}
+
+		String neighborhood = ((EditText) rootView
+				.findViewById(R.id.neighborhood_input_field))
+				.getText().toString();
+
+		if (((claim.getNeighborhood() == null || claim.getNeighborhood().equalsIgnoreCase("")) ^ !neighborhood.equalsIgnoreCase(""))
+				|| (!neighborhood.equalsIgnoreCase(claim.getNeighborhood()))){
+			Log.d(this.getClass().getName(), "Neighborhood has changed");
+			return true;
+		}
+
+		Person person = Person.getPerson(((TextView) rootView
+				.findViewById(R.id.claimant_id)).getText().toString());
+		if (!claim.getPerson().getPersonId()
+				.equals(person.getPersonId())){
+			Log.d(this.getClass().getName(), "Claimant has changed");
+			return true;
+		}
+
+		Claim challengedClaim = Claim.getClaim(((TextView) rootView
+				.findViewById(R.id.challenge_to_claim_id))
+				.getText().toString());
+		if ((challengedClaim == null
+				&& claim.getChallengedClaim() != null)
+				|| (challengedClaim != null
+				&& claim.getChallengedClaim() == null)
+				|| (challengedClaim != null
+				&& claim.getChallengedClaim() != null
+				&& !claim.getChallengedClaim().getClaimId()
+				.equals(challengedClaim.getClaimId()))){
+			Log.d(this.getClass().getName(), "Challenged claim has changed");
+			return true;
+		}
+
+		String claimType = (String) ((Spinner) rootView
+				.findViewById(R.id.claimTypesSpinner))
+				.getSelectedItem();
+
+		if (!claim.getType().equals(
+				valueKeyClaimTypesMap.get(claimType))){
+			Log.d(this.getClass().getName(), "Claim type has changed");
+			return true;
+		}
+
+		String landUseDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.landUseSpinner))
+				.getSelectedItem();
+		if ((claim.getLandUse() == null
+				&& valueKeyMapLandUse.get(landUseDispValue) != null)
+				|| (!claim.getLandUse().equals(
+				valueKeyMapLandUse.get(landUseDispValue)))){
+			Log.d(this.getClass().getName(), "Land use has changed");
+			return true;
+		}
+		String landProjectDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.landProjectSpinner))
+				.getSelectedItem();
+		if ((claim.getLandProjectCode() == null
+				&& valueKeyLandProjectsMap.get(landProjectDispValue) != null)
+				|| (!claim.getLandProjectCode().equals(
+				valueKeyLandProjectsMap.get(landProjectDispValue)))){
+			Log.d(this.getClass().getName(), "Land project has changed");
+			return true;
+		}
+		String communeDispValue = (String) ((Spinner) rootView
+				.findViewById(R.id.communeSpinner))
+				.getSelectedItem();
+		if ((claim.getCommuneCode() == null
+				&& valueKeyCommunesMap.get(communeDispValue) != null)
+				|| (!claim.getCommuneCode().equals(
+				valueKeyCommunesMap.get(communeDispValue)))){
+			Log.d(this.getClass().getName(), "Commune has changed");
+			return true;
+		}
+		String notes = ((EditText) rootView
+				.findViewById(R.id.claim_notes_input_field))
+				.getText().toString();
+
+		if (claim.getNotes() != null
+				&& !claim.getNotes().equals(notes)){
+			Log.d(this.getClass().getName(), "Claim notes have changed");
+			return true;
+		}
+		String startDate = ((EditText) rootView
+				.findViewById(R.id.date_of_start_input_field))
+				.getText().toString();
+
+		if (claim.getDateOfStart() == null ^ (startDate != null && !startDate.equalsIgnoreCase(""))) {
+
+			Log.d(this.getClass().getName(), "Rights start date has changed");
+			return true;
+
+		}
+		if (startDate != null && !startDate.trim().equalsIgnoreCase("")) {
+
+			try {
+				java.util.Date dob = new SimpleDateFormat(
+						"yyyy-MM-dd", Locale.US)
+						.parse(startDate);
+
+				Date date = new Date(
+						dob.getTime());
+
+				if (claim.getDateOfStart()
+						.compareTo(date) != 0) {
+					Log.d(this.getClass().getName(), "Rights start date has changed");
+					return true;
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+
+		String constructionDate = ((EditText) rootView
+				.findViewById(R.id.construction_date_input_field))
+				.getText().toString();
+
+		if (claim.getConstructionDate() == null ^ (constructionDate != null && !constructionDate.equalsIgnoreCase(""))) {
+
+			Log.d(this.getClass().getName(), "Construction date has changed");
+			return true;
+
+		}
+		if (constructionDate != null && !constructionDate.trim().equalsIgnoreCase("")) {
+
+			try {
+				java.util.Date dob = new SimpleDateFormat(
+						"yyyy-MM-dd", Locale.US)
+						.parse(constructionDate);
+
+				Date date = new Date(
+						dob.getTime());
+
+				if (claim.getConstructionDate()
+						.compareTo(date) != 0) {
+					Log.d(this.getClass().getName(), "Construction date has changed");
+					return true;
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if(((Switch) rootView.findViewById(R.id.has_constructions_switch)).isSelected() ^ claim.isHasConstructions()){
+			Log.d(this.getClass().getName(), "Has constructions has changed");
+			return true;
+		}
+
+		return isFormChanged();
+	}
+
+	public boolean thereAreValues(){
+
+		if (!((EditText) rootView
+				.findViewById(R.id.claim_name_input_field)).getText()
+				.toString().trim().equals("")){
+			Log.d(this.getClass().getName(), "Claim name has value");
+			return true;
+		}
+
+		if (!((EditText) rootView
+				.findViewById(R.id.block_number_input_field)).getText()
+				.toString().trim().equals("")){
+			Log.d(this.getClass().getName(), "Block number has value");
+			return true;
+		}
+
+		if (!((EditText) rootView
+				.findViewById(R.id.plot_number_input_field)).getText()
+				.toString().trim().equals("")){
+			Log.d(this.getClass().getName(), "Plot number has value");
+			return true;
+		}
+
+		if (!((EditText) rootView
+				.findViewById(R.id.neighborhood_input_field)).getText()
+				.toString().trim().equals("")){
+			Log.d(this.getClass().getName(), "Neighborhood has value");
+			return true;
+		}
+
+		String person = ((TextView) rootView
+				.findViewById(R.id.claimant_id)).getText().toString();
+		if (person != null && !person.trim().equals("")){
+			Log.d(this.getClass().getName(), "Claimant has value");
+			return true;
+		}
+
+		String challengedClaim = ((TextView) rootView
+				.findViewById(R.id.challenge_to_claim_id))
+				.getText().toString();
+		if (challengedClaim != null
+				&& !challengedClaim.trim().equals("")){
+			Log.d(this.getClass().getName(), "Challenged claim has value");
+			return true;
+		}
+
+		if (!((EditText) rootView
+				.findViewById(R.id.claim_notes_input_field))
+				.getText().toString().trim().equals("")){
+			Log.d(this.getClass().getName(), "Claim notes have value");
+			return true;
+		}
+
+		if (!((EditText) rootView
+				.findViewById(R.id.date_of_start_input_field))
+				.getText().toString().trim().equals("")){
+			Log.d(this.getClass().getName(), "Rights start date has value");
+			return true;
+		}
+
+		if (!((EditText) rootView
+				.findViewById(R.id.construction_date_input_field))
+				.getText().toString().trim().equals("")){
+			Log.d(this.getClass().getName(), "Construction date has value");
+			return true;
+		}
+
+		return isFormChanged();
+
+	}
 
 	public boolean checkChanges() {
-
-		boolean changed = false;
 
 		Claim claim = Claim.getClaim(claimActivity.getClaimId());
 
 		if (claim != null) {
 
-			if (!claim.getName().equals(
-					((EditText) rootView
-							.findViewById(R.id.claim_name_input_field))
-							.getText().toString())){
-				Log.d(this.getClass().getName(), "Claim name has changed");
-				changed = true;
-			}
-			else {
-
-				Person person = Person.getPerson(((TextView) rootView
-						.findViewById(R.id.claimant_id)).getText().toString());
-				if (!claim.getPerson().getPersonId()
-						.equals(person.getPersonId())){
-					Log.d(this.getClass().getName(), "Claimant has changed");
-					changed = true;
-				}
-				else {
-
-					Claim challengedClaim = Claim.getClaim(((TextView) rootView
-							.findViewById(R.id.challenge_to_claim_id))
-							.getText().toString());
-					if (challengedClaim == null
-							&& claim.getChallengedClaim() != null){
-						Log.d(this.getClass().getName(), "Challenged claim has changed");
-						changed = true;
-					}
-					else if (challengedClaim != null
-
-							&& claim.getChallengedClaim() == null){
-						Log.d(this.getClass().getName(), "Challenged claim has changed");
-						changed = true; 
-					}
-
-					else if (challengedClaim != null
-							&& claim.getChallengedClaim() != null
-							&& !claim.getChallengedClaim().getClaimId()
-									.equals(challengedClaim.getClaimId())){
-						Log.d(this.getClass().getName(), "Challenged claim has changed");
-						changed = true;
-					}
-					else {
-						String claimType = (String) ((Spinner) rootView
-								.findViewById(R.id.claimTypesSpinner))
-								.getSelectedItem();
-
-						if (!claim.getType().equals(
-								valueKeyClaimTypesMap.get(claimType))){
-							Log.d(this.getClass().getName(), "Claim type has changed");
-							changed = true;
-						}
-						else {
-
-							String landUseDispValue = (String) ((Spinner) rootView
-									.findViewById(R.id.landUseSpinner))
-									.getSelectedItem();
-							if (claim.getLandUse() == null
-									&& valueKeyMapLandUse.get(landUseDispValue) != null){
-								Log.d(this.getClass().getName(), "Land use has changed");
-								changed = true;
-							}
-							else if (!claim.getLandUse().equals(
-									valueKeyMapLandUse.get(landUseDispValue))){
-								Log.d(this.getClass().getName(), "Land use has changed");
-								changed = true;
-							}
-							else {
-
-								String notes = ((EditText) rootView
-										.findViewById(R.id.claim_notes_input_field))
-										.getText().toString();
-
-								if (claim.getNotes() != null
-										&& !claim.getNotes().equals(notes)){
-									Log.d(this.getClass().getName(), "Claim notes have changed");
-									changed = true;
-								}
-								else {
-
-									String startDate = ((EditText) rootView
-											.findViewById(R.id.date_of_start_input_field))
-											.getText().toString();
-
-									if (claim.getDateOfStart() == null
-											|| claim.getDateOfStart()
-													.equals("")) {
-
-										if (startDate != null
-												&& !startDate.equals("")){
-											Log.d(this.getClass().getName(), "Rights start date has changed");
-											changed = true;
-										}
-
-									} else {
-
-										java.util.Date dob = null;
-
-										if (startDate != null
-												&& !startDate.trim().equals("")) {
-
-											try {
-												dob = new SimpleDateFormat(
-														"yyyy-MM-dd", Locale.US)
-														.parse(startDate);
-
-												Date date = new Date(
-														dob.getTime());
-
-												if (claim.getDateOfStart()
-														.compareTo(date) != 0){
-													Log.d(this.getClass().getName(), "Rights start date has changed");
-													changed = true;
-												}
-												else {
-													changed = isFormChanged();
-												}
-
-											} catch (ParseException e) {
-												e.printStackTrace();
-												dob = null;
-
-											}
-
-										}
-
-									}
-
-								}
-
-							}
-
-						}
-
-					}
-
-				}
-			}
-
-			if (changed) {
+			if (isChanged(claim)) {
 
 				AlertDialog.Builder saveChangesDialog = new AlertDialog.Builder(
 						this.getActivity());
@@ -1325,68 +1588,11 @@ public class ClaimDetailsFragment extends Fragment {
 				saveChangesDialog.setNegativeButton(R.string.cancel,
 						new SaveDetailsNegativeListener(this));
 				saveChangesDialog.show();
-
+				return true;
 			}
 		} else {
 
-			String claimName = ((EditText) rootView
-					.findViewById(R.id.claim_name_input_field)).getText()
-					.toString();
-			if (claimName != null && !claimName.trim().equals("")){
-				Log.d(this.getClass().getName(), "Claim name has changed");
-				changed = true;
-			}
-			else {
-
-				String person = ((TextView) rootView
-						.findViewById(R.id.claimant_id)).getText().toString();
-				if (person != null && !person.trim().equals("")){
-					Log.d(this.getClass().getName(), "Claimant has changed");
-					changed = true;
-				}
-				else {
-
-					String challengedClaim = ((TextView) rootView
-							.findViewById(R.id.challenge_to_claim_id))
-							.getText().toString();
-					if (challengedClaim != null
-							&& !challengedClaim.trim().equals("")){
-						Log.d(this.getClass().getName(), "Challenged claim has changed");
-						changed = true;
-					}
-					else {
-
-						String notes = ((EditText) rootView
-								.findViewById(R.id.claim_notes_input_field))
-								.getText().toString();
-
-						if (notes != null && !notes.trim().equals("")){
-							Log.d(this.getClass().getName(), "Claim notes have changed");
-							changed = true;
-						}
-						else {
-
-							String startDate = ((EditText) rootView
-									.findViewById(R.id.date_of_start_input_field))
-									.getText().toString();
-
-							if (startDate != null
-									&& !startDate.trim().equals("")){
-								Log.d(this.getClass().getName(), "Rights start date has changed");
-								changed = true;
-							}
-							else {
-								changed = isFormChanged();
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-			if (changed) {
+			if (thereAreValues()) {
 
 				AlertDialog.Builder saveChangesDialog = new AlertDialog.Builder(
 						this.getActivity());
@@ -1401,7 +1607,7 @@ public class ClaimDetailsFragment extends Fragment {
 
 							@Override
 							public void onClick(DialogInterface dialog,
-									int which) {
+												int which) {
 								return;
 							}
 						});
@@ -1409,10 +1615,10 @@ public class ClaimDetailsFragment extends Fragment {
 				saveChangesDialog.setPositiveButton(R.string.confirm,
 						new SaveDetailsNegativeListener(this));
 				saveChangesDialog.show();
+				return true;
 			}
 		}
-		return changed;
-
+		return false;
 	}
 
 	@Override
@@ -1516,6 +1722,16 @@ public class ClaimDetailsFragment extends Fragment {
 
 		EditText dateOfBirth = (EditText) getView().findViewById(
 				R.id.date_of_start_input_field);
+		String myFormat = "yyyy-MM-dd";
+		SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+		dateOfBirth.setText(sdf.format(localCalendar.getTime()));
+	}
+
+	private void updateCD() {
+
+		EditText dateOfBirth = (EditText) getView().findViewById(
+				R.id.construction_date_input_field);
 		String myFormat = "yyyy-MM-dd";
 		SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 

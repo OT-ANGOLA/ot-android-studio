@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Solicitar Posse</string>
+    <string name="app_name">SAGIT Mobile</string>
     <string name="preload">Abrindo imagem</string>
     <string name="action_settings">Configurações</string>
     <string name="action_search">Buscar</string>

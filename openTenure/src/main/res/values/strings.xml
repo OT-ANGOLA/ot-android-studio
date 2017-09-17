@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SGAT Client</string>
+    <string name="app_name">ALIMS Mobile</string>
     <string name="preload">Opening image</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
@@ -543,9 +543,8 @@
     <string name="south_adjacency_type_label">Type of south adjacency</string>
     <string name="east_adjacency_type">Type of south adjacency</string>
     <string name="west_adjacency_type">Type of west adjacency</string>
-    <string name="other_name_label">Other name</string>
+    <string name="other_name_label">Other name*</string>
     <string name="id_issuance_date_label">Id issuance date</string>
-    <string name="id_expiration_date_label">Id expiration date</string>
     <string name="id_issuance_country_label">Id issuance country</string>
     <string name="id_issuance_province_label">Id issuance province</string>
     <string name="id_issuance_municipality_label">Id issuance municipality</string>
@@ -553,10 +552,16 @@
     <string name="birth_country_label">Birth country</string>
     <string name="birth_commune_label">Birth commune</string>
     <string name="residence_commune_label">Residence commune</string>
-    <string name="father_name_label">Father name</string>
-    <string name="mother_name_label">Mother name</string>
+    <string name="father_name_label">Father name*</string>
+    <string name="mother_name_label">Mother name*</string>
     <string name="beneficiary_name_label">Beneficiary name</string>
     <string name="beneficiary_id_number_label">Beneficiary ID number</string>
     <string name="marital_status_label">Marital status</string>
     <string name="plot_number_label">Plot number</string>
+    <string name="other_name">Other name</string>
+    <string name="mother_name">Mother name</string>
+    <string name="father_name">Father name</string>
+    <string name="id_expiry_date_label">Id expiry date</string>
+    <string name="id_expiry_date">Id expiry date (YYYY-MM-DD)</string>
+    <string name="id_issuance_date">Id issuance date (YYYY-MM-DD)</string>
 </resources>

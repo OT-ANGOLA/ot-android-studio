@@ -541,5 +541,35 @@
     <string name="father_name_label">Nome del padre*</string>
     <string name="father_name">Nome del padre</string>
     <string name="app_name">ALIMS Mobile</string>
+    <string name="beneficiary_id_number_label">Numero di documento del beneficiario</string>
+    <string name="beneficiary_name_label">Nome del beneficiario</string>
+    <string name="birth_commune_label">Comune di nascita</string>
+    <string name="birth_country_label">Nazione di nascita</string>
+    <string name="block_number_label">Numero di isolato</string>
+    <string name="commune_label">Comune</string>
+    <string name="construction_date_label">Data di costruzione</string>
+    <string name="east_adjacency_type">Tipo di adiacenza ad est</string>
+    <string name="has_construction_label">Ci sono costruzioni?</string>
+    <string name="id_expiry_date">Data di scadenza del documento (AAAA-MM-GG)</string>
+    <string name="id_expiry_date_label">Data di scadenza del documento</string>
+    <string name="id_issuance_commune_label">Comune di emissione del documento</string>
+    <string name="id_issuance_country_label">Nazione di emissione del documento</string>
+    <string name="id_issuance_date">Data di emissione del documento (AAAA-MM-GG)</string>
+    <string name="id_issuance_date_label">Data di emissione del documento</string>
+    <string name="id_issuance_municipality_label">Municipio di emissione del documento</string>
+    <string name="id_issuance_province_label">Provincia di emissione del documento</string>
+    <string name="land_project_label">Numero di progetto</string>
+    <string name="marital_status_label">Stato civile</string>
+    <string name="message_unable_to_save_invalid_date_format">Impossibile salvare. Formato data errato</string>
+    <string name="message_unable_to_save_missing_adjacency">Impossibile salvare. Adiacenza mancante</string>
+    <string name="message_unable_to_save_missing_father_name">Impossibile salvare. Nome del padre mancante</string>
+    <string name="message_unable_to_save_missing_mother_name">Impossibile salvare. Nome della madre mancante</string>
+    <string name="message_unable_to_save_missing_plot_number">Impossibile salvare. Numero di trama mancante</string>
+    <string name="west_adjacency_type">Tipo di adiacenza ad ovest</string>
+    <string name="south_adjacency_type_label">Tipo di adiacenza a sud</string>
+    <string name="residence_commune_label">Comune di residenza</string>
+    <string name="north_adjacency_type_label">Tipo di adiacenza a nord</string>
+    <string name="neighborhood_label">Vicinato</string>
+    <string name="message_unable_to_save_missing_residence_commune">Impossibile salvare. Comune di residenza mancante</string>
 
 </resources>

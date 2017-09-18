@@ -183,7 +183,7 @@ public class JsonUtilities {
 						|| claim.getStatus().equals(ClaimStatus._UPLOAD_ERROR)
 						|| claim.getStatus().equals(
 								ClaimStatus._UPLOAD_INCOMPLETE))
-					tempClaim.setNr("0001");
+					tempClaim.setNr(null);
 				else
 					tempClaim.setNr(claim.getClaimNumber());
 

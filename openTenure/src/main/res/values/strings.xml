@@ -541,7 +541,7 @@
     <string name="land_project_label">Land project</string>
     <string name="north_adjacency_type_label">Type of north adjacency</string>
     <string name="south_adjacency_type_label">Type of south adjacency</string>
-    <string name="east_adjacency_type">Type of south adjacency</string>
+    <string name="east_adjacency_type">Type of east adjacency</string>
     <string name="west_adjacency_type">Type of west adjacency</string>
     <string name="other_name_label">Other name*</string>
     <string name="id_issuance_date_label">Id issuance date</string>
@@ -557,10 +557,10 @@
     <string name="beneficiary_name_label">Beneficiary name</string>
     <string name="beneficiary_id_number_label">Beneficiary ID number</string>
     <string name="marital_status_label">Marital status</string>
-    <string name="plot_number_label">Plot number</string>
+    <string name="plot_number_label">Plot number*</string>
     <string name="other_name">Other name</string>
-    <string name="mother_name">Mother name</string>
-    <string name="father_name">Father name</string>
+    <string name="mother_name">Mother name*</string>
+    <string name="father_name">Father name*</string>
     <string name="id_expiry_date_label">Id expiry date</string>
     <string name="id_expiry_date">Id expiry date (YYYY-MM-DD)</string>
     <string name="id_issuance_date">Id issuance date (YYYY-MM-DD)</string>

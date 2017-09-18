@@ -37,6 +37,7 @@ import org.fao.sola.clients.android.opentenure.model.AdjacenciesNotes;
 import org.fao.sola.clients.android.opentenure.model.Adjacency;
 import org.fao.sola.clients.android.opentenure.model.AdjacencyType;
 import org.fao.sola.clients.android.opentenure.model.Claim;
+import org.fao.sola.clients.android.opentenure.model.LandProject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -131,6 +132,57 @@ public class AdjacentClaimsFragment extends ListFragment {
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
 
+		Spinner northAdjacencyType = (Spinner) rootView
+				.findViewById(R.id.northAdjacencyTypeSpinner);
+		Spinner southAdjacencyType = (Spinner) rootView
+				.findViewById(R.id.southAdjacencyTypeSpinner);
+		Spinner eastAdjacencyType = (Spinner) rootView
+				.findViewById(R.id.eastAdjacencyTypeSpinner);
+		Spinner westAdjacencyType = (Spinner) rootView
+				.findViewById(R.id.westAdjacencyTypeSpinner);
+		AdjacencyType at = new AdjacencyType();
+		keyValueAdjacencyTypeMap = at.getKeyValueMap(OpenTenureApplication
+				.getInstance().getLocalization(),true);
+		valueKeyAdjacencyTypeMap = at.getValueKeyMap(OpenTenureApplication
+				.getInstance().getLocalization(),true);
+
+		List<String> atlist = new ArrayList<String>();
+		SortedSet<String> keys;
+		keys = new TreeSet<String>(keyValueAdjacencyTypeMap.keySet());
+		for (String key : keys) {
+			String value = keyValueAdjacencyTypeMap.get(key);
+			atlist.add(value);
+			// do something
+		}
+
+		ArrayAdapter<String> northDataAdapterAdjacency = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				atlist) {
+		};
+		northDataAdapterAdjacency.setDropDownViewResource(R.layout.my_spinner);
+		northAdjacencyType.setAdapter(northDataAdapterAdjacency);
+
+		ArrayAdapter<String> southDataAdapterAdjacency = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				atlist) {
+		};
+		southDataAdapterAdjacency.setDropDownViewResource(R.layout.my_spinner);
+		southAdjacencyType.setAdapter(southDataAdapterAdjacency);
+
+		ArrayAdapter<String> eastDataAdapterAdjacency = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				atlist) {
+		};
+		eastDataAdapterAdjacency.setDropDownViewResource(R.layout.my_spinner);
+		eastAdjacencyType.setAdapter(eastDataAdapterAdjacency);
+
+		ArrayAdapter<String> westDataAdapterAdjacency = new ArrayAdapter<String>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				atlist) {
+		};
+		westDataAdapterAdjacency.setDropDownViewResource(R.layout.my_spinner);
+		westAdjacencyType.setAdapter(westDataAdapterAdjacency);
+
 		Claim claim = Claim.getClaim(claimActivity.getClaimId());
 		if (claim != null)
 			load(claim);
@@ -184,34 +236,63 @@ public class AdjacentClaimsFragment extends ListFragment {
 
 		AdjacenciesNotes adjacenciesNotes = new AdjacenciesNotes();
 		adjacenciesNotes.setClaimId(claimId);
-		adjacenciesNotes.setNorthAdjacency(((EditText) rootView
-				.findViewById(R.id.north_adjacency)).getText().toString());
+		String northAdjacency = ((EditText) rootView
+				.findViewById(R.id.north_adjacency)).getText().toString();
+		adjacenciesNotes.setNorthAdjacency(northAdjacency);
 
 		String northAdjacencyTypeDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.northAdjacencyTypeSpinner)).getSelectedItem();
 		adjacenciesNotes.setNorthAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(northAdjacencyTypeDispValue));
 
-		adjacenciesNotes.setEastAdjacency(((EditText) rootView
-				.findViewById(R.id.east_adjacency)).getText().toString());
+		String eastAdjacency = ((EditText) rootView
+				.findViewById(R.id.east_adjacency)).getText().toString();
+		adjacenciesNotes.setEastAdjacency(eastAdjacency);
 
 		String eastAdjacencyTypeDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.eastAdjacencyTypeSpinner)).getSelectedItem();
 		adjacenciesNotes.setEastAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(eastAdjacencyTypeDispValue));
 
-		adjacenciesNotes.setSouthAdjacency(((EditText) rootView
-				.findViewById(R.id.south_adjacency)).getText().toString());
+		String southAdjacency = ((EditText) rootView
+				.findViewById(R.id.south_adjacency)).getText().toString();
+		adjacenciesNotes.setSouthAdjacency(southAdjacency);
 
 		String southAdjacencyTypeDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.southAdjacencyTypeSpinner)).getSelectedItem();
 		adjacenciesNotes.setSouthAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(southAdjacencyTypeDispValue));
 
-		adjacenciesNotes.setWestAdjacency(((EditText) rootView
-				.findViewById(R.id.west_adjacency)).getText().toString());
+		String westAdjacency = ((EditText) rootView
+				.findViewById(R.id.west_adjacency)).getText().toString();
+		adjacenciesNotes.setWestAdjacency(westAdjacency);
 
 		String westAdjacencyTypeDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.westAdjacencyTypeSpinner)).getSelectedItem();
 		adjacenciesNotes.setWestAdjacencyTypeCode(valueKeyAdjacencyTypeMap.get(westAdjacencyTypeDispValue));
 
+		if(
+				northAdjacency == null
+				|| northAdjacency.equalsIgnoreCase("")
+				|| northAdjacencyTypeDispValue == null
+				|| northAdjacencyTypeDispValue.equalsIgnoreCase("")
+				|| southAdjacency == null
+				|| southAdjacency.equalsIgnoreCase("")
+				|| southAdjacencyTypeDispValue == null
+				|| southAdjacencyTypeDispValue.equalsIgnoreCase("")
+				|| eastAdjacency == null
+				|| eastAdjacency.equalsIgnoreCase("")
+				|| eastAdjacencyTypeDispValue == null
+				|| eastAdjacencyTypeDispValue.equalsIgnoreCase("")
+				|| westAdjacency == null
+				|| westAdjacency.equalsIgnoreCase("")
+				|| westAdjacencyTypeDispValue == null
+				|| westAdjacencyTypeDispValue.equalsIgnoreCase("")
+
+				){
+			toast = Toast.makeText(OpenTenureApplication.getContext(),
+					R.string.message_unable_to_save_missing_adjacency, Toast.LENGTH_LONG);
+			toast.show();
+			return true;
+
+		}
 		int result = AdjacenciesNotes.createAdjacenciesNotes(adjacenciesNotes);
 
 		
@@ -372,28 +453,18 @@ public class AdjacentClaimsFragment extends ListFragment {
 			Spinner westAdjacencyType = (Spinner) rootView
 					.findViewById(R.id.westAdjacencyTypeSpinner);
 
-			keyValueAdjacencyTypeMap = at.getKeyValueMap(OpenTenureApplication
-					.getInstance().getLocalization(),true);
-			valueKeyAdjacencyTypeMap = at.getValueKeyMap(OpenTenureApplication
-					.getInstance().getLocalization(),true);
+			northAdjacencyType.setSelection(at.getIndexByCodeType(
+					adNotes.getNorthAdjacencyTypeCode(), true));
 
-			List<String> atlist = new ArrayList<String>();
-			SortedSet<String> keys;
-			keys = new TreeSet<String>(keyValueAdjacencyTypeMap.keySet());
-			for (String key : keys) {
-				String value = keyValueAdjacencyTypeMap.get(key);
-				atlist.add(value);
-				// do something
-			}
+			southAdjacencyType.setSelection(at.getIndexByCodeType(
+					adNotes.getSouthAdjacencyTypeCode(), true));
 
-			ArrayAdapter<String> dataAdapterAdjacency = new ArrayAdapter<String>(
-					OpenTenureApplication.getContext(), R.layout.my_spinner,
-					atlist) {
-			};
-			northAdjacencyType.setAdapter(dataAdapterAdjacency);
-			southAdjacencyType.setAdapter(dataAdapterAdjacency);
-			eastAdjacencyType.setAdapter(dataAdapterAdjacency);
-			westAdjacencyType.setAdapter(dataAdapterAdjacency);
+			eastAdjacencyType.setSelection(at.getIndexByCodeType(
+					adNotes.getEastAdjacencyTypeCode(), true));
+
+			westAdjacencyType.setSelection(at.getIndexByCodeType(
+					adNotes.getWestAdjacencyTypeCode(), true));
+
 			if (modeActivity.getMode().compareTo(ModeDispatcher.Mode.MODE_RO) == 0) {
 				((EditText) rootView.findViewById(R.id.north_adjacency))
 						.setFocusable(false);

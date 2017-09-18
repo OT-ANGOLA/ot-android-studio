@@ -325,7 +325,7 @@ public class PersonFragment extends Fragment {
 					localCalendar.set(Calendar.YEAR, year);
 					localCalendar.set(Calendar.MONTH, monthOfYear);
 					localCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-					updateDoB();
+					updateExpiryDate();
 				}
 
 			};
@@ -780,18 +780,48 @@ public class PersonFragment extends Fragment {
 				.toString());
 		person.setLastName(((EditText) rootView
 				.findViewById(R.id.last_name_input_field)).getText().toString());
-		java.util.Date dob;
+		person.setOtherName(((EditText) rootView
+				.findViewById(R.id.other_name_input_field)).getText().toString());
+		person.setFatherName(((EditText) rootView
+				.findViewById(R.id.father_name_input_field)).getText().toString());
+		person.setMotherName(((EditText) rootView
+				.findViewById(R.id.mother_name_input_field)).getText().toString());
 		try {
+			java.util.Date dob;
 			dob = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
 					.parse(((EditText) rootView
 							.findViewById(R.id.date_of_birth_input_field))
 							.getText().toString());
+			person.setDateOfBirth(new Date(dob.getTime()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return 4;
 		}
 
-		person.setDateOfBirth(new Date(dob.getTime()));
+		try {
+			java.util.Date dob;
+			dob = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+					.parse(((EditText) rootView
+							.findViewById(R.id.id_issuance_date_input_field))
+							.getText().toString());
+			person.setIdIssuanceDate(new Date(dob.getTime()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return 9;
+		}
+
+		try {
+			java.util.Date dob;
+			dob = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+					.parse(((EditText) rootView
+							.findViewById(R.id.id_expiry_date_input_field))
+							.getText().toString());
+			person.setIdExpiryDate(new Date(dob.getTime()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return 10;
+		}
+
 		person.setPostalAddress(((EditText) rootView
 				.findViewById(R.id.postal_address_input_field)).getText()
 				.toString());
@@ -828,7 +858,7 @@ public class PersonFragment extends Fragment {
 
 		String residenceCommuneDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.residence_commune)).getSelectedItem();
-		person.setResidenceCommuneCode(valueKeyMapIdTypes.get(residenceCommuneDispValue));
+		person.setResidenceCommuneCode(valueKeyCommuneMap.get(residenceCommuneDispValue));
 
 		person.setIdNumber(((EditText) rootView.findViewById(R.id.id_number))
 				.getText().toString());
@@ -859,6 +889,18 @@ public class PersonFragment extends Fragment {
 
 		if (person.getGender() == null)
 			return 5;
+
+		if (person.getFatherName() == null
+				|| person.getFatherName().trim().equals(""))
+			return 6;
+
+		if (person.getMotherName() == null
+				|| person.getMotherName().trim().equals(""))
+			return 7;
+
+		if (person.getResidenceCommuneCode() == null
+				|| person.getResidenceCommuneCode().trim().equals(""))
+			return 8;
 
 		if (person.create() == 1) {
 
@@ -1000,19 +1042,49 @@ public class PersonFragment extends Fragment {
 				.toString());
 		person.setLastName(((EditText) rootView
 				.findViewById(R.id.last_name_input_field)).getText().toString());
-		java.util.Date dob;
+		person.setOtherName(((EditText) rootView
+				.findViewById(R.id.other_name_input_field)).getText().toString());
+		person.setFatherName(((EditText) rootView
+				.findViewById(R.id.father_name_input_field)).getText().toString());
+		person.setMotherName(((EditText) rootView
+				.findViewById(R.id.mother_name_input_field)).getText().toString());
 		try {
+			java.util.Date dob;
 
 			dob = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
 					.parse(((EditText) rootView
 							.findViewById(R.id.date_of_birth_input_field))
 							.getText().toString());
+			person.setDateOfBirth(new Date(dob.getTime()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 			// dob = new java.util.Date();
 			return 4;
 		}
-		person.setDateOfBirth(new Date(dob.getTime()));
+
+		try {
+			java.util.Date iid= new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+					.parse(((EditText) rootView
+							.findViewById(R.id.id_issuance_date_input_field))
+							.getText().toString());
+			person.setIdIssuanceDate(new Date(iid.getTime()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+			// dob = new java.util.Date();
+			return 9;
+		}
+
+		try {
+			java.util.Date ied= new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+					.parse(((EditText) rootView
+							.findViewById(R.id.id_expiry_date_input_field))
+							.getText().toString());
+			person.setIdExpiryDate(new Date(ied.getTime()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+			// dob = new java.util.Date();
+			return 10;
+		}
 
 		person.setPostalAddress(((EditText) rootView
 				.findViewById(R.id.postal_address_input_field)).getText()
@@ -1039,15 +1111,15 @@ public class PersonFragment extends Fragment {
 
 		String idIssuanceMunicipalityDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_municipality)).getSelectedItem();
-		person.setIdIssuanceMunicipalityCode(valueKeyMapIdTypes.get(idIssuanceMunicipalityDispValue));
+		person.setIdIssuanceMunicipalityCode(valueKeyMunicipalityMap.get(idIssuanceMunicipalityDispValue));
 
 		String idIssuanceCommuneDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_commune)).getSelectedItem();
-		person.setIdIssuanceCommuneCode(valueKeyMapIdTypes.get(idIssuanceCommuneDispValue));
+		person.setIdIssuanceCommuneCode(valueKeyCommuneMap.get(idIssuanceCommuneDispValue));
 
 		String residenceCommuneDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.residence_commune)).getSelectedItem();
-		person.setResidenceCommuneCode(valueKeyMapIdTypes.get(residenceCommuneDispValue));
+		person.setResidenceCommuneCode(valueKeyCommuneMap.get(residenceCommuneDispValue));
 
 		person.setIdNumber(((EditText) rootView.findViewById(R.id.id_number))
 				.getText().toString());
@@ -1070,6 +1142,18 @@ public class PersonFragment extends Fragment {
 
 		if (person.getGender() == null)
 			return 5;
+
+		if (person.getFatherName() == null
+				|| person.getFatherName().trim().equals(""))
+			return 6;
+
+		if (person.getMotherName() == null
+				|| person.getMotherName().trim().equals(""))
+			return 7;
+
+		if (person.getResidenceCommuneCode() == null
+				|| person.getResidenceCommuneCode().trim().equals(""))
+			return 8;
 
 		return person.update();
 	}
@@ -1117,6 +1201,31 @@ public class PersonFragment extends Fragment {
 				} else if (saved == 5) {
 					toast = Toast.makeText(rootView.getContext(),
 							R.string.message_error_mandatory_field_gender,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (saved == 6) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_missing_father_name,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (saved == 7) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_missing_mother_name,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (saved == 8) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_missing_residence_commune,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (saved == 9) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_invalid_date_format,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (saved == 10) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_invalid_date_format,
 							Toast.LENGTH_SHORT);
 					toast.show();
 				} else {
@@ -1210,6 +1319,31 @@ public class PersonFragment extends Fragment {
 				} else if (updated == 5) {
 					toast = Toast.makeText(rootView.getContext(),
 							R.string.message_error_mandatory_field_gender,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (updated == 6) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_missing_father_name,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (updated == 7) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_missing_mother_name,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (updated == 8) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_missing_residence_commune,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (updated == 9) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_invalid_date_format,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (updated == 10) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_invalid_date_format,
 							Toast.LENGTH_SHORT);
 					toast.show();
 				} else {
@@ -1498,21 +1632,21 @@ public class PersonFragment extends Fragment {
 				.findViewById(R.id.other_name_input_field)).getText()
 				.toString();
 
-		if (!person.getOtherName().equals(otherName))
+		if (person.getOtherName()!= null && !person.getOtherName().equals(otherName))
 			return true;
 
 		String motherName = ((EditText) rootView
 				.findViewById(R.id.mother_name_input_field)).getText()
 				.toString();
 
-		if (!person.getMotherName().equals(motherName))
+		if (person.getMotherName() != null && !person.getMotherName().equals(motherName))
 			return true;
 
 		String fatherName = ((EditText) rootView
 				.findViewById(R.id.father_name_input_field)).getText()
 				.toString();
 
-		if (!person.getFatherName().equals(fatherName))
+		if (person.getFatherName()!= null && !person.getFatherName().equals(fatherName))
 			return true;
 
 		String postal_address = ((EditText) rootView

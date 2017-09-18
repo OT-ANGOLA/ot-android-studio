@@ -933,15 +933,37 @@ public class ClaimDetailsFragment extends Fragment {
 						.toString());
 
 		Claim claim = new Claim();
-		String claimName = ((EditText) rootView
-				.findViewById(R.id.claim_name_input_field)).getText()
-				.toString();
+        String claimName = ((EditText) rootView
+                .findViewById(R.id.claim_name_input_field)).getText()
+                .toString();
 
-		if (claimName == null || claimName.trim().equals(""))
-			return 3;
+        if (claimName == null || claimName.trim().equals(""))
+            return 3;
 		claim.setName(claimName);
 
-		String displayValue = (String) ((Spinner) rootView
+        String plotNumber = ((EditText) rootView
+                .findViewById(R.id.plot_number_input_field)).getText()
+                .toString();
+
+        if (plotNumber == null || plotNumber.trim().equals(""))
+            return 6;
+        claim.setPlotNumber(plotNumber);
+
+        String blockNumber = ((EditText) rootView
+                .findViewById(R.id.block_number_input_field)).getText()
+                .toString();
+        claim.setBlockNumber(blockNumber);
+
+        String neighborhood = ((EditText) rootView
+                .findViewById(R.id.neighborhood_input_field)).getText()
+                .toString();
+        claim.setNeighborhood(neighborhood);
+
+        boolean hasConstructions = ((Switch)rootView
+                .findViewById(R.id.has_constructions_switch)).isSelected();
+        claim.setHasConstructions(hasConstructions);
+
+        String displayValue = (String) ((Spinner) rootView
 				.findViewById(R.id.claimTypesSpinner)).getSelectedItem();
 		claim.setType(valueKeyClaimTypesMap.get(displayValue));
 
@@ -967,26 +989,45 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.date_of_start_input_field)).getText()
 				.toString();
 
-		java.util.Date dob = null;
+        java.util.Date dob = null;
 
-		if (startDate != null && !startDate.trim().equals("")) {
-			try {
+        if (startDate != null && !startDate.trim().equals("")) {
+            try {
 
-				dob = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
-						.parse(startDate);
+                dob = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                        .parse(startDate);
 
-				if (dob != null)
-					claim.setDateOfStart(new Date(dob.getTime()));
+                if (dob != null)
+                    claim.setDateOfStart(new Date(dob.getTime()));
 
-			} catch (ParseException e) {
-				e.printStackTrace();
-				dob = null;
-				return 2;
-			}
+            } catch (ParseException e) {
+                e.printStackTrace();
+                dob = null;
+                return 2;
+            }
 
-		}
+        }
 
-		if (person == null)
+        String constructionDate = ((EditText) rootView
+                .findViewById(R.id.construction_date_input_field)).getText()
+                .toString();
+
+        if (constructionDate != null && !constructionDate.trim().equals("")) {
+            try {
+
+                java.util.Date cd = null;
+                cd = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                        .parse(constructionDate);
+
+                if (cd != null)
+                    claim.setConstructionDate(new Date(cd.getTime()));
+
+            } catch (ParseException e) {
+            }
+
+        }
+
+        if (person == null)
 			return 4;
 
 		claim.setPerson(person);
@@ -1091,9 +1132,13 @@ public class ClaimDetailsFragment extends Fragment {
 		claim.setBlockNumber(((EditText) rootView
 				.findViewById(R.id.block_number_input_field)).getText()
 				.toString());
-		claim.setPlotNumber(((EditText) rootView
+		String plotNumber = ((EditText) rootView
 				.findViewById(R.id.plot_number_input_field)).getText()
-				.toString());
+				.toString();
+
+		if (plotNumber == null || plotNumber.trim().equals(""))
+			return 6;
+		claim.setPlotNumber(plotNumber);
 		claim.setNeighborhood(((EditText) rootView
 				.findViewById(R.id.neighborhood_input_field)).getText()
 				.toString());
@@ -1208,11 +1253,11 @@ public class ClaimDetailsFragment extends Fragment {
 							R.string.message_error_startdate,
 							Toast.LENGTH_SHORT);
 					toast.show();
-				} else if (resultSave == 3) {
-					toast = Toast.makeText(rootView.getContext(),
-							R.string.message_unable_to_save_missing_claim_name,
-							Toast.LENGTH_SHORT);
-					toast.show();
+                } else if (resultSave == 3) {
+                    toast = Toast.makeText(rootView.getContext(),
+                            R.string.message_unable_to_save_missing_claim_name,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
 				} else if (resultSave == 4) {
 					toast = Toast.makeText(rootView.getContext(),
 							R.string.message_unable_to_save_missing_person,
@@ -1223,6 +1268,11 @@ public class ClaimDetailsFragment extends Fragment {
 							.makeText(rootView.getContext(),
 									R.string.message_unable_to_save,
 									Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (resultSave == 6) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_missing_plot_number,
+							Toast.LENGTH_SHORT);
 					toast.show();
 				}
 			} else {
@@ -1236,6 +1286,11 @@ public class ClaimDetailsFragment extends Fragment {
 				} else if (updated == 2) {
 					toast = Toast.makeText(rootView.getContext(),
 							R.string.message_error_startdate,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (updated == 6) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_missing_plot_number,
 							Toast.LENGTH_SHORT);
 					toast.show();
 				} else {

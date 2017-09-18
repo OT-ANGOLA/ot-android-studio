@@ -564,4 +564,10 @@
     <string name="id_expiry_date_label">Id expiry date</string>
     <string name="id_expiry_date">Id expiry date (YYYY-MM-DD)</string>
     <string name="id_issuance_date">Id issuance date (YYYY-MM-DD)</string>
+    <string name="message_unable_to_save_missing_plot_number">Unable to save. Missing plot number</string>
+    <string name="message_unable_to_save_missing_adjacency">Unable to save. Missing adjacency</string>
+    <string name="message_unable_to_save_missing_residence_commune">Unable to save. Missing residence commune</string>
+    <string name="message_unable_to_save_missing_father_name">Unable to save. Missing father name</string>
+    <string name="message_unable_to_save_missing_mother_name">Unable to save. Missing mother name</string>
+    <string name="message_unable_to_save_invalid_date_format">Unable to save. Invalid date format</string>
 </resources>

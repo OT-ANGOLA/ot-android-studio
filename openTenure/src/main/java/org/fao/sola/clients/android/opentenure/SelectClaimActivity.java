@@ -82,6 +82,8 @@ public class SelectClaimActivity extends FragmentActivity implements ModeDispatc
 
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		tabs.setIndicatorColor(getResources().getColor(R.color.ab_tab_indicator_opentenure));
+		tabs.setBackgroundColor(getResources().getColor(
+				R.color.background_tab_pressed));
 		tabs.setViewPager(mViewPager);
 		if (savedInstanceState != null
 				&& savedInstanceState.getStringArrayList(EXCLUDE_CLAIM_IDS_KEY) != null) {

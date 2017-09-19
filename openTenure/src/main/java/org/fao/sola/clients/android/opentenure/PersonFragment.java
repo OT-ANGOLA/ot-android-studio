@@ -902,6 +902,10 @@ public class PersonFragment extends Fragment {
 				|| person.getResidenceCommuneCode().trim().equals(""))
 			return 8;
 
+		if (person.getPostalAddress() == null
+				|| person.getPostalAddress().trim().equals(""))
+			return 11;
+
 		if (person.create() == 1) {
 
 			personActivity.setPersonId(person.getPersonId());
@@ -1155,6 +1159,10 @@ public class PersonFragment extends Fragment {
 				|| person.getResidenceCommuneCode().trim().equals(""))
 			return 8;
 
+		if (person.getPostalAddress() == null
+				|| person.getPostalAddress().trim().equals(""))
+			return 11;
+
 		return person.update();
 	}
 
@@ -1226,6 +1234,11 @@ public class PersonFragment extends Fragment {
 				} else if (saved == 10) {
 					toast = Toast.makeText(rootView.getContext(),
 							R.string.message_unable_to_save_invalid_date_format,
+							Toast.LENGTH_SHORT);
+					toast.show();
+				} else if (saved == 11) {
+					toast = Toast.makeText(rootView.getContext(),
+							R.string.message_unable_to_save_missing_address,
 							Toast.LENGTH_SHORT);
 					toast.show();
 				} else {

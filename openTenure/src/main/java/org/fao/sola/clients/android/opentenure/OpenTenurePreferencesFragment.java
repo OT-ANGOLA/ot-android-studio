@@ -35,6 +35,9 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class OpenTenurePreferencesFragment extends PreferenceFragment {
 	
@@ -94,4 +97,10 @@ public class OpenTenurePreferencesFragment extends PreferenceFragment {
 		}
 		versionPref.setTitle(getString(R.string.software_version_title) + ": " + version);
 	}
-}
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = super.onCreateView(inflater, container, savedInstanceState);
+		view.setBackgroundColor(getResources().getColor(R.color.light_background_opentenure));
+
+		return view;
+	}}

@@ -210,6 +210,8 @@ public class ClaimActivity extends FragmentActivity implements ClaimDispatcher,
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		tabs.setIndicatorColor(getResources().getColor(
 				R.color.ab_tab_indicator_opentenure));
+		tabs.setBackgroundColor(getResources().getColor(
+				R.color.background_tab_pressed));
 		tabs.setViewPager(mViewPager);
 
 		// ShowCase Main

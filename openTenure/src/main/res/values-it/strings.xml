@@ -533,14 +533,14 @@
     <string name="new_hole">Nuova lacuna</string>
     <string name="action_add_hole">Aggiungi a lacuna</string>
     <string name="title_select_hole">Scegli una lacuna</string>
-    <string name="plot_number_label">Numero di trama</string>
+    <string name="plot_number_label">Numero di lotto</string>
     <string name="other_name">Altro nome</string>
     <string name="other_name_label">Altro nome*</string>
     <string name="mother_name_label">Nome della madre*</string>
     <string name="mother_name">Nome della madre</string>
     <string name="father_name_label">Nome del padre*</string>
     <string name="father_name">Nome del padre</string>
-    <string name="app_name">ALIMS Mobile</string>
+    <string name="app_name">SAGIT Mobile</string>
     <string name="beneficiary_id_number_label">Numero di documento del beneficiario</string>
     <string name="beneficiary_name_label">Nome del beneficiario</string>
     <string name="birth_commune_label">Comune di nascita</string>
@@ -571,5 +571,6 @@
     <string name="north_adjacency_type_label">Tipo di adiacenza a nord</string>
     <string name="neighborhood_label">Vicinato</string>
     <string name="message_unable_to_save_missing_residence_commune">Impossibile salvare. Comune di residenza mancante</string>
+    <string name="message_unable_to_save_missing_address">Impossibile salvare. Indirizzo mancante</string>
 
 </resources>

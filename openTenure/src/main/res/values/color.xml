@@ -3,10 +3,10 @@
     <color name="ab_title_text_opentenure">#FFFFFF</color>
     <color name="ab_tab_text_opentenure">#000000</color>
     <color name="ab_menu_text_opentenure">#000000</color>
-    <color name="ab_tab_indicator_opentenure">#217C95</color>
-    <color name="light_background_opentenure">#E6EDDF</color>
-    <color name="dark_background_opentenure">#B7CBA4</color>
-    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="ab_tab_indicator_opentenure">#ff0000</color>
+    <color name="light_background_opentenure">#fbfcb6</color>
+    <color name="dark_background_opentenure">#cecf95</color>
+    <color name="background_tab_pressed">#effc00</color>
     <color name="status_created">#217C95</color>
     <color name="status_unmoderated">#FFE900</color>   
     <color name="status_challenged">#CC0000</color>   

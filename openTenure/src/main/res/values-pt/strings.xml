@@ -102,11 +102,11 @@
     <string name="first_name_label">Primeiro nome *</string>
     <string name="last_name">Último nome</string>
     <string name="last_name_label">Último nome *</string>
-    <string name="date_of_birth">Data de nascimento (DD-MM-AAAA)</string>
+    <string name="date_of_birth">Data de nascimento (AAAA-MM-DD)</string>
     <string name="date_of_birth_simple">Data de nascimento</string>
-    <string name="date_of_birth_label">Data de nascimento * (DD-MM-AAAA)</string>
-    <string name="date_of_start">Data da aplicação do requerimento a partir de (DD-MM-AAAA)</string>
-    <string name="date_of_start_label">Data da aplicação do requerimento a partir de (DD-MM-AAAA)</string>
+    <string name="date_of_birth_label">Data de nascimento * (AAAA-MM-DD)</string>
+    <string name="date_of_start">Data da aplicação do requerimento a partir de (AAAA-MM-DD)</string>
+    <string name="date_of_start_label">Data da aplicação do requerimento a partir de (AAAA-MM-DD)</string>
     <string name="place_of_birth">Lugar de nascimento</string>
     <string name="place_of_birth_label">Lugar de nascimento *</string>
     <string name="date_of_establishment_label">Data de Criação</string>
@@ -542,7 +542,7 @@
         <string name="east_adjacency_type">Tipo de limite ao leste </string>
         <string name="west_adjacency_type">Tipo de limite ao oeste </string>
         <string name="other_name_label">Outro nome*</string>
-        <string name="id_issuance_date_label">Date de emissao de ID</string>
+        <string name="id_issuance_date_label">Data de emissao de ID</string>
         <string name="id_issuance_country_label">Pais de emissao de ID </string>
         <string name="id_issuance_province_label">Provincia de emissao de ID </string>
         <string name="id_issuance_municipality_label">Municipio de emissao de ID </string>
@@ -559,14 +559,16 @@
         <string name="other_name">Outro nome</string>
         <string name="mother_name">Nome da mae</string>
         <string name="father_name">Nome do pai</string>
-        <string name="id_expiry_date_label">Data de espiracao de ID</string>
-        <string name="id_expiry_date">Data the espiracao de ID (YYYY-MM-DD)</string>
-        <string name="id_issuance_date">Data de emissao de ID (YYYY-MM-DD)</string>
+        <string name="id_expiry_date_label">Data de espiracao de ID *</string>
+        <string name="id_expiry_date">Data the espiracao de ID (AAAA-MM-DD)</string>
+        <string name="id_issuance_date">Data de emissao de ID (AAAA-MM-DD)</string>
     <string name="message_unable_to_save_missing_plot_number">Não foi possível salvar. Falta o numero de lote</string>
         <string name="message_unable_to_save_missing_adjacency">Não foi possível salvar. Falta a confrontação</string>
         <string name="message_unable_to_save_missing_residence_commune">Não foi possível salvar. Falta a residencia</string>
         <string name="message_unable_to_save_missing_father_name">Não foi possível salvar. Falta o nome do pai</string>
         <string name="message_unable_to_save_missing_mother_name">Não foi possível salvar. Falta o nome da mai</string>
-        <string name="message_unable_to_save_invalid_date_format">Não foi possível salvar. O formato da data é inválido</string>
+    <string name="message_unable_to_save_invalid_id_expiry_date_format">Não foi possível salvar. O formato da data de espiracao de ID é inválido</string>
+        <string name="message_unable_to_save_invalid_id_issuance_date_format">Não foi possível salvar. O formato da data de emissao de ID é inválido</string>
     <string name="message_unable_to_save_missing_address">Não foi possível salvar. Falta o endereço</string>
+    <string name="message_adjacencies_incomplete">As informações sobre confrontacoes não estão completas</string>
 </resources>

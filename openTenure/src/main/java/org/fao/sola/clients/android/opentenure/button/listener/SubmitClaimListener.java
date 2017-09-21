@@ -39,6 +39,7 @@ import org.fao.sola.clients.android.opentenure.filesystem.json.JsonUtilities;
 import org.fao.sola.clients.android.opentenure.form.FieldConstraint;
 import org.fao.sola.clients.android.opentenure.form.FormPayload;
 import org.fao.sola.clients.android.opentenure.form.FormTemplate;
+import org.fao.sola.clients.android.opentenure.model.AdjacenciesNotes;
 import org.fao.sola.clients.android.opentenure.model.Claim;
 import org.fao.sola.clients.android.opentenure.model.ClaimStatus;
 import org.fao.sola.clients.android.opentenure.model.Configuration;
@@ -182,6 +183,28 @@ public class SubmitClaimListener implements OnClickListener {
 					toast.show();
 					return;
 				}
+			}
+			AdjacenciesNotes an = AdjacenciesNotes.getAdjacenciesNotes(claimId);
+			if(
+				an == null
+						|| an.getNorthAdjacency() == null
+						|| an.getNorthAdjacency().equalsIgnoreCase("")
+						|| an.getNorthAdjacencyTypeCode() == null
+						|| an.getSouthAdjacency() == null
+						|| an.getSouthAdjacency().equalsIgnoreCase("")
+						|| an.getSouthAdjacencyTypeCode() == null
+						|| an.getEastAdjacency() == null
+						|| an.getEastAdjacency().equalsIgnoreCase("")
+						|| an.getEastAdjacencyTypeCode() == null
+						|| an.getWestAdjacency() == null
+						|| an.getWestAdjacency().equalsIgnoreCase("")
+						|| an.getWestAdjacencyTypeCode() == null
+					){
+				Toast toast = Toast.makeText(v.getContext(),
+						R.string.message_adjacencies_incomplete,
+						Toast.LENGTH_LONG);
+				toast.show();
+				return;
 			}
 
 			JsonUtilities.createClaimJson(claimId);

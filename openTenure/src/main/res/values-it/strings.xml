@@ -94,7 +94,7 @@
     <string name="choose_file">Scegli un\'applicazione per selezionare un file</string>
     <string name="person_name">Nome della Persona</string>
     <string name="community_recorder_name">Community recorder</string>
-    <string name="postal_address">Indirizzo</string>
+    <string name="postal_address">Indirizzo *</string>
     <string name="email_address">Indirizzo Email</string>
     <string name="gender_masculine">Maschio</string>
     <string name="gender_feminine">Femmina</string>
@@ -551,7 +551,7 @@
     <string name="east_adjacency_type">Tipo di adiacenza ad est</string>
     <string name="has_construction_label">Ci sono costruzioni?</string>
     <string name="id_expiry_date">Data di scadenza del documento (AAAA-MM-GG)</string>
-    <string name="id_expiry_date_label">Data di scadenza del documento</string>
+    <string name="id_expiry_date_label">Data di scadenza del documento *</string>
     <string name="id_issuance_commune_label">Comune di emissione del documento</string>
     <string name="id_issuance_country_label">Nazione di emissione del documento</string>
     <string name="id_issuance_date">Data di emissione del documento (AAAA-MM-GG)</string>
@@ -560,11 +560,12 @@
     <string name="id_issuance_province_label">Provincia di emissione del documento</string>
     <string name="land_project_label">Numero di progetto</string>
     <string name="marital_status_label">Stato civile</string>
-    <string name="message_unable_to_save_invalid_date_format">Impossibile salvare. Formato data errato</string>
-    <string name="message_unable_to_save_missing_adjacency">Impossibile salvare. Adiacenza mancante</string>
+    <string name="message_unable_to_save_invalid_id_expiry_date_format">Impossibile salvare. Formato data di scadenza del documento errato</string>
+    <string name="message_unable_to_save_invalid_id_issuance_date_format">Impossibile salvare. Formato data di emissione del documento errato</string>
+    <string name="message_unable_to_save_missing_adjacency">Informazioni sulle adiacenze incomplete</string>
     <string name="message_unable_to_save_missing_father_name">Impossibile salvare. Nome del padre mancante</string>
     <string name="message_unable_to_save_missing_mother_name">Impossibile salvare. Nome della madre mancante</string>
-    <string name="message_unable_to_save_missing_plot_number">Impossibile salvare. Numero di trama mancante</string>
+    <string name="message_unable_to_save_missing_plot_number">Impossibile salvare. Numero di lotto mancante</string>
     <string name="west_adjacency_type">Tipo di adiacenza ad ovest</string>
     <string name="south_adjacency_type_label">Tipo di adiacenza a sud</string>
     <string name="residence_commune_label">Comune di residenza</string>
@@ -572,5 +573,5 @@
     <string name="neighborhood_label">Vicinato</string>
     <string name="message_unable_to_save_missing_residence_commune">Impossibile salvare. Comune di residenza mancante</string>
     <string name="message_unable_to_save_missing_address">Impossibile salvare. Indirizzo mancante</string>
-
+    <string name="message_adjacencies_incomplete">Informazioni sulle adiacenze incomplete</string>
 </resources>

@@ -143,25 +143,95 @@
             android:background="@android:color/white"
             android:hint="@string/date_of_birth"
             android:inputType="date"
-            android:textAppearance="?android:attr/textAppearanceMedium" >            
+            android:textAppearance="?android:attr/textAppearanceMedium" >
         </EditText>
 
         <TextView
-            android:id="@+id/gender_label"
+            android:id="@+id/birth_country_label"
             android:paddingBottom="6dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="bottom"
-            android:text="@string/gender"
+            android:text="@string/birth_country_label"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
-            
+
             <LinearLayout
+                android:layout_height="36dp"
+                android:layout_width="fill_parent"
+                android:background="@android:color/white" >
+
+                <Spinner
+                    android:id="@+id/birth_country"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/birth_commune_label"
+            android:paddingBottom="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="@string/birth_commune_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_height="36dp"
+                android:layout_width="fill_parent"
+                android:background="@android:color/white" >
+
+                <Spinner
+                    android:id="@+id/birth_commune"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/gender_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="bottom"
+                    android:text="@string/gender"
+                    android:paddingBottom="6dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <LinearLayout
                     android:layout_height="36dp"
                     android:layout_width="wrap_content"
                     android:background="@android:color/white" >
@@ -170,13 +240,42 @@
                         android:id="@+id/gender_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"                        
+                        android:layout_weight="1"
                         android:gravity="bottom"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
-            
-            
-            
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/marital_status_label"
+                    android:layout_width="fill_parent"
+                    android:paddingBottom="6dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="bottom"
+                    android:text="@string/marital_status_label"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <LinearLayout
+                    android:layout_height="36dp"
+                    android:layout_width="wrap_content"
+                    android:background="@android:color/white" >
+
+                    <Spinner
+                        android:id="@+id/marital_status_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <!--
@@ -522,6 +621,46 @@
             android:background="@android:color/white"
             android:hint="@string/contact_phone_number"
             android:inputType="phone"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </EditText>
+        <TextView
+            android:id="@+id/beneficiary_name_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="6dp"
+            android:gravity="bottom"
+            android:text="@string/beneficiary_name_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/beneficiary_name_input_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:hint="@string/beneficiary_name_label"
+            android:inputType="textCapWords"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </EditText>
+        <TextView
+            android:id="@+id/beneficiary_id_number_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="6dp"
+            android:gravity="bottom"
+            android:text="@string/beneficiary_id_number_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/beneficiary_id_number_input_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:hint="@string/beneficiary_id_number_label"
+            android:inputType="text"
             android:textAppearance="?android:attr/textAppearanceMedium" >
         </EditText>
     </LinearLayout>

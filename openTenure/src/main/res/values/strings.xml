@@ -238,6 +238,7 @@
     <string name="message_exit_dialog">Do you really want to quit the application?</string>
     <string name="message_create_before_edit">Create a claim by specifying its details before adding information</string>
     <string name="message_map_not_yet_draw">The map of the claim is not yet complete</string>
+    <string name="message_adjacencies_incomplete">The adjacency information is not yet complete</string>
     <string name="message_available_shares">The sum of the shares is less than 100%</string>
     <string name="message_no_available_shares">Free some shares on this claim before modify the value of this share </string>
     <string name="message_no_available_shares_adding_new">Free some shares on this claim before adding a new share </string>
@@ -250,7 +251,7 @@
     <string name="message_error_mandatory_fields">Fulfill all the mandatory fields before to save</string>
     <string name="message_error_mandatory_field_first_name">Fulfill the mandatory field first name before to save</string>
     <string name="message_error_mandatory_field_last_name">Fulfill the mandatory field last name before to save</string>
-    <string name="message_error_mandatory_field_gender">Fulfill the mandatory field gander before to save</string>    
+    <string name="message_error_mandatory_field_gender">Fulfill the mandatory field gander before to save</string>
     <string name="message_error_mandatory_birthdate">Date of birth not in the right format or empty</string>
     <string name="message_error_startdate">Date of right\'s start  not in the right format or empty</string>
     <string name="message_remove_quest">Do you really want withdraw the Claim ?</string>
@@ -561,14 +562,15 @@
     <string name="other_name">Other name</string>
     <string name="mother_name">Mother name*</string>
     <string name="father_name">Father name*</string>
-    <string name="id_expiry_date_label">Id expiry date</string>
+    <string name="id_expiry_date_label">Id expiry date *</string>
     <string name="id_expiry_date">Id expiry date (YYYY-MM-DD)</string>
     <string name="id_issuance_date">Id issuance date (YYYY-MM-DD)</string>
-    <string name="message_unable_to_save_missing_plot_number">Unable to save. Missing plot number</string>
+    <string name="message_unable_to_save_missing_plot_number">Unable to save. Missing lot number</string>
     <string name="message_unable_to_save_missing_adjacency">Unable to save. Missing adjacency</string>
     <string name="message_unable_to_save_missing_residence_commune">Unable to save. Missing residence commune</string>
     <string name="message_unable_to_save_missing_father_name">Unable to save. Missing father name</string>
     <string name="message_unable_to_save_missing_mother_name">Unable to save. Missing mother name</string>
-    <string name="message_unable_to_save_invalid_date_format">Unable to save. Invalid date format</string>
+    <string name="message_unable_to_save_invalid_id_expiry_date_format">Unable to save. Invalid ID expiry date format</string>
+    <string name="message_unable_to_save_invalid_id_issuance_date_format">Unable to save. Invalid ID issuance date format</string>
     <string name="message_unable_to_save_missing_address">Unable to save. Missing address</string>
 </resources>

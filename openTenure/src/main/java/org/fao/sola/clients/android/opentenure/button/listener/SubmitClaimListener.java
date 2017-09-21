@@ -187,7 +187,9 @@ public class SubmitClaimListener implements OnClickListener {
 			AdjacenciesNotes an = AdjacenciesNotes.getAdjacenciesNotes(claimId);
 			if(
 				an == null
-						|| an.getNorthAdjacency() == null
+						|| (an != null
+						&&(
+						an.getNorthAdjacency() == null
 						|| an.getNorthAdjacency().equalsIgnoreCase("")
 						|| an.getNorthAdjacencyTypeCode() == null
 						|| an.getSouthAdjacency() == null
@@ -199,7 +201,7 @@ public class SubmitClaimListener implements OnClickListener {
 						|| an.getWestAdjacency() == null
 						|| an.getWestAdjacency().equalsIgnoreCase("")
 						|| an.getWestAdjacencyTypeCode() == null
-					){
+					))){
 				Toast toast = Toast.makeText(v.getContext(),
 						R.string.message_adjacencies_incomplete,
 						Toast.LENGTH_LONG);

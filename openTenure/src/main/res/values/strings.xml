@@ -573,4 +573,5 @@
     <string name="message_unable_to_save_invalid_id_expiry_date_format">Unable to save. Invalid ID expiry date format</string>
     <string name="message_unable_to_save_invalid_id_issuance_date_format">Unable to save. Invalid ID issuance date format</string>
     <string name="message_unable_to_save_missing_address">Unable to save. Missing address</string>
+    <string name="discard">Discard</string>
 </resources>

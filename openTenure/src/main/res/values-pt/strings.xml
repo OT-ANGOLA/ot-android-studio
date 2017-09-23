@@ -571,4 +571,5 @@
         <string name="message_unable_to_save_invalid_id_issuance_date_format">Não foi possível salvar. O formato da data de emissao de ID é inválido</string>
     <string name="message_unable_to_save_missing_address">Não foi possível salvar. Falta o endereço</string>
     <string name="message_adjacencies_incomplete">As informações sobre confrontacoes não estão completas</string>
+    <string name="discard">Descartar</string>
 </resources>

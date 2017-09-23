@@ -91,7 +91,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 public class ClaimDetailsFragment extends Fragment {
 
@@ -1370,9 +1369,9 @@ public class ClaimDetailsFragment extends Fragment {
 		}
 	}
 
-	public boolean isChanged(Claim claim){
+	public boolean isClaimChanged(Claim claim){
 
-		if (!claim.getName().equals(
+		if (!claim.getName().equalsIgnoreCase(
 				((EditText) rootView
 						.findViewById(R.id.claim_name_input_field))
 						.getText().toString())){
@@ -1384,7 +1383,7 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.block_number_input_field))
 				.getText().toString();
 
-		if (((claim.getBlockNumber() == null || claim.getBlockNumber().equalsIgnoreCase("")) ^ !blockNumber.equalsIgnoreCase(""))
+		if (((claim.getBlockNumber() == null || claim.getBlockNumber().equalsIgnoreCase("")) ^ blockNumber.equalsIgnoreCase(""))
 				|| (!blockNumber.equalsIgnoreCase(claim.getBlockNumber()))){
 			Log.d(this.getClass().getName(), "Block number has changed");
 			return true;
@@ -1394,7 +1393,7 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.plot_number_input_field))
 				.getText().toString();
 
-		if (((claim.getPlotNumber() == null || claim.getPlotNumber().equalsIgnoreCase("")) ^ !plotNumber.equalsIgnoreCase(""))
+		if (((claim.getPlotNumber() == null || claim.getPlotNumber().equalsIgnoreCase("")) ^ plotNumber.equalsIgnoreCase(""))
 				|| (!plotNumber.equalsIgnoreCase(claim.getPlotNumber()))){
 			Log.d(this.getClass().getName(), "Plot number has changed");
 			return true;
@@ -1404,7 +1403,7 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.neighborhood_input_field))
 				.getText().toString();
 
-		if (((claim.getNeighborhood() == null || claim.getNeighborhood().equalsIgnoreCase("")) ^ !neighborhood.equalsIgnoreCase(""))
+		if (((claim.getNeighborhood() == null || claim.getNeighborhood().equalsIgnoreCase("")) ^ neighborhood.equalsIgnoreCase(""))
 				|| (!neighborhood.equalsIgnoreCase(claim.getNeighborhood()))){
 			Log.d(this.getClass().getName(), "Neighborhood has changed");
 			return true;
@@ -1412,8 +1411,7 @@ public class ClaimDetailsFragment extends Fragment {
 
 		Person person = Person.getPerson(((TextView) rootView
 				.findViewById(R.id.claimant_id)).getText().toString());
-		if (!claim.getPerson().getPersonId()
-				.equals(person.getPersonId())){
+		if (!claim.getPerson().getPersonId().equalsIgnoreCase(person.getPersonId())){
 			Log.d(this.getClass().getName(), "Claimant has changed");
 			return true;
 		}
@@ -1421,14 +1419,10 @@ public class ClaimDetailsFragment extends Fragment {
 		Claim challengedClaim = Claim.getClaim(((TextView) rootView
 				.findViewById(R.id.challenge_to_claim_id))
 				.getText().toString());
-		if ((challengedClaim == null
-				&& claim.getChallengedClaim() != null)
-				|| (challengedClaim != null
-				&& claim.getChallengedClaim() == null)
-				|| (challengedClaim != null
-				&& claim.getChallengedClaim() != null
-				&& !claim.getChallengedClaim().getClaimId()
-				.equals(challengedClaim.getClaimId()))){
+		if ((challengedClaim == null && claim.getChallengedClaim() != null)
+				|| (challengedClaim != null && claim.getChallengedClaim() == null)
+				|| (challengedClaim != null && claim.getChallengedClaim() != null
+					&& !claim.getChallengedClaim().getClaimId().equalsIgnoreCase(challengedClaim.getClaimId()))){
 			Log.d(this.getClass().getName(), "Challenged claim has changed");
 			return true;
 		}
@@ -1437,8 +1431,7 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.claimTypesSpinner))
 				.getSelectedItem();
 
-		if (!claim.getType().equals(
-				valueKeyClaimTypesMap.get(claimType))){
+		if (!claim.getType().equalsIgnoreCase(valueKeyClaimTypesMap.get(claimType))){
 			Log.d(this.getClass().getName(), "Claim type has changed");
 			return true;
 		}
@@ -1446,30 +1439,24 @@ public class ClaimDetailsFragment extends Fragment {
 		String landUseDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.landUseSpinner))
 				.getSelectedItem();
-		if ((claim.getLandUse() == null
-				&& valueKeyMapLandUse.get(landUseDispValue) != null)
-				|| (!claim.getLandUse().equals(
-				valueKeyMapLandUse.get(landUseDispValue)))){
+		if ((claim.getLandUse() == null && valueKeyMapLandUse.get(landUseDispValue) != null)
+				|| (!claim.getLandUse().equals(valueKeyMapLandUse.get(landUseDispValue)))){
 			Log.d(this.getClass().getName(), "Land use has changed");
 			return true;
 		}
 		String landProjectDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.landProjectSpinner))
 				.getSelectedItem();
-		if ((claim.getLandProjectCode() == null
-				&& valueKeyLandProjectsMap.get(landProjectDispValue) != null)
-				|| (!claim.getLandProjectCode().equals(
-				valueKeyLandProjectsMap.get(landProjectDispValue)))){
+		if ((claim.getLandProjectCode() == null && valueKeyLandProjectsMap.get(landProjectDispValue) != null)
+				|| (!claim.getLandProjectCode().equals(valueKeyLandProjectsMap.get(landProjectDispValue)))){
 			Log.d(this.getClass().getName(), "Land project has changed");
 			return true;
 		}
 		String communeDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.communeSpinner))
 				.getSelectedItem();
-		if ((claim.getCommuneCode() == null
-				&& valueKeyCommunesMap.get(communeDispValue) != null)
-				|| (!claim.getCommuneCode().equals(
-				valueKeyCommunesMap.get(communeDispValue)))){
+		if ((claim.getCommuneCode() == null && valueKeyCommunesMap.get(communeDispValue) != null)
+				|| (!claim.getCommuneCode().equals(valueKeyCommunesMap.get(communeDispValue)))){
 			Log.d(this.getClass().getName(), "Commune has changed");
 			return true;
 		}
@@ -1477,8 +1464,7 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.claim_notes_input_field))
 				.getText().toString();
 
-		if (claim.getNotes() != null
-				&& !claim.getNotes().equals(notes)){
+		if (claim.getNotes() != null && !claim.getNotes().equals(notes)){
 			Log.d(this.getClass().getName(), "Claim notes have changed");
 			return true;
 		}
@@ -1486,21 +1472,21 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.date_of_start_input_field))
 				.getText().toString();
 
-		if (claim.getDateOfStart() == null ^ (startDate != null && !startDate.equalsIgnoreCase(""))) {
+		if (claim.getDateOfStart() == null ^ startDate.trim().equalsIgnoreCase("")) {
 
 			Log.d(this.getClass().getName(), "Rights start date has changed");
 			return true;
 
 		}
-		if (startDate != null && !startDate.trim().equalsIgnoreCase("")) {
+		if (!startDate.trim().equalsIgnoreCase("")) {
 
 			try {
-				java.util.Date dob = new SimpleDateFormat(
+				java.util.Date dos = new SimpleDateFormat(
 						"yyyy-MM-dd", Locale.US)
 						.parse(startDate);
 
 				Date date = new Date(
-						dob.getTime());
+						dos.getTime());
 
 				if (claim.getDateOfStart()
 						.compareTo(date) != 0) {
@@ -1509,6 +1495,7 @@ public class ClaimDetailsFragment extends Fragment {
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
+				return true;
 			}
 		}
 
@@ -1516,21 +1503,21 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.construction_date_input_field))
 				.getText().toString();
 
-		if (claim.getConstructionDate() == null ^ (constructionDate != null && !constructionDate.equalsIgnoreCase(""))) {
+		if (claim.getConstructionDate() == null ^ constructionDate.trim().equalsIgnoreCase("")) {
 
 			Log.d(this.getClass().getName(), "Construction date has changed");
 			return true;
 
 		}
-		if (constructionDate != null && !constructionDate.trim().equalsIgnoreCase("")) {
+		if (!constructionDate.trim().equalsIgnoreCase("")) {
 
 			try {
-				java.util.Date dob = new SimpleDateFormat(
+				java.util.Date cd = new SimpleDateFormat(
 						"yyyy-MM-dd", Locale.US)
 						.parse(constructionDate);
 
 				Date date = new Date(
-						dob.getTime());
+						cd.getTime());
 
 				if (claim.getConstructionDate()
 						.compareTo(date) != 0) {
@@ -1539,6 +1526,7 @@ public class ClaimDetailsFragment extends Fragment {
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
+				return true;
 			}
 		}
 
@@ -1550,7 +1538,7 @@ public class ClaimDetailsFragment extends Fragment {
 		return isFormChanged();
 	}
 
-	public boolean thereAreValues(){
+	public boolean hasFragmentValues(){
 
 		if (!((EditText) rootView
 				.findViewById(R.id.claim_name_input_field)).getText()
@@ -1625,29 +1613,7 @@ public class ClaimDetailsFragment extends Fragment {
 
 		Claim claim = Claim.getClaim(claimActivity.getClaimId());
 
-		if (claim != null) {
-
-			if (isChanged(claim)) {
-
-				AlertDialog.Builder saveChangesDialog = new AlertDialog.Builder(
-						this.getActivity());
-				saveChangesDialog.setTitle(R.string.title_save_claim_dialog);
-				String dialogMessage = OpenTenureApplication.getContext()
-						.getString(R.string.message_save_changes);
-
-				saveChangesDialog.setMessage(dialogMessage);
-
-				saveChangesDialog.setPositiveButton(R.string.confirm,
-						new SaveDetailsListener(this));
-
-				saveChangesDialog.setNegativeButton(R.string.cancel,
-						new SaveDetailsNegativeListener(this));
-				saveChangesDialog.show();
-				return true;
-			}
-		} else {
-
-			if (thereAreValues()) {
+			if ((claim != null && isClaimChanged(claim)) || (claim == null && hasFragmentValues())) {
 
 				AlertDialog.Builder saveChangesDialog = new AlertDialog.Builder(
 						this.getActivity());
@@ -1656,6 +1622,9 @@ public class ClaimDetailsFragment extends Fragment {
 						.getString(R.string.message_discard_changes);
 
 				saveChangesDialog.setMessage(dialogMessage);
+
+				saveChangesDialog.setPositiveButton(R.string.confirm,
+						new SaveDetailsNegativeListener(this));
 
 				saveChangesDialog.setNegativeButton(R.string.cancel,
 						new DialogInterface.OnClickListener() {
@@ -1666,13 +1635,9 @@ public class ClaimDetailsFragment extends Fragment {
 								return;
 							}
 						});
-
-				saveChangesDialog.setPositiveButton(R.string.confirm,
-						new SaveDetailsNegativeListener(this));
 				saveChangesDialog.show();
 				return true;
 			}
-		}
 		return false;
 	}
 

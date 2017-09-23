@@ -50,8 +50,6 @@ import org.fao.sola.clients.android.opentenure.model.Person;
 import org.fao.sola.clients.android.opentenure.model.Province;
 import org.fao.sola.clients.android.opentenure.model.MaritalStatus;
 
-import com.ipaulpro.afilechooser.utils.FileUtils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -1018,6 +1016,7 @@ public class PersonFragment extends Fragment {
 		if (person.create() == 1) {
 
 			personActivity.setPersonId(person.getPersonId());
+			personActivity.setEntityType(person.getPersonType());
 			personPictureFile = Person.getPersonPictureFile(person
 					.getPersonId());
 
@@ -1071,6 +1070,7 @@ public class PersonFragment extends Fragment {
 		if (person.create() == 1) {
 
 			personActivity.setPersonId(person.getPersonId());
+			personActivity.setEntityType(person.getPersonType());
 			personPictureFile = Person.getPersonPictureFile(person
 					.getPersonId());
 
@@ -1133,6 +1133,7 @@ public class PersonFragment extends Fragment {
 		if (person.update() == 1) {
 
 			this.personActivity.setPersonId(person.getPersonId());
+			this.personActivity.setEntityType(person.getPersonType());
 			personPictureFile = Person.getPersonPictureFile(person
 					.getPersonId());
 
@@ -1968,72 +1969,57 @@ public class PersonFragment extends Fragment {
 				.findViewById(R.id.date_of_birth_input_field))
 				.getText().toString();
 
-		if (person.getDateOfBirth() == null
-				|| person.getDateOfBirth()
-				.equals("")) {
+		if (person.getDateOfBirth() == null ^ dateOfBirth.trim().equalsIgnoreCase("")) {
 
-			if (dateOfBirth != null
-					&& !dateOfBirth.equals(""))
-				return true;
-		} else {
-			java.util.Date dob = null;
-
-			if (dateOfBirth != null
-					&& !dateOfBirth.trim()
-					.equals("")) {
-
-				try {
-					dob = new SimpleDateFormat(
-							"yyyy-MM-dd",
-							Locale.US)
-							.parse(dateOfBirth);
-
-					Date date = new Date(
-							dob.getTime());
-
-					if (person.getDateOfBirth()
-							.compareTo(date) != 0)
-						return true;
-
-				} catch (ParseException e) {
-					e.printStackTrace();
-					dob = null;
-
-				}
-
-			}
+			Log.d(this.getClass().getName(), "Date of birth has changed");
+			return true;
 
 		}
+		if (!dateOfBirth.trim().equalsIgnoreCase("")) {
+
+			try {
+				java.util.Date dob = new SimpleDateFormat(
+						"yyyy-MM-dd", Locale.US)
+						.parse(dateOfBirth);
+
+				Date date = new Date(dob.getTime());
+
+				if (person.getDateOfBirth().compareTo(date) != 0) {
+					Log.d(this.getClass().getName(), "Date of birth has changed");
+					return true;
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+				return true;
+			}
+		}
+
 		String idIssuanceDate = ((EditText) rootView
 				.findViewById(R.id.id_issuance_date_input_field))
 				.getText().toString();
 
-		if (person.getIdIssuanceDate() == null) {
+		if (person.getIdIssuanceDate() == null ^ idIssuanceDate.trim().equalsIgnoreCase("")) {
 
-			if (!idIssuanceDate.equals(""))
-				return true;
-		} else {
-			java.util.Date iid = null;
+			Log.d(this.getClass().getName(), "ID issuance date has changed");
+			return true;
 
-			if (!idIssuanceDate.trim().equals("")) {
+		}
+		if (!idIssuanceDate.trim().equalsIgnoreCase("")) {
 
-				try {
-					iid = new SimpleDateFormat(
-							"yyyy-MM-dd",
-							Locale.US)
-							.parse(idIssuanceDate);
+			try {
+				java.util.Date iid = new SimpleDateFormat(
+						"yyyy-MM-dd", Locale.US)
+						.parse(idIssuanceDate);
 
-					Date date = new Date(
-							iid.getTime());
+				Date date = new Date(iid.getTime());
 
-					if (person.getIdIssuanceDate()
-							.compareTo(date) != 0)
-						return true;
-
-				} catch (ParseException e) {
-					e.printStackTrace();
-					iid = null;
+				if (person.getIdIssuanceDate().compareTo(date) != 0) {
+					Log.d(this.getClass().getName(), "ID issuance date has changed");
+					return true;
 				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+				return true;
 			}
 		}
 
@@ -2041,38 +2027,34 @@ public class PersonFragment extends Fragment {
 				.findViewById(R.id.id_expiry_date_input_field))
 				.getText().toString();
 
-		if (person.getIdExpiryDate() == null) {
+		if (person.getIdExpiryDate() == null ^ idExpiryDate.trim().equalsIgnoreCase("")) {
 
-			if (!idExpiryDate.equals(""))
-				return true;
-		} else {
-			java.util.Date ied = null;
+			Log.d(this.getClass().getName(), "ID expiry date has changed");
+			return true;
 
-			if (!idExpiryDate.trim().equals("")) {
+		}
+		if (!idExpiryDate.trim().equalsIgnoreCase("")) {
 
-				try {
-					ied = new SimpleDateFormat(
-							"yyyy-MM-dd",
-							Locale.US)
-							.parse(idExpiryDate);
+			try {
+				java.util.Date ied = new SimpleDateFormat(
+						"yyyy-MM-dd", Locale.US)
+						.parse(idExpiryDate);
 
-					Date date = new Date(
-							ied.getTime());
+				Date date = new Date(ied.getTime());
 
-					if (person.getIdExpiryDate()
-							.compareTo(date) != 0)
-						return true;
-
-				} catch (ParseException e) {
-					e.printStackTrace();
-					ied = null;
+				if (person.getIdExpiryDate().compareTo(date) != 0) {
+					Log.d(this.getClass().getName(), "ID expiry date has changed");
+					return true;
 				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean personHasValues(Person person, View rootView){
+	public boolean hasFragmentValues(View rootView){
 		String name = ((EditText) rootView
 				.findViewById(R.id.first_name_input_field)).getText()
 				.toString();
@@ -2180,7 +2162,7 @@ public class PersonFragment extends Fragment {
 		Person person = Person.getPerson(personActivity.getPersonId());
 		View rootView = OpenTenureApplication.getPersonsView();
 
-		if ((person != null && isPersonChanged(person, rootView)) || personHasValues(person, rootView)) {
+		if ((person != null && isPersonChanged(person, rootView)) || (person == null && hasFragmentValues(rootView))) {
 
 			AlertDialog.Builder saveChangesDialog = new AlertDialog.Builder(
 					rootView.getContext());

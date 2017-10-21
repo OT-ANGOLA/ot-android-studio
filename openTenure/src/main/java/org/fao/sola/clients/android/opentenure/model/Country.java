@@ -27,6 +27,8 @@
  */
 package org.fao.sola.clients.android.opentenure.model;
 
+import android.support.annotation.NonNull;
+
 import org.fao.sola.clients.android.opentenure.DisplayNameLocalizer;
 import org.fao.sola.clients.android.opentenure.OpenTenureApplication;
 
@@ -40,9 +42,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Country {
+public class Country implements Comparable<Country>{
 
+	public static final String DEFAULT_COUNTRY_CODE = "ago";
 	Database db = OpenTenureApplication.getInstance().getDatabase();
+	DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
 
 	String code;
 	String displayValue;
@@ -52,10 +56,15 @@ public class Country {
 
 	@Override
 	public String toString() {
-		return "Country [code=" + code + ", description=" + description
-				+ ", displayValue=" + displayValue + ", status=" + status + ", active=" + active + "]";
+		return dnl.getLocalizedDisplayName(getDisplayValue());
 	}
 
+	@Override
+	public int compareTo(@NonNull Country another) {
+		String thisKey = dnl.getLocalizedDisplayName(getDisplayValue())+getCode();
+		String anotherKey = dnl.getLocalizedDisplayName(another.getDisplayValue())+another.getCode();
+		return thisKey.compareTo(anotherKey);
+	}
 
 
 	public Database getDb() {
@@ -123,8 +132,6 @@ public class Country {
 			statement.setString(3, getDisplayValue());
 
 			result = statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -144,45 +151,7 @@ public class Country {
 		return result;
 	}
 
-	public int addCountry(Country country) {
-
-		int result = 0;
-		Connection localConnection = null;
-		PreparedStatement statement = null;
-
-		try {
-
-			localConnection = db.getConnection();
-			statement = localConnection
-					.prepareStatement("INSERT INTO COUNTRY(CODE, DESCRIPTION, DISPLAY_VALUE,ACTIVE) VALUES (?,?,?,'true')");
-
-			statement.setString(1, country.getCode());
-			statement.setString(2, country.getDescription());
-			statement.setString(3, country.getDisplayValue());
-
-			result = statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (localConnection != null) {
-				try {
-					localConnection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return result;
-	}
-
-	public List<Country> getActiveCountries() {
+	public static List<Country> getActiveCountries() {
 
 		List<Country> countries = new ArrayList<Country>();
 		ResultSet rs = null;
@@ -191,7 +160,7 @@ public class Country {
 
 		try {
 
-			localConnection = db.getConnection();
+			localConnection = OpenTenureApplication.getInstance().getDatabase().getConnection();
 			statement = localConnection
 					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM COUNTRY WHERE ACTIVE = 'true'");
 			rs = statement.executeQuery();
@@ -206,9 +175,6 @@ public class Country {
 
 			}
 			return countries;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -235,7 +201,7 @@ public class Country {
 
 	}
 
-	public List<Country> getCountries() {
+	public static List<Country> getCountries() {
 
 		List<Country> countries = new ArrayList<Country>();
 		ResultSet rs = null;
@@ -244,7 +210,7 @@ public class Country {
 
 		try {
 
-			localConnection = db.getConnection();
+			localConnection = OpenTenureApplication.getInstance().getDatabase().getConnection();
 			statement = localConnection
 					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM COUNTRY");
 			rs = statement.executeQuery();
@@ -260,8 +226,6 @@ public class Country {
 			}
 			return countries;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -288,194 +252,6 @@ public class Country {
 
 	}
 
-	public List<String> getDisplayValues(String localization,boolean onlyActive) {
-
-		List<Country> countries;
-
-		if(!onlyActive)
-			countries = getCountries();
-		else
-			countries = getActiveCountries();
-
-
-		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
-		List<String> displayList = new ArrayList<String>();
-
-		for (Iterator<Country> iterator = countries.iterator(); iterator.hasNext();) {
-			Country country = (Country) iterator
-					.next();
-
-			displayList.add(dnl.getLocalizedDisplayName(country.getDisplayValue()));
-		}
-		return displayList;
-	}
-
-	public Map<String,String> getKeyValueMap(String localization,boolean onlyActive) {
-
-		List<Country> list;
-
-		if(!onlyActive)
-			list = getCountries();
-		else
-			list = getActiveCountries();
-
-		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
-		Map<String,String> keyValueMap = new HashMap<String,String>();
-
-		for (Iterator<Country> iterator = list.iterator(); iterator.hasNext();) {
-
-			Country country = (Country) iterator
-					.next();
-
-			keyValueMap.put(country.getCode().toLowerCase(),dnl.getLocalizedDisplayName(country.getDisplayValue()));
-		}
-		return keyValueMap;
-	}
-
-	public Map<String,String> getValueKeyMap(String localization,boolean onlyActive) {
-
-		List<Country> list;
-
-		if(!onlyActive)
-			list = getCountries();
-		else
-			list = getActiveCountries();
-
-		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
-		Map<String,String> keyValueMap = new HashMap<String,String>();
-
-		for (Iterator<Country> iterator = list.iterator(); iterator.hasNext();) {
-
-			Country idType = (Country) iterator
-					.next();
-
-			keyValueMap.put(dnl.getLocalizedDisplayName(idType.getDisplayValue()),idType.getCode());
-		}
-		return keyValueMap;
-	}
-
-	public int getIndexByCodeType(String code,boolean onlyActive) {
-
-		List<Country> countries;
-
-		if(!onlyActive)
-			countries = getCountries();
-		else
-			countries = getActiveCountries();
-
-
-		int i = 0;
-
-		for (Iterator<Country> iterator = countries.iterator(); iterator.hasNext();) {
-			Country idType = (Country) iterator
-					.next();
-
-			if (idType.getCode().equals(code)) {
-
-				return i;
-
-			}
-
-			i++;
-		}
-		return 0;
-
-	}
-
-	public String getCountryByDisplayValue(String value) {
-
-		ResultSet rs = null;
-		Connection localConnection = null;
-		PreparedStatement statement = null;
-
-		try {
-
-			localConnection = db.getConnection();
-			statement = localConnection
-					.prepareStatement("SELECT CODE FROM COUNTRY WHERE DISPLAY_VALUE LIKE  '%' || ? || '%' ");
-			statement.setString(1, value);
-			rs = statement.executeQuery();
-
-			while (rs.next()) {
-				return rs.getString(1);
-			}
-			return null;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (localConnection != null) {
-				try {
-					localConnection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return null;
-
-	}
-
-	public String getDisplayValueByCode(String value) {
-
-		ResultSet rs = null;
-		Connection localConnection = null;
-		PreparedStatement statement = null;
-
-		try {
-
-			localConnection = db.getConnection();
-			statement = localConnection
-					.prepareStatement("SELECT DISPLAY_VALUE FROM COUNTRY WHERE CODE = ?");
-			statement.setString(1, value);
-			rs = statement.executeQuery();
-
-			while (rs.next()) {
-				return rs.getString(1);
-			}
-			return null;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (localConnection != null) {
-				try {
-					localConnection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return null;
-
-	}
-	
 	public static Country getCountry(String code) {
 		ResultSet result = null;
 		Connection localConnection = null;
@@ -498,8 +274,6 @@ public class Country {
 				
 				return country;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -534,8 +308,6 @@ public class Country {
 			statement.setString(3, getCode());
 
 			result = statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -568,8 +340,6 @@ public class Country {
 					.prepareStatement("UPDATE COUNTRY SET ACTIVE='false' WHERE  ACTIVE= 'true'");
 
 			result = statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -588,6 +358,4 @@ public class Country {
 		}
 		return result;
 	}
-	
-
 }

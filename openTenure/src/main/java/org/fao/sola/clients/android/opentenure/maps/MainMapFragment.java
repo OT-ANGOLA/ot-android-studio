@@ -58,6 +58,7 @@ import com.androidmapsextensions.SupportMapFragment;
 import com.androidmapsextensions.TileOverlay;
 import com.androidmapsextensions.TileOverlayOptions;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapsInitializer;
@@ -295,6 +296,7 @@ public class MainMapFragment extends SupportMapFragment implements OnCameraChang
 
 		super.onCreateView(inflater, container, savedInstanceState);
 		mapView = inflater.inflate(R.layout.main_map, container, false);
+		mapView.setSaveEnabled(false);
 		setHasOptionsMenu(true);
 		label = (MapLabel) getChildFragmentManager().findFragmentById(R.id.main_map_provider_label);
 //		label = (MapLabel) getActivity().getSupportFragmentManager().findFragmentById(R.id.main_map_provider_label);
@@ -311,12 +313,12 @@ public class MainMapFragment extends SupportMapFragment implements OnCameraChang
 			map.setClustering(settings);
 		} catch (Throwable i) {
 
-			final int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(OpenTenureApplication.getContext());
+			final int status = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(OpenTenureApplication.getContext());
 			if (status != ConnectionResult.SUCCESS) {
-				Log.d(this.getClass().getName(), GooglePlayServicesUtil.getErrorString(status));
+				Log.d(this.getClass().getName(), GoogleApiAvailability.getInstance().getErrorString(status));
 
 				// ask user to update google play services.
-				Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, getActivity(), 1);
+				Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(getActivity(), status, 1);
 				dialog.show();
 
 				try {
@@ -415,7 +417,6 @@ public class MainMapFragment extends SupportMapFragment implements OnCameraChang
 		}
 
 		OpenTenureApplication.setActivity(getActivity());
-
 		return mapView;
 	}
 

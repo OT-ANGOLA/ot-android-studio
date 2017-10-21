@@ -81,7 +81,7 @@ public class LocalClaimsListAdapter extends ArrayAdapter<ClaimListTO> implements
 
 				filteredClaims = new ArrayList<ClaimListTO>();
 				for (ClaimListTO cto : originalClaims) {
-					String lcase = cto.getSlogan().toLowerCase(
+					String lcase = cto.getNumber().toLowerCase(Locale.getDefault()) + " " + cto.getSlogan().toLowerCase(
 							Locale.getDefault());
 					if (lcase.contains(filterString.toLowerCase(Locale
 							.getDefault()))) {

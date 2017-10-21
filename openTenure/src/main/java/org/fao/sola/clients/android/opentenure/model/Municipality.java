@@ -27,8 +27,11 @@
  */
 package org.fao.sola.clients.android.opentenure.model;
 
+import android.support.annotation.NonNull;
+
 import org.fao.sola.clients.android.opentenure.DisplayNameLocalizer;
 import org.fao.sola.clients.android.opentenure.OpenTenureApplication;
+import org.fao.sola.clients.android.opentenure.R;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,9 +43,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Municipality {
+public class Municipality implements Comparable<Municipality>{
 
 	Database db = OpenTenureApplication.getInstance().getDatabase();
+	DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
 
 	String code;
 	String displayValue;
@@ -53,17 +57,15 @@ public class Municipality {
 
 	@Override
 	public String toString() {
-		return "Municipality ["
-				+ "code=" + code
-				+ ", provinceCode=" + provinceCode
-				+ ", description=" + description
-				+ ", displayValue=" + displayValue
-				+ ", status=" + status
-				+ ", active=" + active
-				+ "]";
+		return dnl.getLocalizedDisplayName(getDisplayValue());
 	}
 
-
+	@Override
+	public int compareTo(@NonNull Municipality another) {
+		String thisKey = dnl.getLocalizedDisplayName(getDisplayValue())+getCode();
+		String anotherKey = dnl.getLocalizedDisplayName(another.getDisplayValue())+another.getCode();
+		return thisKey.compareTo(anotherKey);
+	}
 
 	public Database getDb() {
 		return db;
@@ -139,8 +141,6 @@ public class Municipality {
 			statement.setString(4, getProvinceCode());
 
 			result = statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -160,46 +160,7 @@ public class Municipality {
 		return result;
 	}
 
-	public int addMunicipality(Municipality municipality) {
-
-		int result = 0;
-		Connection localConnection = null;
-		PreparedStatement statement = null;
-
-		try {
-
-			localConnection = db.getConnection();
-			statement = localConnection
-					.prepareStatement("INSERT INTO MUNICIPALITY(CODE, DESCRIPTION, DISPLAY_VALUE,PROVINCE_CODE, ACTIVE) VALUES (?,?,?,?,'true')");
-
-			statement.setString(1, municipality.getCode());
-			statement.setString(2, municipality.getDescription());
-			statement.setString(3, municipality.getDisplayValue());
-			statement.setString(4, municipality.getProvinceCode());
-
-			result = statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (localConnection != null) {
-				try {
-					localConnection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return result;
-	}
-
-	public List<Municipality> getActiveMunicipalities() {
+	public static List<Municipality> getActiveMunicipalities() {
 
 		List<Municipality> municipalities = new ArrayList<Municipality>();
 		ResultSet rs = null;
@@ -208,7 +169,7 @@ public class Municipality {
 
 		try {
 
-			localConnection = db.getConnection();
+			localConnection = OpenTenureApplication.getInstance().getDatabase().getConnection();
 			statement = localConnection
 					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE, PROVINCE_CODE FROM MUNICIPALITY WHERE ACTIVE = 'true'");
 			rs = statement.executeQuery();
@@ -223,10 +184,14 @@ public class Municipality {
 				municipalities.add(municipality);
 
 			}
+			// To account for provinces without municipalities
+			Municipality municipality = new Municipality();
+			municipality.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			municipality.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			municipality.setProvinceCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			municipalities.add(municipality);
 			return municipalities;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -252,7 +217,7 @@ public class Municipality {
 		return municipalities;
 	}
 
-	public List<Municipality> getMunicipalities() {
+	public static List<Municipality> getMunicipalities() {
 
 		List<Municipality> municipalities = new ArrayList<Municipality>();
 		ResultSet rs = null;
@@ -261,7 +226,7 @@ public class Municipality {
 
 		try {
 
-			localConnection = db.getConnection();
+			localConnection = OpenTenureApplication.getInstance().getDatabase().getConnection();
 			statement = localConnection
 					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE, PROVINCE_CODE FROM MUNICIPALITY");
 			rs = statement.executeQuery();
@@ -276,10 +241,14 @@ public class Municipality {
 				municipalities.add(municipality);
 
 			}
+			// To account for provinces without municipalities
+			Municipality municipality = new Municipality();
+			municipality.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			municipality.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			municipality.setProvinceCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			municipalities.add(municipality);
 			return municipalities;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -306,302 +275,6 @@ public class Municipality {
 
 	}
 
-	public List<Municipality> getActiveMunicipalitiesByProvince(String provinceCode) {
-
-		List<Municipality> municipalities = new ArrayList<Municipality>();
-		ResultSet rs = null;
-		Connection localConnection = null;
-		PreparedStatement statement = null;
-
-		try {
-
-			localConnection = db.getConnection();
-			statement = localConnection
-					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM MUNICIPALITY WHERE PROVINCE_CODE=? AND ACTIVE = 'true'");
-			statement.setString(1, provinceCode);
-			rs = statement.executeQuery();
-
-			while (rs.next()) {
-				Municipality municipality = new Municipality();
-				municipality.setCode(rs.getString(1));
-				municipality.setDescription(rs.getString(2));
-				municipality.setDisplayValue(rs.getString(3));
-				municipality.setProvinceCode(provinceCode);
-
-				municipalities.add(municipality);
-
-			}
-			return municipalities;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (localConnection != null) {
-				try {
-					localConnection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return municipalities;
-	}
-
-	public List<Municipality> getMunicipalitiesByProvince(String provinceCode) {
-
-		List<Municipality> municipalities = new ArrayList<Municipality>();
-		ResultSet rs = null;
-		Connection localConnection = null;
-		PreparedStatement statement = null;
-
-		try {
-
-			localConnection = db.getConnection();
-			statement = localConnection
-					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE FROM MUNICIPALITY WHERE PROVINCE_CODE=?");
-			statement.setString(1, provinceCode);
-			rs = statement.executeQuery();
-
-			while (rs.next()) {
-				Municipality municipality = new Municipality();
-				municipality.setCode(rs.getString(1));
-				municipality.setDescription(rs.getString(2));
-				municipality.setDisplayValue(rs.getString(3));
-				municipality.setProvinceCode(provinceCode);
-
-				municipalities.add(municipality);
-
-			}
-			return municipalities;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (localConnection != null) {
-				try {
-					localConnection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return municipalities;
-	}
-
-	public List<String> getDisplayValues(String localization,boolean onlyActive) {
-
-		List<Municipality> municipalities;
-
-		if(!onlyActive)
-			municipalities = getMunicipalities();
-		else
-			municipalities = getActiveMunicipalities();
-
-
-		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
-		List<String> displayList = new ArrayList<String>();
-
-		for (Iterator<Municipality> iterator = municipalities.iterator(); iterator.hasNext();) {
-			Municipality municipality = (Municipality) iterator
-					.next();
-
-			displayList.add(dnl.getLocalizedDisplayName(municipality.getDisplayValue()));
-		}
-		return displayList;
-	}
-
-	public Map<String,String> getKeyValueMap(String localization,boolean onlyActive) {
-
-		List<Municipality> list;
-
-		if(!onlyActive)
-			list = getMunicipalities();
-		else
-			list = getActiveMunicipalities();
-
-		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
-		Map<String,String> keyValueMap = new HashMap<String,String>();
-
-		for (Iterator<Municipality> iterator = list.iterator(); iterator.hasNext();) {
-
-			Municipality municipality = (Municipality) iterator
-					.next();
-
-			keyValueMap.put(municipality.getCode().toLowerCase(),dnl.getLocalizedDisplayName(municipality.getDisplayValue()));
-		}
-		return keyValueMap;
-	}
-
-	public Map<String,String> getValueKeyMap(String localization,boolean onlyActive) {
-
-		List<Municipality> municipalities;
-
-		if(!onlyActive)
-			municipalities = getMunicipalities();
-		else
-			municipalities = getActiveMunicipalities();
-
-		DisplayNameLocalizer dnl = new DisplayNameLocalizer(OpenTenureApplication.getInstance().getLocalization());
-		Map<String,String> keyValueMap = new HashMap<String,String>();
-
-		for (Iterator<Municipality> iterator = municipalities.iterator(); iterator.hasNext();) {
-
-			Municipality municipality = (Municipality) iterator
-					.next();
-
-			keyValueMap.put(dnl.getLocalizedDisplayName(municipality.getDisplayValue()),municipality.getCode());
-		}
-		return keyValueMap;
-	}
-
-	public int getIndexByCodeType(String code,boolean onlyActive) {
-
-		List<Municipality> list;
-
-		if(!onlyActive)
-			list = getMunicipalities();
-		else
-			list = getActiveMunicipalities();
-
-
-		int i = 0;
-
-		for (Iterator<Municipality> iterator = list.iterator(); iterator.hasNext();) {
-			Municipality municipality = (Municipality) iterator
-					.next();
-
-			if (municipality.getCode().equals(code)) {
-
-				return i;
-
-			}
-
-			i++;
-		}
-		return 0;
-
-	}
-
-	public String getMunicipalityByDisplayValue(String value) {
-
-		ResultSet rs = null;
-		Connection localConnection = null;
-		PreparedStatement statement = null;
-
-		try {
-
-			localConnection = db.getConnection();
-			statement = localConnection
-					.prepareStatement("SELECT CODE FROM MUNICIPALITY WHERE DISPLAY_VALUE LIKE  '%' || ? || '%' ");
-			statement.setString(1, value);
-			rs = statement.executeQuery();
-
-			while (rs.next()) {
-				return rs.getString(1);
-			}
-			return null;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (localConnection != null) {
-				try {
-					localConnection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return null;
-
-	}
-
-	public String getDisplayValueByCode(String value) {
-
-		ResultSet rs = null;
-		Connection localConnection = null;
-		PreparedStatement statement = null;
-
-		try {
-
-			localConnection = db.getConnection();
-			statement = localConnection
-					.prepareStatement("SELECT DISPLAY_VALUE FROM MUNICIPALITY WHERE CODE = ?");
-			statement.setString(1, value);
-			rs = statement.executeQuery();
-
-			while (rs.next()) {
-				return rs.getString(1);
-			}
-			return null;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (localConnection != null) {
-				try {
-					localConnection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		return null;
-
-	}
-	
 	public static Municipality getMunicipality(String code) {
 		ResultSet result = null;
 		Connection localConnection = null;
@@ -625,8 +298,6 @@ public class Municipality {
 
 				return municipality;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -662,8 +333,6 @@ public class Municipality {
 			statement.setString(4, getCode());
 
 			result = statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -696,8 +365,6 @@ public class Municipality {
 					.prepareStatement("UPDATE MUNICIPALITY SET ACTIVE='false' WHERE  ACTIVE= 'true'");
 
 			result = statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {

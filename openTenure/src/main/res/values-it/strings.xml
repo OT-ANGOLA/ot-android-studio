@@ -72,14 +72,14 @@
     <string name="title_initialization_process">Processo di Inizializzazione</string>
     <string name="title_item">Elemento</string>
     <string name="title_activity_settings">Impostazioni</string>
-    <string name="title_activity_claim">Open Tenure: Nuova richiesta</string>
+    <string name="title_activity_claim">ALIMS Mobile: Nuova richiesta</string>
     <string name="title_i_m_here">La tua posizione</string>
-    <string name="title_activity_person">Open Tenure: Nuova persona</string>
-    <string name="title_activity_group">Open Tenure: Nuovo gruppo</string>
-    <string name="title_activity_select_claim">Open Tenure: Selezione richiesta</string>
-    <string name="title_activity_select_person">Open Tenure: Selezione persona</string>
-    <string name="title_activity_select_bookmark">Open Tenure: Selezione luogo</string>
-    <string name="title_activity_share_details">Open Tenure: Dettaglio della quota</string>
+    <string name="title_activity_person">ALIMS Mobile: Nuova persona</string>
+    <string name="title_activity_group">ALIMS Mobile: Nuovo gruppo</string>
+    <string name="title_activity_select_claim">ALIMS Mobile: Selezione richiesta</string>
+    <string name="title_activity_select_person">ALIMS Mobile: Selezione persona</string>
+    <string name="title_activity_select_bookmark">ALIMS Mobile: Selezione luogo</string>
+    <string name="title_activity_share_details">ALIMS Mobile: Dettaglio della quota</string>
     <string name="title_activity_file_chooser">Scegli un file</string>
     <string name="title_confirm_data_transfer">Conferma trasferimento dati</string>
     <string name="title_lock_db">Cifratura dei dati locali</string>
@@ -188,14 +188,14 @@
     <string name="message_cant_open_db">Impossibile accedere ai dati</string>
     <string name="message_old_db_password">Password attuale?</string>
     <string name="message_data_over_mobile">Stai per trasferire una quantita\' di dati possibilmente grande usando una connessione internet mobile. Il costo associato puo\' essere elevato a secondo del tuo piano tariffario</string>
-    <string name="message_no_connection_at_startup">Nessuna connessione Internet disponibile. Le informazioni di configurazione potrebbero non riflettere cambiamenti recenti e non sara\' possibile trasferire informazioni. Connettiti ad Internet se vuoi trasferire informazioni usando OpenTenure</string>
+    <string name="message_no_connection_at_startup">Nessuna connessione Internet disponibile. Le informazioni di configurazione potrebbero non riflettere cambiamenti recenti e non sara\' possibile trasferire informazioni. Connettiti ad Internet se vuoi trasferire informazioni usando ALIMS Mobile</string>
     <string name="message_new_db_password">Nuova password (lasciare vuoto per non cifrare i dati)?</string>
     <string name="message_confirm_new_db_password">Conferma la nuova password</string>
     <string name="message_enter_description">Immetti una descrizione</string>
     <string name="message_password_dont_match">Nuova password non confermata. Riprovare</string>
     <string name="message_encryption_failed">Impossibile cifrare i dati locali</string>
     <string name="message_data_unencrypted">Attenzione: i tuoi dati locali non sono cifrati</string>
-    <string name="message_encryption_set">I dati locali sono cifrati. Fornisci la password per decifrarli al prossimo avvio di OpenTenure</string>
+    <string name="message_encryption_set">I dati locali sono cifrati. Fornisci la password per decifrarli al prossimo avvio di ALIMS Mobile</string>
     <string name="message_add_marker">Aggiungere un vertice al perimetro?</string>
     <string name="message_add_non_boundary_marker">Aggiungere una posizione non perimetrica?</string>
     <string name="message_add_map_bookmark_marker">Aggiungere una posizione preferita?</string>
@@ -225,11 +225,11 @@
     <string name="message_error_startdate">Data di inizio diritto non e\' in un formato corretto o e\' vuota</string>
     <string name="message_title_app_not_initialized">L\'applicazione non e\' inizializzata</string>
     <string name="message_app_not_initialized_network">La connessione alla rete non e\' disponibile</string>
-    <string name="message_app_not_initialized">Controlla i parametri del tuo Open Tenure Community Server in \'Impostazioni\' e ripeti il processo di inizializazione</string>
+    <string name="message_app_not_initialized">Controlla i parametri del tuo ALIMS Mobile Community Server in \'Impostazioni\' e ripeti il processo di inizializazione</string>
     <string name="message_title_app_initialized">L\'applicazione e\' inizializzata</string>
-    <string name="message_app_initialized">L\'applicazione è pronta per lavorare e comunicare con l\'Open Tenure Community Server </string>
-    <string name="message_app_initialized_default">L\'applicazione è pronta per lavorare e comunicare con il Default Open Tenure Community Server </string>
-    <string name="message_title_app_initializing">Sto inizializzando OpenTenure</string>
+    <string name="message_app_initialized">L\'applicazione è pronta per lavorare e comunicare con l\'ALIMS Server </string>
+    <string name="message_app_initialized_default">L\'applicazione è pronta per lavorare e comunicare con il Default ALIMS Server </string>
+    <string name="message_title_app_initializing">Sto inizializzando ALIMS Mobile</string>
     <string name="message_app_initializing">Attendere&#8230;</string>
     <string name="message_db_backed_up">E\' stata creata una copia dei dati locali</string>
     <string name="message_log_exported">E\' stato esportato il registro degli eventi dell\'applicazione</string>
@@ -241,8 +241,8 @@
     <string name="message_adjacencies_saved">Adiacenze salvate</string>
     <string name="message_adjacencies_not_saved">Adiacenze non salvate</string>
     <string name="message_claim_modified">Claim modificato</string>
-    <string name="message_update_server">Il Community Server sta usando una vecchia versione del protocollo di comunicazione. Attendi che l\'amministratore aggiorni il Community Server prima di proseguire</string>
-    <string name="message_update_client">Il Community Server sta usando una nuova versione del protocollo di comunicazione. Attendi un aggiornamento di Open Tenure prima di proseguire</string>
+    <string name="message_update_server">Il Community Server sta usando una vecchia versione del protocollo di comunicazione. Attendi che l\'amministratore aggiorni il ALIMS Server prima di proseguire</string>
+    <string name="message_update_client">Il Community Server sta usando una nuova versione del protocollo di comunicazione. Attendi un aggiornamento di ALIMS Mobile prima di proseguire</string>
     <string name="check_location_service">Nessuna informazione di localizzazione disponibile. Controlla nelle impostazioni che il servizio di localizzazione sia attivo</string>
 	<string name="tiles_queued">Ci sono %d frammenti di mappa nella lista di download</string>
 	<string name="too_many_tiles_queued">Ci sono %d frammenti di mappa da scaricare. Attendi prima di aggiungerne altri</string>
@@ -308,8 +308,8 @@
     <string name="map_provider_local_tiles">Dati locali</string>
     <string name="map_provider_geoserver">GeoServer</string>
     <string name="cs_url_pref_title">Community Server URL</string>
-    <string name="cs_url_pref_summary">Indirizzo web dell\'OpenTenure Community Server</string>
-    <string name="cs_url_pref_dialog_title">Inserisci l\'URL del tuo OpenTenure Community Server</string>
+    <string name="cs_url_pref_summary">Indirizzo web dell\'ALIMS Server</string>
+    <string name="cs_url_pref_dialog_title">Inserisci l\'URL del tuo ALIMS Community Server</string>
     <string name="geoserver_url_pref_title">GeoServer URL</string>
     <string name="geoserver_url_pref_summary">URL iniziale dell\'istanza di GeoServer di supporto alla community</string>
     <string name="geoserver_url_pref_dialog_title">Inserisci l\'URL del tuo GeoServer</string>
@@ -358,7 +358,7 @@
     <string name="tiles_provider_dialog_title">Scegli un tipo di provider di mappe offline</string>
     <string name="language_dialog_title">Scegli una lingua</string>
 	<string name="title_restart_dialog">Riavvio necessario</string>
-	<string name="message_restart_dialog">Un cambiamento della configurazione di OpenTenure richiede un riavvio per avere effetto. Vuoi riavviare OpenTenure adesso?</string>
+	<string name="message_restart_dialog">Un cambiamento della configurazione di ALIMS Mobile richiede un riavvio per avere effetto. Vuoi riavviare ALIMS Mobile adesso?</string>
     
     <string-array name="language_keys">
         <item >Khmer</item>
@@ -540,7 +540,7 @@
     <string name="mother_name">Nome della madre</string>
     <string name="father_name_label">Nome del padre*</string>
     <string name="father_name">Nome del padre</string>
-    <string name="app_name">SAGIT Mobile</string>
+    <string name="app_name">ALIMS Mobile</string>
     <string name="beneficiary_id_number_label">Numero di documento del beneficiario</string>
     <string name="beneficiary_name_label">Nome del beneficiario</string>
     <string name="birth_commune_label">Comune di nascita</string>

@@ -103,8 +103,7 @@ public class ClaimDetailsFragment extends Fragment {
 	private Map<String, String> valueKeyMapLandUse;
 	private Map<String, String> keyValueClaimTypesMap;
 	private Map<String, String> valueKeyClaimTypesMap;
-	private Map<String, String> keyValueCommunesMap;
-	private Map<String, String> valueKeyCommunesMap;
+	private List<Commune> communesList;
 	private Map<String, String> keyValueLandProjectsMap;
 	private Map<String, String> valueKeyLandProjectsMap;
 	private boolean challengedJustLoaded = false;
@@ -505,26 +504,15 @@ public class ClaimDetailsFragment extends Fragment {
 		spinnerLP.setAdapter(dataAdapterLP);
 
 		// Communes Spinner
+		/* Mapping commune localization */
+		communesList = new ArrayList<Commune>(new TreeSet<Commune>(onlyActiveValues ? Commune.getActiveCommunes():Commune.getCommunes()));
+
+		ArrayAdapter<Commune> dataAdapterCO = new ArrayAdapter<Commune>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				new ArrayList<Commune>(communesList));
 		Spinner spinnerCO = (Spinner) rootView
 				.findViewById(R.id.communeSpinner);
 
-		Commune co = new Commune();
-		keyValueCommunesMap = co.getKeyValueMap(OpenTenureApplication
-				.getInstance().getLocalization(), onlyActiveValues);
-		valueKeyCommunesMap = co.getValueKeyMap(OpenTenureApplication
-				.getInstance().getLocalization(), onlyActiveValues);
-
-		List<String> communeslist = new ArrayList<String>();
-		keys = new TreeSet<String>(keyValueCommunesMap.keySet());
-		for (String key : keys) {
-			String value = keyValueCommunesMap.get(key);
-			communeslist.add(value);
-		}
-
-		ArrayAdapter<String> dataAdapterCO = new ArrayAdapter<String>(
-				OpenTenureApplication.getContext(), R.layout.my_spinner,
-				communeslist) {
-		};
 		dataAdapterCO.setDropDownViewResource(R.layout.my_spinner);
 
 		spinnerCO.setAdapter(dataAdapterCO);
@@ -805,8 +793,7 @@ public class ClaimDetailsFragment extends Fragment {
 							claim.getLandProjectCode(), onlyActiveValues));
 
 			((Spinner) rootView.findViewById(R.id.communeSpinner))
-					.setSelection(new Commune().getIndexByCodeType(
-							claim.getCommuneCode(), onlyActiveValues));
+					.setSelection(Commune.communeIndex(communesList, claim.getCommuneCode()));
 
 			((EditText) rootView.findViewById(R.id.claim_notes_input_field))
 					.setText(claim.getNotes());
@@ -974,9 +961,9 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.landProjectSpinner)).getSelectedItem();
 		claim.setLandProjectCode(valueKeyLandProjectsMap.get(landProjectDispValue));
 
-		String communeDispValue = (String) ((Spinner) rootView
+		Commune commune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.communeSpinner)).getSelectedItem();
-		claim.setCommuneCode(valueKeyCommunesMap.get(communeDispValue));
+		claim.setCommuneCode(commune.getCode());
 
 		String notes = ((EditText) rootView
 				.findViewById(R.id.claim_notes_input_field)).getText()
@@ -1154,9 +1141,9 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.landProjectSpinner)).getSelectedItem();
 		claim.setLandProjectCode(valueKeyLandProjectsMap.get(landProjectDispValue));
 
-		String communeDispValue = (String) ((Spinner) rootView
+		Commune commune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.communeSpinner)).getSelectedItem();
-		claim.setCommuneCode(valueKeyCommunesMap.get(communeDispValue));
+		claim.setCommuneCode(commune.getCode());
 
 		String notes = ((EditText) rootView
 				.findViewById(R.id.claim_notes_input_field)).getText()
@@ -1452,11 +1439,11 @@ public class ClaimDetailsFragment extends Fragment {
 			Log.d(this.getClass().getName(), "Land project has changed");
 			return true;
 		}
-		String communeDispValue = (String) ((Spinner) rootView
+		Commune commune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.communeSpinner))
 				.getSelectedItem();
-		if ((claim.getCommuneCode() == null && valueKeyCommunesMap.get(communeDispValue) != null)
-				|| (!claim.getCommuneCode().equals(valueKeyCommunesMap.get(communeDispValue)))){
+		if ((claim.getCommuneCode() == null && commune.getCode() != null)
+				|| (!claim.getCommuneCode().equals(commune.getCode()))){
 			Log.d(this.getClass().getName(), "Commune has changed");
 			return true;
 		}

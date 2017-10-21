@@ -1715,7 +1715,9 @@ public class Claim {
 	public String getSlogan(Context context) {
 		String claimName = getName().equalsIgnoreCase("") ? context
 				.getString(R.string.default_claim_name) : getName();
-		return claimName + ", " + context.getString(R.string.by) + ": "
+		String claimNumber = getClaimNumber() == null ? ""
+				: getClaimNumber();
+		return claimNumber + " " + claimName + ", " + context.getString(R.string.by) + ": "
 				+ getPerson().getFirstName() + " " + getPerson().getLastName();
 	}
 

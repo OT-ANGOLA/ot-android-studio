@@ -206,10 +206,10 @@
     <string name="message_title_app_not_initialized">O aplicativo não foi inicializado</string>
     <string name="message_app_not_initialized_network">A conexão da rede não está disponível</string>
     <string name="message_app_not_yet_initialized">O aplicativo ainda não foi inicializado</string>
-    <string name="message_app_not_initialized">Verifique em \'Configurações\' se as configurações do seu Servidor da Comunidade Open Tenure estão corretos e execute outra vez o processo de inicialização</string>
+    <string name="message_app_not_initialized">Verifique em \'Configurações\' se as configurações do seu Servidor de SAGIT estão corretos e execute outra vez o processo de inicialização</string>
     <string name="message_title_app_initialized">O aplicativo foi inicializado</string>
-    <string name="message_app_initialized_default">O aplicativo está pronto para funcionar e se comunicar com o padrão inicial do Servidor da Comunidade Open Tenure</string>
-    <string name="message_app_initialized">O aplicativo está pronto para funcionar e se comunicar com o Servidor da Comunidade Open Tenure</string>
+    <string name="message_app_initialized_default">O aplicativo está pronto para funcionar e se comunicar com o padrão inicial do Servidor de SAGIT</string>
+    <string name="message_app_initialized">O aplicativo está pronto para funcionar e se comunicar com o Servidor de SAGIT</string>
     <string name="check_location_service">Nenhuma informação local disponível. Verifique se o serviço de localização está ativado nas suas configurações.</string>
     <string name="tiles_queued">Existem %d arquivos na lista de transferência</string>
     <string name="too_many_tiles_queued">Existem %d arquivos na lista de transferência. Por favor, espere antes de baixar outros arquivos</string>
@@ -229,7 +229,7 @@
     <string name="title_challenged_claim">Requerimento questionado:</string>
     <string name="status">status:</string>
     <string name="title_no_connection">Sem conexão</string>
-    <string name="message_no_connection_at_startup">Sem conexão com a Internet. A configuração pode não mostrar as mudanças recentes e você não poderá fazer o upload ou download das informações. Conecte-se à Internet, se você pretende transferir dados usando OpenTenure</string>
+    <string name="message_no_connection_at_startup">Sem conexão com a Internet. A configuração pode não mostrar as mudanças recentes e você não poderá fazer o upload ou download das informações. Conecte-se à Internet, se você pretende transferir dados usando SAGIT Mobile</string>
     <string name="action_backup_db">Backup de dados locais</string>
     <string name="message_db_backed_up">Foi criada uma cópia do banco de dados local</string>
     <string name="title_initialization_process">Inicializando o Processo</string>
@@ -279,8 +279,8 @@
     <string name="map_provider_local_tiles">Dados locais</string>
     <string name="map_provider_geoserver">GeoServer</string>
     <string name="cs_url_pref_title">URL do Servidor da Comunidade</string>
-    <string name="cs_url_pref_summary">Endereço web do Servidor da Comunidade OpenTenure</string>
-    <string name="cs_url_pref_dialog_title">Digite a URL do seu Servidor da Comunidade OpenTenure</string>
+    <string name="cs_url_pref_summary">Endereço web do Servidor de SAGIT Mobile</string>
+    <string name="cs_url_pref_dialog_title">Digite a URL do seu Servidor de SAGIT Mobile</string>
     <string name="geoserver_url_pref_title">URL do GeoServer</string>
     <string name="geoserver_url_pref_summary">URL da instância do seu provedor do mapa GeoServere</string>
     <string name="geoserver_url_pref_dialog_title">Digite a URL do seu GeoServer</string>
@@ -520,8 +520,8 @@
     <string name="form_validation_on">On</string>
     <string name="message_add_map_bookmark_marker">Adicionar marcador de mapa?</string>
     <string name="message_log_exported">Uma cópia do log do aplicativo foi exportada</string>
-    <string name="message_update_client">The Community Server is using a new version of the communication protocol. Wait for an update of Open Tenure before proceeding</string>
-    <string name="message_update_server">The Community Server is using an old version of the communication protocol. Wait for your administrator to update the Community Server before proceeding</string>
+    <string name="message_update_client">The SAGIT Server is using a new version of the communication protocol. Wait for an update of SAGIT Mobile before proceeding</string>
+    <string name="message_update_server">The SAGIT Server is using an old version of the communication protocol. Wait for your administrator to update the SAGIT Server before proceeding</string>
     <string name="title_activity_select_bookmark">SAGIT: selecione o marcador</string>
     <string name="title_add_map_bookmark">Adicionar marcador de mapa</string>
     <string name="title_bookmarks">Marcadores de mapa</string>
@@ -534,7 +534,7 @@
         <string name="block_number_label">Numero do bloco</string>
         <string name="has_construction_label">Tem construcao?</string>
         <string name="construction_date_label">data de construcao</string>
-        <string name="neighborhood_label">Vizinhanca</string>
+        <string name="neighborhood_label">Bairro</string>
         <string name="commune_label">Comuna</string>
         <string name="land_project_label">Nome do projecto</string>
         <string name="north_adjacency_type_label">Tipo de limite ao norte</string>

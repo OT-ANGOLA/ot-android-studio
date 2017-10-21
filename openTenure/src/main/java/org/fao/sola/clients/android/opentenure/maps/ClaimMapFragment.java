@@ -337,6 +337,7 @@ public class ClaimMapFragment extends Fragment implements OnCameraChangeListener
 		setRetainInstance(true);
 		super.onCreateView(inflater, container, savedInstanceState);
 		mapView = inflater.inflate(R.layout.fragment_claim_map, container, false);
+		mapView.setSaveEnabled(false);
 		setHasOptionsMenu(true);
 		label = (MapLabel) getChildFragmentManager().findFragmentById(R.id.claim_map_provider_label);
 //		label = (MapLabel) getActivity().getSupportFragmentManager().findFragmentById(R.id.claim_map_provider_label);

@@ -507,7 +507,6 @@ public class PersonFragment extends Fragment {
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 				// Reload list of id issuance provinces based on selected country
 				Country selectedCountry = (Country)spinnerIdIssuanceCountry.getSelectedItem();
-				spinnerIdIssuanceCountry.requestFocus();
 
 				ArrayAdapter<Province> dataAdapterPR = (ArrayAdapter<Province>)spinnerIdIssuanceProvince.getAdapter();
 				dataAdapterPR.clear();
@@ -515,9 +514,6 @@ public class PersonFragment extends Fragment {
 				dataAdapterPR.addAll(provinces);
 				dataAdapterPR.notifyDataSetChanged();
 				spinnerIdIssuanceProvince.setSelection(0,true);
-				View provinceView = (View)spinnerIdIssuanceProvince.getChildAt(0);
-				long provinceId = spinnerIdIssuanceProvince.getAdapter().getItemId(0);
-				spinnerIdIssuanceProvince.performItemClick(provinceView, 0, provinceId);
 
 				Province selectedProvince = provinces.get(0);
 				ArrayAdapter<Municipality> dataAdapterMU = (ArrayAdapter<Municipality>)spinnerIdIssuanceMunicipality.getAdapter();
@@ -526,9 +522,6 @@ public class PersonFragment extends Fragment {
 				dataAdapterMU.addAll(municipalities);
 				dataAdapterMU.notifyDataSetChanged();
 				spinnerIdIssuanceMunicipality.setSelection(0,true);
-				View municipalityView = (View)spinnerIdIssuanceMunicipality.getChildAt(0);
-				long municipalityId = spinnerIdIssuanceMunicipality.getAdapter().getItemId(0);
-				spinnerIdIssuanceMunicipality.performItemClick(municipalityView, 0, municipalityId);
 
 				Municipality selectedMunicipality = municipalities.get(0);
 				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerIdIssuanceCommune.getAdapter();
@@ -536,10 +529,8 @@ public class PersonFragment extends Fragment {
 				dataAdapterCO.addAll(filterCommunesByMunicipality(communesList, selectedMunicipality.getCode()));
 				dataAdapterCO.notifyDataSetChanged();
 				spinnerIdIssuanceCommune.setSelection(0,true);
-				View communeView = (View)spinnerIdIssuanceCommune.getChildAt(0);
-				long communeId = spinnerIdIssuanceCommune.getAdapter().getItemId(0);
-				spinnerIdIssuanceCommune.performItemClick(communeView, 0, communeId);
 
+				spinnerIdIssuanceCountry.requestFocusFromTouch();
 			}
 
 			@Override
@@ -553,7 +544,6 @@ public class PersonFragment extends Fragment {
 			@Override
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 				// Reload list of birth communes based on selected country
-                Log.d(this.getClass().getName(),"started BirthCountry.onItemSelected");
 				Country selectedCountry = (Country)spinnerBirthCountry.getSelectedItem();
 
 				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerBirthCommune.getAdapter();
@@ -561,12 +551,8 @@ public class PersonFragment extends Fragment {
 				dataAdapterCO.addAll(filterCommunesByCountry(communesList, selectedCountry.getCode()));
 				dataAdapterCO.notifyDataSetChanged();
 				spinnerBirthCommune.setSelection(0,true);
-				View itemView = (View)spinnerBirthCommune.getChildAt(0);
-				long itemId = spinnerBirthCommune.getAdapter().getItemId(0);
 
-				spinnerBirthCommune.performItemClick(itemView, 0, itemId);
-				spinnerBirthCommune.requestFocus();
-                Log.d(this.getClass().getName(),"completed BirthCountry.onItemSelected");
+				spinnerBirthCountry.requestFocusFromTouch();
 			}
 
 			@Override
@@ -581,7 +567,6 @@ public class PersonFragment extends Fragment {
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 				// Reload list of issuance municipalities based on selected province
 				Province selectedProvince = (Province)spinnerIdIssuanceProvince.getSelectedItem();
-				spinnerIdIssuanceProvince.requestFocus();
 
 				ArrayAdapter<Municipality> dataAdapterMU = (ArrayAdapter<Municipality>)spinnerIdIssuanceMunicipality.getAdapter();
 				dataAdapterMU.clear();
@@ -589,9 +574,6 @@ public class PersonFragment extends Fragment {
 				dataAdapterMU.addAll(municipalities);
 				dataAdapterMU.notifyDataSetChanged();
 				spinnerIdIssuanceMunicipality.setSelection(0,true);
-				View municipalityView = (View)spinnerIdIssuanceMunicipality.getChildAt(0);
-				long municipalityId = spinnerIdIssuanceMunicipality.getAdapter().getItemId(0);
-				spinnerIdIssuanceMunicipality.performItemClick(municipalityView, 0, municipalityId);
 
 				Municipality selectedMunicipality = municipalities.get(0);
 				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerIdIssuanceCommune.getAdapter();
@@ -599,9 +581,8 @@ public class PersonFragment extends Fragment {
 				dataAdapterCO.addAll(filterCommunesByMunicipality(communesList, selectedMunicipality.getCode()));
 				dataAdapterCO.notifyDataSetChanged();
 				spinnerIdIssuanceCommune.setSelection(0,true);
-				View communeView = (View)spinnerIdIssuanceCommune.getChildAt(0);
-				long communeId = spinnerIdIssuanceCommune.getAdapter().getItemId(0);
-				spinnerIdIssuanceCommune.performItemClick(communeView, 0, communeId);
+
+				spinnerIdIssuanceProvince.requestFocusFromTouch();
 			}
 
 			@Override
@@ -617,16 +598,14 @@ public class PersonFragment extends Fragment {
 				// Reload list of issuance communes based on selected municipality
 
 				Municipality selectedMunicipality = (Municipality)spinnerIdIssuanceMunicipality.getSelectedItem();
-				spinnerIdIssuanceMunicipality.requestFocus();
 
 				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerIdIssuanceCommune.getAdapter();
 				dataAdapterCO.clear();
 				dataAdapterCO.addAll(filterCommunesByMunicipality(communesList, selectedMunicipality.getCode()));
 				dataAdapterCO.notifyDataSetChanged();
 				spinnerIdIssuanceCommune.setSelection(0,true);
-				View communeView = (View)spinnerIdIssuanceCommune.getChildAt(0);
-				long communeId = spinnerIdIssuanceCommune.getAdapter().getItemId(0);
-				spinnerIdIssuanceCommune.performItemClick(communeView, 0, communeId);
+
+				spinnerIdIssuanceMunicipality.requestFocusFromTouch();
 			}
 
 			@Override

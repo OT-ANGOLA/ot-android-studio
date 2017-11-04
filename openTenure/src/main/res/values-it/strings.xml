@@ -575,4 +575,6 @@
     <string name="message_unable_to_save_missing_address">Impossibile salvare. Indirizzo mancante</string>
     <string name="message_adjacencies_incomplete">Informazioni sulle adiacenze incomplete</string>
     <string name="discard">Scarta</string>
+    <string name="birth_municipality_label">Municipio di nascita</string>
+    <string name="birth_province_label">Provincia di nascita</string>
 </resources>

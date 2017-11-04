@@ -55,6 +55,8 @@ public class Claimant {
 	@SerializedName("idIssuanceMunicipalityCode")  private String idIssuanceMunicipalityCode;
 	@SerializedName("idIssuanceCommuneCode")  private String idIssuanceCommuneCode;
 	@SerializedName("birthCountryCode")  private String birthCountryCode;
+	@SerializedName("birthProvinceCode")  private String birthProvinceCode;
+	@SerializedName("birthMunicipalityCode")  private String birthMunicipalityCode;
 	@SerializedName("birthCommuneCode")  private String birthCommuneCode;
 	@SerializedName("residenceCommuneCode")  private String residenceCommuneCode;
 	@SerializedName("beneficiaryName")  private String beneficiaryName;
@@ -134,6 +136,22 @@ public class Claimant {
 		this.birthCountryCode = birthCountryCode;
 	}
 
+	public String getBirthProvinceCode() {
+		return birthProvinceCode;
+	}
+
+	public void setBirthProvinceCode(String birthProvinceCode) {
+		this.birthProvinceCode = birthProvinceCode;
+	}
+
+	public String getBirthMunicipalityCode() {
+		return birthMunicipalityCode;
+	}
+
+	public void setBirthMunicipalityCode(String birthMunicipalityCode) {
+		this.birthMunicipalityCode = birthMunicipalityCode;
+	}
+
 	public String getBirthCommuneCode() {
 		return birthCommuneCode;
 	}
@@ -204,12 +222,6 @@ public class Claimant {
 	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
 	}
-//	public String getPlaceOfBirth() {
-//		return placeOfBirth;
-//	}
-//	public void setPlaceOfBirth(String placeOfBirth) {
-//		this.placeOfBirth = placeOfBirth;
-//	}
 	public String getAddress() {
 		return address;
 	}

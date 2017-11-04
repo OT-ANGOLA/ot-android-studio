@@ -251,7 +251,7 @@
     <string name="message_error_mandatory_fields">Fulfill all the mandatory fields before to save</string>
     <string name="message_error_mandatory_field_first_name">Fulfill the mandatory field first name before to save</string>
     <string name="message_error_mandatory_field_last_name">Fulfill the mandatory field last name before to save</string>
-    <string name="message_error_mandatory_field_gender">Fulfill the mandatory field gander before to save</string>
+    <string name="message_error_mandatory_field_gender">Fulfill the mandatory field gender before to save</string>
     <string name="message_error_mandatory_birthdate">Date of birth not in the right format or empty</string>
     <string name="message_error_startdate">Date of right\'s start  not in the right format or empty</string>
     <string name="message_remove_quest">Do you really want withdraw the Claim ?</string>
@@ -551,6 +551,8 @@
     <string name="id_issuance_municipality_label">Id issuance municipality</string>
     <string name="id_issuance_commune_label">Id issuance commune</string>
     <string name="birth_country_label">Birth country</string>
+    <string name="birth_province_label">Birth province</string>
+    <string name="birth_municipality_label">Birth municipality</string>
     <string name="birth_commune_label">Birth commune</string>
     <string name="residence_commune_label">Residence commune</string>
     <string name="father_name_label">Father name*</string>

@@ -9,677 +9,6 @@
     android:paddingStart="16dp"
     android:paddingEnd="16dp" >
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="3"
-                android:fillViewport="true" >
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/light_background_opentenure"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/first_name_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/first_name_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/first_name_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/first_name"
-            android:inputType="textCapWords"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/last_name_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/last_name_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/last_name_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/last_name"
-            android:inputType="textCapWords"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/other_name_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/other_name_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/other_name_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/other_name"
-            android:inputType="textCapWords"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/father_name_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/father_name_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/father_name_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/father_name"
-            android:inputType="textCapWords"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/mother_name_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/mother_name_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/mother_name_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/mother_name"
-            android:inputType="textCapWords"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/date_of_birth_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="6dp"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/date_of_birth_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/date_of_birth_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/date_of_birth"
-            android:inputType="date"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/birth_country_label"
-            android:paddingBottom="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/birth_country_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-
-            <LinearLayout
-                android:layout_height="36dp"
-                android:layout_width="fill_parent"
-                android:background="@android:color/white" >
-
-                <Spinner
-                    android:id="@+id/birth_country"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/birth_commune_label"
-            android:paddingBottom="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/birth_commune_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-
-            <LinearLayout
-                android:layout_height="36dp"
-                android:layout_width="fill_parent"
-                android:background="@android:color/white" >
-
-                <Spinner
-                    android:id="@+id/birth_commune"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:baselineAligned="false"
-            android:orientation="horizontal" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/gender_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:gravity="bottom"
-                    android:text="@string/gender"
-                    android:paddingBottom="6dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <LinearLayout
-                    android:layout_height="36dp"
-                    android:layout_width="wrap_content"
-                    android:background="@android:color/white" >
-
-                    <Spinner
-                        android:id="@+id/gender_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="bottom"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/marital_status_label"
-                    android:layout_width="fill_parent"
-                    android:paddingBottom="6dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:gravity="bottom"
-                    android:text="@string/marital_status_label"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <LinearLayout
-                    android:layout_height="36dp"
-                    android:layout_width="wrap_content"
-                    android:background="@android:color/white" >
-
-                    <Spinner
-                        android:id="@+id/marital_status_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="bottom"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!--
-         <TextView
-            android:id="@+id/place_of_birth_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/place_of_birth_label" />
-
-        <EditText
-            android:id="@+id/place_of_birth_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/dark_background_opentenure"
-            android:hint="@string/place_of_birth"
-            android:inputType="text" >
-        </EditText>
-        -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:baselineAligned="false"
-            android:orientation="horizontal" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/id_type_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:gravity="bottom"
-                    android:text="@string/id_type"
-                    android:paddingBottom="6dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <LinearLayout
-                    android:layout_height="36dp"
-                    android:layout_width="wrap_content"
-                    android:background="@android:color/white" >
-
-                    <Spinner
-                        android:id="@+id/id_type_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"                        
-                        android:gravity="bottom"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/id_number_label"
-                    android:layout_width="fill_parent"
-                    android:paddingBottom="6dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:gravity="bottom"
-                    android:text="@string/id_number"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <EditText
-                    android:id="@+id/id_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/white"
-                    android:hint="@string/id_number"
-                    android:inputType="text"
-                    android:textAppearance="?android:attr/textAppearanceMedium" >
-                </EditText>
-            </LinearLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/id_issuance_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="6dp"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/id_issuance_date_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/id_issuance_date_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/id_issuance_date"
-            android:inputType="date"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/id_expiry_date_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="6dp"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/id_expiry_date_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/id_expiry_date_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/id_expiry_date"
-            android:inputType="date"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/id_issuance_country_label"
-            android:paddingBottom="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/id_issuance_country_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-
-            <LinearLayout
-                android:layout_height="36dp"
-                android:layout_width="fill_parent"
-                android:background="@android:color/white" >
-
-                <Spinner
-                    android:id="@+id/id_issuance_country"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/id_issuance_province_label"
-            android:paddingBottom="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/id_issuance_province_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-
-            <LinearLayout
-                android:layout_height="36dp"
-                android:layout_width="fill_parent"
-                android:background="@android:color/white" >
-
-                <Spinner
-                    android:id="@+id/id_issuance_province"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/id_issuance_municipality_label"
-            android:paddingBottom="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/id_issuance_municipality_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-
-            <LinearLayout
-                android:layout_height="36dp"
-                android:layout_width="fill_parent"
-                android:background="@android:color/white" >
-
-                <Spinner
-                    android:id="@+id/id_issuance_municipality"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/id_issuance_commune_label"
-            android:paddingBottom="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/id_issuance_commune_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-
-            <LinearLayout
-                android:layout_height="36dp"
-                android:layout_width="fill_parent"
-                android:background="@android:color/white" >
-
-                <Spinner
-                    android:id="@+id/id_issuance_commune"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/residence_commune_label"
-            android:paddingBottom="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="@string/residence_commune_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-
-            <LinearLayout
-                android:layout_height="36dp"
-                android:layout_width="fill_parent"
-                android:background="@android:color/white" >
-
-                <Spinner
-                    android:id="@+id/residence_commune"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/postal_address_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/postal_address"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/postal_address_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/postal_address"
-            android:inputType="textPostalAddress"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/email_address_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/email_address"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/email_address_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/email_address"
-            android:inputType="textEmailAddress"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/contact_phone_number_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/contact_phone_number"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/contact_phone_number_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/contact_phone_number"
-            android:inputType="phone"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-        <TextView
-            android:id="@+id/beneficiary_name_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/beneficiary_name_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/beneficiary_name_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/beneficiary_name_label"
-            android:inputType="textCapWords"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-        <TextView
-            android:id="@+id/beneficiary_id_number_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="6dp"
-            android:gravity="bottom"
-            android:text="@string/beneficiary_id_number_label"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/beneficiary_id_number_input_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:hint="@string/beneficiary_id_number_label"
-            android:inputType="text"
-            android:textAppearance="?android:attr/textAppearanceMedium" >
-        </EditText>
-    </LinearLayout>
-    </ScrollView>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -698,5 +27,707 @@
             android:contentDescription="@string/claimant_picture"
             android:src="@drawable/ic_contact_picture" />
     </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="3"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/light_background_opentenure"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/first_name_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/first_name_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/first_name_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/first_name"
+                android:inputType="textCapWords"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/last_name_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/last_name_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/last_name_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/last_name"
+                android:inputType="textCapWords"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/other_name_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/other_name_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/other_name_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/other_name"
+                android:inputType="textCapWords"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/father_name_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/father_name_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/father_name_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/father_name"
+                android:inputType="textCapWords"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/mother_name_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/mother_name_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/mother_name_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/mother_name"
+                android:inputType="textCapWords"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/date_of_birth_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/date_of_birth_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/date_of_birth_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/date_of_birth"
+                android:inputType="date"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/birth_country_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/birth_country_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/birth_country"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/birth_province_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/birth_province_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/birth_province"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/birth_municipality_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/birth_municipality_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/birth_municipality"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/birth_commune_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/birth_commune_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/birth_commune"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/gender_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:gravity="bottom"
+                        android:paddingBottom="6dp"
+                        android:text="@string/gender"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:background="@android:color/white">
+
+                        <Spinner
+                            android:id="@+id/gender_spinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/marital_status_label"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:gravity="bottom"
+                        android:paddingBottom="6dp"
+                        android:text="@string/marital_status_label"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:background="@android:color/white">
+
+                        <Spinner
+                            android:id="@+id/marital_status_spinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/id_type_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:gravity="bottom"
+                        android:paddingBottom="6dp"
+                        android:text="@string/id_type"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:background="@android:color/white">
+
+                        <Spinner
+                            android:id="@+id/id_type_spinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/id_number_label"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:gravity="bottom"
+                        android:paddingBottom="6dp"
+                        android:text="@string/id_number"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                    <EditText
+                        android:id="@+id/id_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/white"
+                        android:hint="@string/id_number"
+                        android:inputType="text"
+                        android:textAppearance="?android:attr/textAppearanceMedium">
+                    </EditText>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/id_issuance_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/id_issuance_date_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/id_issuance_date_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/id_issuance_date"
+                android:inputType="date"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/id_expiry_date_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/id_expiry_date_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/id_expiry_date_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/id_expiry_date"
+                android:inputType="date"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/id_issuance_country_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/id_issuance_country_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/id_issuance_country"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/id_issuance_province_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/id_issuance_province_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/id_issuance_province"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/id_issuance_municipality_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/id_issuance_municipality_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/id_issuance_municipality"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/id_issuance_commune_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/id_issuance_commune_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/id_issuance_commune"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/residence_commune_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/residence_commune_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/residence_commune"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/postal_address_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/postal_address"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/postal_address_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/postal_address"
+                android:inputType="textPostalAddress"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/email_address_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/email_address"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/email_address_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/email_address"
+                android:inputType="textEmailAddress"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/contact_phone_number_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/contact_phone_number"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/contact_phone_number_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/contact_phone_number"
+                android:inputType="phone"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/beneficiary_name_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/beneficiary_name_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/beneficiary_name_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/beneficiary_name_label"
+                android:inputType="textCapWords"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/beneficiary_id_number_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/beneficiary_id_number_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/beneficiary_id_number_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/beneficiary_id_number_label"
+                android:inputType="text"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

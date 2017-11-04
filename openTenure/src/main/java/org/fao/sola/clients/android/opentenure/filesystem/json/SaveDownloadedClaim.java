@@ -72,31 +72,6 @@ public class SaveDownloadedClaim {
 
 		org.fao.sola.clients.android.opentenure.model.Claim claimDB = new org.fao.sola.clients.android.opentenure.model.Claim();
 		/*
-		 * Temporary disable
-		 */
-		// List<AdditionalInfo> metadataList;
-		// if ((metadataList = claim.getAdditionaInfo()) != null) {
-		//
-		// for (Iterator iterator = metadataList.iterator(); iterator
-		// .hasNext();) {
-		// AdditionalInfo additionalInfo = (AdditionalInfo) iterator
-		// .next();
-		//
-		// org.fao.sola.clients.android.opentenure.model.Metadata metadataDB
-		// =
-		// new Metadata();
-		//
-		// metadataDB.setClaimId(claim.getId());
-		// metadataDB.setMetadataId(additionalInfo.getMetadataId());
-		// metadataDB.setName(additionalInfo.getName());
-		// metadataDB.setValue(additionalInfo.getValue());
-		//
-		// metadataDBList.add(metadataDB);
-		//
-		// }
-		// }
-
-		/*
 		 * First of all cheks if claim is challenging another claim. In case of
 		 * challenge, need to download ad save the claim challenged
 		 * 
@@ -221,6 +196,8 @@ public class SaveDownloadedClaim {
 			person.setIdIssuanceMunicipalityCode(claimant.getIdIssuanceMunicipalityCode());
 			person.setIdIssuanceCommuneCode(claimant.getIdIssuanceCommuneCode());
 			person.setBirthCountryCode(claimant.getBirthCountryCode());
+			person.setBirthProvinceCode(claimant.getBirthProvinceCode());
+			person.setBirthMunicipalityCode(claimant.getBirthMunicipalityCode());
 			person.setBirthCommuneCode(claimant.getBirthCommuneCode());
 			person.setResidenceCommuneCode(claimant.getResidenceCommuneCode());
 			person.setBeneficiaryName(claimant.getBeneficiaryName());
@@ -513,6 +490,8 @@ public class SaveDownloadedClaim {
 					personDB2.setIdIssuanceMunicipalityCode(person2.getIdIssuanceMunicipalityCode());
 					personDB2.setIdIssuanceCommuneCode(person2.getIdIssuanceCommuneCode());
 					personDB2.setBirthCountryCode(person2.getBirthCountryCode());
+					personDB2.setBirthProvinceCode(person2.getBirthProvinceCode());
+					personDB2.setBirthMunicipalityCode(person2.getBirthMunicipalityCode());
 					personDB2.setBirthCommuneCode(person2.getBirthCommuneCode());
 					personDB2.setResidenceCommuneCode(person2.getResidenceCommuneCode());
 					personDB2.setBeneficiaryName(person2.getBeneficiaryName());

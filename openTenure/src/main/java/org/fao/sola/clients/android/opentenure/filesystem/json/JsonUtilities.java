@@ -226,6 +226,8 @@ public class JsonUtilities {
 				person.setIdIssuanceMunicipalityCode(claim.getPerson().getIdIssuanceMunicipalityCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getIdIssuanceMunicipalityCode());
 				person.setIdIssuanceCommuneCode(claim.getPerson().getIdIssuanceCommuneCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getIdIssuanceCommuneCode());
 				person.setBirthCountryCode(claim.getPerson().getBirthCountryCode());
+				person.setBirthProvinceCode(claim.getPerson().getBirthProvinceCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getBirthProvinceCode());
+				person.setBirthMunicipalityCode(claim.getPerson().getBirthMunicipalityCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getBirthMunicipalityCode());
 				person.setBirthCommuneCode(claim.getPerson().getBirthCommuneCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getBirthCommuneCode());
 				person.setResidenceCommuneCode(claim.getPerson().getResidenceCommuneCode());
 				person.setBeneficiaryName(claim.getPerson().getBeneficiaryName());

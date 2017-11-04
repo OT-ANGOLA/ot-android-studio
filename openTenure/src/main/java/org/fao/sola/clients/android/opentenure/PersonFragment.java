@@ -209,10 +209,7 @@ public class PersonFragment extends Fragment {
 					if (personPictureFile != null) {
 
 						Person.deleteAllBmp(personActivity.getPersonId());
-						
-						//*****************************************//						
-						
-						
+
 						Intent intent = new Intent(
 								MediaStore.ACTION_IMAGE_CAPTURE);
 						intent.putExtra(MediaStore.EXTRA_OUTPUT,
@@ -448,23 +445,36 @@ public class PersonFragment extends Fragment {
 		/* Mapping province localization */
 		provincesList = new ArrayList<Province>(new TreeSet<Province>(onlyActive ? Province.getActiveProvinces():Province.getProvinces()));
 
-		ArrayAdapter<Province> dataAdapterPR = new ArrayAdapter<Province>(
+		ArrayAdapter<Province> dataAdapterIdIssuanceProvince = new ArrayAdapter<Province>(
 				OpenTenureApplication.getContext(), R.layout.my_spinner,
 				new ArrayList<Province>(provincesList));
 		final Spinner spinnerIdIssuanceProvince = (Spinner) rootView
 				.findViewById(R.id.id_issuance_province);
+		spinnerIdIssuanceProvince.setAdapter(dataAdapterIdIssuanceProvince);
 
-		spinnerIdIssuanceProvince.setAdapter(dataAdapterPR);
+		ArrayAdapter<Province> dataAdapterBirthProvince = new ArrayAdapter<Province>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				new ArrayList<Province>(provincesList));
+		final Spinner spinnerBirthProvince = (Spinner) rootView
+				.findViewById(R.id.birth_province);
+		spinnerBirthProvince.setAdapter(dataAdapterBirthProvince);
 
 		/* Mapping municipality localization */
 		municipalitiesList = new ArrayList<Municipality>(new TreeSet<Municipality>(onlyActive ? Municipality.getActiveMunicipalities():Municipality.getMunicipalities()));
 
-		ArrayAdapter<Municipality> dataAdapterMU = new ArrayAdapter<Municipality>(
+		ArrayAdapter<Municipality> dataAdapterIdIssuanceMunicipality = new ArrayAdapter<Municipality>(
 				OpenTenureApplication.getContext(), R.layout.my_spinner,
 				new ArrayList<Municipality>(municipalitiesList));
 		final Spinner spinnerIdIssuanceMunicipality = (Spinner) rootView
 				.findViewById(R.id.id_issuance_municipality);
-		spinnerIdIssuanceMunicipality.setAdapter(dataAdapterMU);
+		spinnerIdIssuanceMunicipality.setAdapter(dataAdapterIdIssuanceMunicipality);
+
+		ArrayAdapter<Municipality> dataAdapterBirthMunicipality = new ArrayAdapter<Municipality>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				new ArrayList<Municipality>(municipalitiesList));
+		final Spinner spinnerBirthMunicipality = (Spinner) rootView
+				.findViewById(R.id.birth_municipality);
+		spinnerBirthMunicipality.setAdapter(dataAdapterBirthMunicipality);
 		/* Mapping commune localization */
 		communesList = new ArrayList<Commune>(new TreeSet<Commune>(onlyActive ? Commune.getActiveCommunes():Commune.getCommunes()));
 
@@ -502,6 +512,44 @@ public class PersonFragment extends Fragment {
 
 		spinnerGender.setAdapter(dataAdapterGender);
 		// Setup listeners
+		spinnerBirthCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+				// Reload list of birth communes based on selected country
+				Country selectedCountry = (Country)spinnerBirthCountry.getSelectedItem();
+
+				ArrayAdapter<Province> dataAdapterPR = (ArrayAdapter<Province>)spinnerBirthProvince.getAdapter();
+				dataAdapterPR.clear();
+				List<Province> provinces = filterProvincesByCountry(provincesList, selectedCountry.getCode());
+				dataAdapterPR.addAll(provinces);
+				dataAdapterPR.notifyDataSetChanged();
+				spinnerBirthProvince.setSelection(0,true);
+
+				Province selectedProvince = provinces.get(0);
+				ArrayAdapter<Municipality> dataAdapterMU = (ArrayAdapter<Municipality>)spinnerBirthMunicipality.getAdapter();
+				dataAdapterMU.clear();
+				List<Municipality> municipalities = filterMunicipalitiesByProvince(municipalitiesList, selectedProvince.getCode());
+				dataAdapterMU.addAll(municipalities);
+				dataAdapterMU.notifyDataSetChanged();
+				spinnerBirthMunicipality.setSelection(0,true);
+
+				Municipality selectedMunicipality = municipalities.get(0);
+				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerBirthCommune.getAdapter();
+				dataAdapterCO.clear();
+				dataAdapterCO.addAll(filterCommunesByMunicipality(communesList, selectedMunicipality.getCode()));
+				dataAdapterCO.notifyDataSetChanged();
+				spinnerBirthCommune.setSelection(0,true);
+
+				((EditText) rootView.findViewById(R.id.date_of_birth_input_field)).requestFocus();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parentView) {
+				// your code here
+			}
+
+		});
+
 		spinnerIdIssuanceCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -530,29 +578,7 @@ public class PersonFragment extends Fragment {
 				dataAdapterCO.notifyDataSetChanged();
 				spinnerIdIssuanceCommune.setSelection(0,true);
 
-				spinnerIdIssuanceCountry.requestFocusFromTouch();
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parentView) {
-				// your code here
-			}
-
-		});
-
-		spinnerBirthCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-				// Reload list of birth communes based on selected country
-				Country selectedCountry = (Country)spinnerBirthCountry.getSelectedItem();
-
-				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerBirthCommune.getAdapter();
-				dataAdapterCO.clear();
-				dataAdapterCO.addAll(filterCommunesByCountry(communesList, selectedCountry.getCode()));
-				dataAdapterCO.notifyDataSetChanged();
-				spinnerBirthCommune.setSelection(0,true);
-
-				spinnerBirthCountry.requestFocusFromTouch();
+				((EditText) rootView.findViewById(R.id.id_expiry_date_input_field)).requestFocus();
 			}
 
 			@Override
@@ -582,7 +608,37 @@ public class PersonFragment extends Fragment {
 				dataAdapterCO.notifyDataSetChanged();
 				spinnerIdIssuanceCommune.setSelection(0,true);
 
-				spinnerIdIssuanceProvince.requestFocusFromTouch();
+				((EditText) rootView.findViewById(R.id.id_expiry_date_input_field)).requestFocus();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parentView) {
+				// your code here
+			}
+
+		});
+
+		spinnerBirthProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+				// Reload list of issuance municipalities based on selected province
+				Province selectedProvince = (Province)spinnerBirthProvince.getSelectedItem();
+
+				ArrayAdapter<Municipality> dataAdapterMU = (ArrayAdapter<Municipality>)spinnerBirthMunicipality.getAdapter();
+				dataAdapterMU.clear();
+				List<Municipality> municipalities = filterMunicipalitiesByProvince(municipalitiesList, selectedProvince.getCode());
+				dataAdapterMU.addAll(municipalities);
+				dataAdapterMU.notifyDataSetChanged();
+				spinnerBirthMunicipality.setSelection(0,true);
+
+				Municipality selectedMunicipality = municipalities.get(0);
+				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerBirthCommune.getAdapter();
+				dataAdapterCO.clear();
+				dataAdapterCO.addAll(filterCommunesByMunicipality(communesList, selectedMunicipality.getCode()));
+				dataAdapterCO.notifyDataSetChanged();
+				spinnerBirthCommune.setSelection(0,true);
+
+				((EditText) rootView.findViewById(R.id.date_of_birth_input_field)).requestFocus();
 			}
 
 			@Override
@@ -605,7 +661,30 @@ public class PersonFragment extends Fragment {
 				dataAdapterCO.notifyDataSetChanged();
 				spinnerIdIssuanceCommune.setSelection(0,true);
 
-				spinnerIdIssuanceMunicipality.requestFocusFromTouch();
+				((EditText) rootView.findViewById(R.id.id_expiry_date_input_field)).requestFocus();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parentView) {
+				// your code here
+			}
+
+		});
+
+		spinnerBirthMunicipality.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+				// Reload list of issuance communes based on selected municipality
+
+				Municipality selectedMunicipality = (Municipality)spinnerBirthMunicipality.getSelectedItem();
+
+				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerBirthCommune.getAdapter();
+				dataAdapterCO.clear();
+				dataAdapterCO.addAll(filterCommunesByMunicipality(communesList, selectedMunicipality.getCode()));
+				dataAdapterCO.notifyDataSetChanged();
+				spinnerBirthCommune.setSelection(0,true);
+
+				((EditText) rootView.findViewById(R.id.date_of_birth_input_field)).requestFocus();
 			}
 
 			@Override
@@ -674,6 +753,11 @@ public class PersonFragment extends Fragment {
 						.getMaritalStatusCode(),onlyActive));
 		((Spinner) rootView.findViewById(R.id.birth_country))
 				.setSelection(countryIndex(person.getBirthCountryCode()));
+		((Spinner) rootView.findViewById(R.id.birth_province))
+				.setSelection(provinceIndex(person.getBirthProvinceCode()));
+		((Spinner) rootView.findViewById(R.id.birth_municipality))
+				.setSelection(municipalityIndex(person
+						.getBirthMunicipalityCode()));
 		((Spinner) rootView.findViewById(R.id.birth_commune))
 				.setSelection(Commune.communeIndex(communesList, person
 						.getBirthCommuneCode()));
@@ -755,17 +839,29 @@ public class PersonFragment extends Fragment {
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.birth_country))
 					.setClickable(false);
-            ((Spinner) rootView.findViewById(R.id.id_issuance_province))
-                    .setFocusable(false);
-            ((Spinner) rootView.findViewById(R.id.id_issuance_province))
-                    .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.id_issuance_province))
+					.setFocusable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_province))
+					.setFocusableInTouchMode(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_province))
+					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.birth_province))
+					.setFocusable(false);
+			((Spinner) rootView.findViewById(R.id.birth_province))
+					.setFocusableInTouchMode(false);
+			((Spinner) rootView.findViewById(R.id.birth_province))
 					.setClickable(false);
             ((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
                     .setFocusable(false);
             ((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
+					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.birth_municipality))
+					.setFocusable(false);
+			((Spinner) rootView.findViewById(R.id.birth_municipality))
+					.setFocusableInTouchMode(false);
+			((Spinner) rootView.findViewById(R.id.birth_municipality))
 					.setClickable(false);
             ((Spinner) rootView.findViewById(R.id.id_issuance_commune))
                     .setFocusable(false);
@@ -1027,9 +1123,17 @@ public class PersonFragment extends Fragment {
 				.findViewById(R.id.id_issuance_province)).getSelectedItem();
 		person.setIdIssuanceProvinceCode(idIssuanceProvince.getCode());
 
+		Province birthProvince = (Province) ((Spinner) rootView
+				.findViewById(R.id.birth_province)).getSelectedItem();
+		person.setBirthProvinceCode(birthProvince.getCode());
+
 		Municipality idIssuanceMunicipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_municipality)).getSelectedItem();
 		person.setIdIssuanceMunicipalityCode(idIssuanceMunicipality.getCode());
+
+		Municipality birthMunicipality = (Municipality) ((Spinner) rootView
+				.findViewById(R.id.birth_municipality)).getSelectedItem();
+		person.setBirthMunicipalityCode(birthMunicipality.getCode());
 
 		Commune idIssuanceCommune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_commune)).getSelectedItem();
@@ -1312,9 +1416,17 @@ public class PersonFragment extends Fragment {
 				.findViewById(R.id.id_issuance_province)).getSelectedItem();
 		person.setIdIssuanceProvinceCode(idIssuanceProvince.getCode());
 
+		Province birthProvince = (Province) ((Spinner) rootView
+				.findViewById(R.id.birth_province)).getSelectedItem();
+		person.setBirthProvinceCode(birthProvince.getCode());
+
 		Municipality idIssuanceMunicipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_municipality)).getSelectedItem();
 		person.setIdIssuanceMunicipalityCode(idIssuanceMunicipality.getCode());
+
+		Municipality birthMunicipality = (Municipality) ((Spinner) rootView
+				.findViewById(R.id.birth_municipality)).getSelectedItem();
+		person.setBirthMunicipalityCode(birthMunicipality.getCode());
 
 		Commune idIssuanceCommune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_commune)).getSelectedItem();
@@ -1984,6 +2096,15 @@ public class PersonFragment extends Fragment {
 				idIssuanceProvince.getCode().trim()))
 			return true;
 
+		Province birthProvince = (Province) ((Spinner) rootView
+				.findViewById(R.id.birth_province))
+				.getSelectedItem();
+
+		if ((birthProvince.getCode() != null && person.getBirthProvinceCode() != null)
+				&& !person.getBirthProvinceCode().trim().equals(
+				birthProvince.getCode().trim()))
+			return true;
+
 		Municipality idIssuanceMunicipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_municipality))
 				.getSelectedItem();
@@ -1991,6 +2112,15 @@ public class PersonFragment extends Fragment {
 		if ((idIssuanceMunicipality != null && person.getIdIssuanceMunicipalityCode() != null)
 				&& !person.getIdIssuanceMunicipalityCode().trim().equals(
 				idIssuanceMunicipality.getCode().trim()))
+			return true;
+
+		Municipality birthMunicipality = (Municipality) ((Spinner) rootView
+				.findViewById(R.id.birth_municipality))
+				.getSelectedItem();
+
+		if ((birthMunicipality != null && person.getBirthMunicipalityCode() != null)
+				&& !person.getBirthMunicipalityCode().trim().equals(
+				birthMunicipality.getCode().trim()))
 			return true;
 
 		Commune idIssuanceCommune = (Commune) ((Spinner) rootView
@@ -2312,26 +2442,6 @@ public class PersonFragment extends Fragment {
 
 		}
 		return filteredProvinces;
-	}
-	private List<Commune> filterCommunesByCountry(List<Commune> communes, String countryCode){
-		List<Commune> filteredCommunes = new ArrayList<Commune>();
-		for(Commune commune:communes){
-			if(commune.getCountryCode().equalsIgnoreCase(countryCode)){
-				filteredCommunes.add(commune);
-			}
-		}
-		if(filteredCommunes.size() <= 0){
-			// To account for countries without communes
-			Commune commune = new Commune();
-			commune.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
-			commune.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
-			commune.setCountryCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
-			commune.setMunicipalityCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
-			filteredCommunes.add(commune);
-			return filteredCommunes;
-
-		}
-		return filteredCommunes;
 	}
 	private List<Commune> filterCommunesByMunicipality(List<Commune> communes, String municipalityCode){
 		List<Commune> filteredCommunes = new ArrayList<Commune>();

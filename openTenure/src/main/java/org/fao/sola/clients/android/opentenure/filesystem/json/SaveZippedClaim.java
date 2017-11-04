@@ -198,6 +198,8 @@ public class SaveZippedClaim {
 			person.setIdIssuanceMunicipalityCode(claimant.getIdIssuanceMunicipalityCode());
 			person.setIdIssuanceCommuneCode(claimant.getIdIssuanceCommuneCode());
 			person.setBirthCountryCode(claimant.getBirthCountryCode());
+			person.setBirthProvinceCode(claimant.getBirthProvinceCode());
+			person.setBirthMunicipalityCode(claimant.getBirthMunicipalityCode());
 			person.setBirthCommuneCode(claimant.getBirthCommuneCode());
 			person.setResidenceCommuneCode(claimant.getResidenceCommuneCode());
 			person.setBeneficiaryName(claimant.getBeneficiaryName());
@@ -501,6 +503,8 @@ public class SaveZippedClaim {
 					personDB2.setIdIssuanceMunicipalityCode(person2.getIdIssuanceMunicipalityCode());
 					personDB2.setIdIssuanceCommuneCode(person2.getIdIssuanceCommuneCode());
 					personDB2.setBirthCountryCode(person2.getBirthCountryCode());
+					personDB2.setBirthProvinceCode(person2.getBirthProvinceCode());
+					personDB2.setBirthMunicipalityCode(person2.getBirthMunicipalityCode());
 					personDB2.setBirthCommuneCode(person2.getBirthCommuneCode());
 					personDB2.setResidenceCommuneCode(person2.getResidenceCommuneCode());
 					personDB2.setBeneficiaryName(person2.getBeneficiaryName());

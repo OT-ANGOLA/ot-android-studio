@@ -420,4 +420,24 @@ public class Commune implements Comparable<Commune>{
 		}
 		return -1;
 	}
+	public static List<Commune> filterCommunesByMunicipality(List<Commune> communes, String municipalityCode){
+		List<Commune> filteredCommunes = new ArrayList<Commune>();
+		for(Commune commune:communes){
+			if(commune.getMunicipalityCode().equalsIgnoreCase(municipalityCode)){
+				filteredCommunes.add(commune);
+			}
+		}
+		if(filteredCommunes.size() <= 0){
+			// To account for municipalities without communes
+			Commune commune = new Commune();
+			commune.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setCountryCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setMunicipalityCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			filteredCommunes.add(commune);
+			return filteredCommunes;
+
+		}
+		return filteredCommunes;
+	}
 }

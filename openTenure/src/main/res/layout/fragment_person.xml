@@ -594,6 +594,119 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/postal_address_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/postal_address"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/postal_address_input_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="@string/postal_address"
+                android:inputType="textPostalAddress"
+                android:textAppearance="?android:attr/textAppearanceMedium">
+            </EditText>
+
+            <TextView
+                android:id="@+id/residence_country_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/residence_country_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/residence_country"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/residence_province_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/residence_province_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/residence_province"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/residence_municipality_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:paddingBottom="6dp"
+                android:text="@string/residence_municipality_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:background="@android:color/white">
+
+                    <Spinner
+                        android:id="@+id/residence_municipality"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
                 android:id="@+id/residence_commune_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -623,26 +736,6 @@
 
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/postal_address_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="bottom"
-                android:paddingBottom="6dp"
-                android:text="@string/postal_address"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-            <EditText
-                android:id="@+id/postal_address_input_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:hint="@string/postal_address"
-                android:inputType="textPostalAddress"
-                android:textAppearance="?android:attr/textAppearanceMedium">
-            </EditText>
 
             <TextView
                 android:id="@+id/email_address_label"

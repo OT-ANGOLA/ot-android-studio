@@ -369,5 +369,34 @@ public class Province implements Comparable<Province> {
 		}
 		return result;
 	}
+	public static int provinceIndex(String provinceCode, List<Province> provincesList){
+		int i = 0;
+		for(Province province:provincesList){
+			if(province.getCode().trim().equalsIgnoreCase(provinceCode.trim())){
+				return i;
+			}else{
+				i++;
+			}
+		}
+		return -1;
+	}
+	public static List<Province> filterProvincesByCountry(List<Province> provinces, String countryCode){
+		List<Province> filteredProvinces = new ArrayList<Province>();
+		for(Province province:provinces){
+			if(province.getCountryCode().equalsIgnoreCase(countryCode)){
+				filteredProvinces.add(province);
+			}
+		}
+		if(filteredProvinces.size() <= 0){
+			// To account for countries without provinces
+			Province province = new Province();
+			province.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			province.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			province.setCountryCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			filteredProvinces.add(province);
+			return filteredProvinces;
 
+		}
+		return filteredProvinces;
+	}
 }

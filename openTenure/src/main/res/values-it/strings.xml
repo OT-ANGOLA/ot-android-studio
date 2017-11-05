@@ -577,4 +577,10 @@
     <string name="discard">Scarta</string>
     <string name="birth_municipality_label">Municipio di nascita</string>
     <string name="birth_province_label">Provincia di nascita</string>
+    <string name="residence_country_label">Nazione di residenza</string>
+    <string name="residence_municipality_label">Municipio di residenza</string>
+    <string name="residence_province_label">Provincia di residenza</string>
+    <string name="country_label">Nazione</string>
+    <string name="municipality_label">Municipio</string>
+    <string name="province_label">Provincia</string>
 </resources>

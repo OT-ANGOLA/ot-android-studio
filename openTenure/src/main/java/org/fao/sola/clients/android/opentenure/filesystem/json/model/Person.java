@@ -152,6 +152,9 @@ public class Person {
 	@SerializedName("birthProvinceCode")  private String birthProvinceCode;
 	@SerializedName("birthMunicipalityCode")  private String birthMunicipalityCode;
 	@SerializedName("birthCommuneCode")  private String birthCommuneCode;
+	@SerializedName("residenceCountryCode")  private String residenceCountryCode;
+	@SerializedName("residenceProvinceCode")  private String residenceProvinceCode;
+	@SerializedName("residenceMunicipalityCode")  private String residenceMunicipalityCode;
 	@SerializedName("residenceCommuneCode")  private String residenceCommuneCode;
 	@SerializedName("beneficiaryName")  private String beneficiaryName;
 	@SerializedName("beneficiaryIdNumber")  private String beneficiaryIdNumber;
@@ -252,6 +255,30 @@ public class Person {
 
 	public void setBirthCommuneCode(String birthCommuneCode) {
 		this.birthCommuneCode = birthCommuneCode;
+	}
+
+	public String getResidenceCountryCode() {
+		return residenceCountryCode;
+	}
+
+	public void setResidenceCountryCode(String residenceCountryCode) {
+		this.residenceCountryCode = residenceCountryCode;
+	}
+
+	public String getResidenceProvinceCode() {
+		return residenceProvinceCode;
+	}
+
+	public void setResidenceProvinceCode(String residenceProvinceCode) {
+		this.residenceProvinceCode = residenceProvinceCode;
+	}
+
+	public String getResidenceMunicipalityCode() {
+		return residenceMunicipalityCode;
+	}
+
+	public void setResidenceMunicipalityCode(String residenceMunicipalityCode) {
+		this.residenceMunicipalityCode = residenceMunicipalityCode;
 	}
 
 	public String getResidenceCommuneCode() {

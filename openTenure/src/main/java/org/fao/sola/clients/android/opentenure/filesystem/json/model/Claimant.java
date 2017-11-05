@@ -38,7 +38,6 @@ public class Claimant {
 	@SerializedName("lastName")    private String lastName;
 	@SerializedName("idTypeCode")  private String idTypeCode;
 	@SerializedName("idNumber")    private String idNumber;
-	//@SerializedName("placeOfBirth")private String placeOfBirth;
 	@SerializedName("address")     private String address;
 	@SerializedName("mobilePhone") private String mobilePhone;
 	@SerializedName("phone")       private String phone;
@@ -58,6 +57,9 @@ public class Claimant {
 	@SerializedName("birthProvinceCode")  private String birthProvinceCode;
 	@SerializedName("birthMunicipalityCode")  private String birthMunicipalityCode;
 	@SerializedName("birthCommuneCode")  private String birthCommuneCode;
+	@SerializedName("residenceCountryCode")  private String residenceCountryCode;
+	@SerializedName("residenceProvinceCode")  private String residenceProvinceCode;
+	@SerializedName("residenceMunicipalityCode")  private String residenceMunicipalityCode;
 	@SerializedName("residenceCommuneCode")  private String residenceCommuneCode;
 	@SerializedName("beneficiaryName")  private String beneficiaryName;
 	@SerializedName("beneficiaryIdNumber")  private String beneficiaryIdNumber;
@@ -158,6 +160,30 @@ public class Claimant {
 
 	public void setBirthCommuneCode(String birthCommuneCode) {
 		this.birthCommuneCode = birthCommuneCode;
+	}
+
+	public String getResidenceCountryCode() {
+		return residenceCountryCode;
+	}
+
+	public void setResidenceCountryCode(String residenceCountryCode) {
+		this.residenceCountryCode = residenceCountryCode;
+	}
+
+	public String getResidenceProvinceCode() {
+		return residenceProvinceCode;
+	}
+
+	public void setResidenceProvinceCode(String residenceProvinceCode) {
+		this.residenceProvinceCode = residenceProvinceCode;
+	}
+
+	public String getResidenceMunicipalityCode() {
+		return residenceMunicipalityCode;
+	}
+
+	public void setResidenceMunicipalityCode(String residenceMunicipalityCode) {
+		this.residenceMunicipalityCode = residenceMunicipalityCode;
 	}
 
 	public String getResidenceCommuneCode() {

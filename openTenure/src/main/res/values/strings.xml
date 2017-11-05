@@ -554,6 +554,9 @@
     <string name="birth_province_label">Birth province</string>
     <string name="birth_municipality_label">Birth municipality</string>
     <string name="birth_commune_label">Birth commune</string>
+    <string name="residence_country_label">Residence country</string>
+    <string name="residence_province_label">Residence province</string>
+    <string name="residence_municipality_label">Residence municipality</string>
     <string name="residence_commune_label">Residence commune</string>
     <string name="father_name_label">Father name*</string>
     <string name="mother_name_label">Mother name*</string>
@@ -576,4 +579,7 @@
     <string name="message_unable_to_save_invalid_id_issuance_date_format">Unable to save. Invalid ID issuance date format</string>
     <string name="message_unable_to_save_missing_address">Unable to save. Missing address</string>
     <string name="discard">Discard</string>
+    <string name="country_label">Country</string>
+    <string name="province_label">Province</string>
+    <string name="municipality_label">Municipality</string>
 </resources>

@@ -141,6 +141,28 @@ public class Claim {
 		this.neighborhood = neighborhood;
 	}
 
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public String getProvinceCode() {
+		return provinceCode;
+	}
+
+	public void setProvinceCode(String provinceCode) {
+		this.provinceCode = provinceCode;
+	}
+
+	public String getMunicipalityCode() {
+		return municipalityCode;
+	}
+
+	public void setMunicipalityCode(String mMunicipalityCode) { this.municipalityCode = mMunicipalityCode; }
+
 	public String getCommuneCode() {
 		return communeCode;
 	}
@@ -188,10 +210,8 @@ public class Claim {
 				", challengedClaimId='" + challengedClaimId + '\'' +
 				", adjacenciesNotes=" + adjacenciesNotes +
 				", vertices=" + Arrays.toString(vertices.toArray()) +
-//				", holesVertices=" + Arrays.toString(holesVertices.toArray()) +
 				", propertyLocations=" + Arrays.toString(propertyLocations.toArray()) +
 				", additionalInfo=" + Arrays.toString(additionalInfo.toArray()) +
-//				", challengingClaims=" + Arrays.toString(challengingClaims.toArray()) +
 				", attachments=" + Arrays.toString(attachments.toArray()) +
 				", shares=" + Arrays.toString(shares.toArray()) +
 				", challengeExpiryDate=" + challengeExpiryDate +
@@ -209,6 +229,9 @@ public class Claim {
 				", plotNumber='" + plotNumber + '\'' +
 				", blockNumber='" + blockNumber + '\'' +
 				", neighborhood='" + neighborhood + '\'' +
+				", countryCode='" + countryCode + '\'' +
+				", provinceCode='" + provinceCode + '\'' +
+				", municipalityCode='" + municipalityCode + '\'' +
 				", communeCode='" + communeCode + '\'' +
 				'}';
 	}
@@ -541,8 +564,11 @@ public class Claim {
 							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
+							"COUNTRY_CODE, " +
+							"PROVINCE_CODE, " +
+							"MUNICIPALITY_CODE, " +
 							"COMMUNE_CODE " +
-							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, claim.getClaimId());
 			statement.setString(2, claim.getStatus());
 			statement.setString(3, claim.getClaimNumber());
@@ -574,7 +600,10 @@ public class Claim {
 			statement.setString(18, claim.getPlotNumber());
 			statement.setString(19, claim.getBlockNumber());
 			statement.setString(20, claim.getNeighborhood());
-			statement.setString(21, claim.getCommuneCode());
+			statement.setString(21, claim.getCountryCode());
+			statement.setString(22, claim.getProvinceCode());
+			statement.setString(23, claim.getMunicipalityCode());
+			statement.setString(24, claim.getCommuneCode());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -628,8 +657,11 @@ public class Claim {
 							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
+							"COUNTRY_CODE, " +
+							"PROVINCE_CODE, " +
+							"MUNICIPALITY_CODE, " +
 							"COMMUNE_CODE " +
-							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+							") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, getClaimId());
 			statement.setString(2, getStatus());
 			statement.setString(3, getClaimNumber());
@@ -660,7 +692,10 @@ public class Claim {
 			statement.setString(18, getPlotNumber());
 			statement.setString(19, getBlockNumber());
 			statement.setString(20, getNeighborhood());
-			statement.setString(21, getCommuneCode());
+			statement.setString(21, getCountryCode());
+			statement.setString(22, getProvinceCode());
+			statement.setString(23, getMunicipalityCode());
+			statement.setString(24, getCommuneCode());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -713,6 +748,9 @@ public class Claim {
 							"PLOT_NUMBER=?, " +
 							"BLOCK_NUMBER=?, " +
 							"NEIGHBORHOOD=?, " +
+							"COUNTRY_CODE=?, " +
+							"PROVINCE_CODE=?, " +
+							"MUNICIPALITY_CODE=?, " +
 							"COMMUNE_CODE=? " +
 							"WHERE CLAIM_ID=?");
 			statement.setString(1, claim.getStatus());
@@ -744,8 +782,11 @@ public class Claim {
 			statement.setString(17, claim.getPlotNumber());
 			statement.setString(18, claim.getBlockNumber());
 			statement.setString(19, claim.getNeighborhood());
-			statement.setString(20, claim.getCommuneCode());
-			statement.setString(21, claim.getClaimId());
+			statement.setString(20, claim.getCountryCode());
+			statement.setString(21, claim.getProvinceCode());
+			statement.setString(22, claim.getMunicipalityCode());
+			statement.setString(23, claim.getCommuneCode());
+			statement.setString(24, claim.getClaimId());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -797,6 +838,9 @@ public class Claim {
 							"PLOT_NUMBER=?, " +
 							"BLOCK_NUMBER=?, " +
 							"NEIGHBORHOOD=?, " +
+							"COUNTRY_CODE=?, " +
+							"PROVINCE_CODE=?, " +
+							"MUNICIPALITY_CODE=?, " +
 							"COMMUNE_CODE=? " +
 							"WHERE CLAIM_ID=?");
 			statement.setString(1, getStatus());
@@ -829,8 +873,11 @@ public class Claim {
 			statement.setString(17, getPlotNumber());
 			statement.setString(18, getBlockNumber());
 			statement.setString(19, getNeighborhood());
-			statement.setString(20, getCommuneCode());
-			statement.setString(21, getClaimId());
+			statement.setString(20, getCountryCode());
+			statement.setString(21, getProvinceCode());
+			statement.setString(22, getMunicipalityCode());
+			statement.setString(23, getCommuneCode());
+			statement.setString(24, getClaimId());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -885,6 +932,9 @@ public class Claim {
 							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
+							"COUNTRY_CODE, " +
+							"PROVINCE_CODE, " +
+							"MUNICIPALITY_CODE, " +
 							"COMMUNE_CODE " +
 							"FROM CLAIM " +
 							"WHERE CLAIM_ID=?");
@@ -919,7 +969,10 @@ public class Claim {
 				claim.setPlotNumber(rs.getString(18));
 				claim.setBlockNumber(rs.getString(19));
 				claim.setNeighborhood(rs.getString(20));
-				claim.setCommuneCode(rs.getString(21));
+				claim.setCountryCode(rs.getString(21));
+				claim.setProvinceCode(rs.getString(22));
+				claim.setMunicipalityCode(rs.getString(23));
+				claim.setCommuneCode(rs.getString(24));
 			}
 
 		} catch (SQLException e) {
@@ -976,6 +1029,9 @@ public class Claim {
 							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
+							"COUNTRY_CODE, " +
+							"PROVINCE_CODE, " +
+							"MUNICIPALITY_CODE, " +
 							"COMMUNE_CODE " +
 							"FROM CLAIM " +
 							"WHERE CLAIM_ID=?");
@@ -1010,7 +1066,10 @@ public class Claim {
 				claim.setPlotNumber(rs.getString(18));
 				claim.setBlockNumber(rs.getString(19));
 				claim.setNeighborhood(rs.getString(20));
-				claim.setCommuneCode(rs.getString(21));
+				claim.setCountryCode(rs.getString(21));
+				claim.setProvinceCode(rs.getString(22));
+				claim.setMunicipalityCode(rs.getString(23));
+				claim.setCommuneCode(rs.getString(24));
 			}
 
 		} catch (SQLException e) {
@@ -1057,6 +1116,9 @@ public class Claim {
 							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
+							"COMMUNE_CODE, " +
+							"COMMUNE_CODE, " +
+							"COMMUNE_CODE, " +
 							"COMMUNE_CODE " +
 							"FROM CLAIM");
 			ResultSet rs = statement.executeQuery();
@@ -1090,7 +1152,10 @@ public class Claim {
 				claim.setPlotNumber(rs.getString(18));
 				claim.setBlockNumber(rs.getString(19));
 				claim.setNeighborhood(rs.getString(20));
-				claim.setCommuneCode(rs.getString(21));
+				claim.setCountryCode(rs.getString(21));
+				claim.setProvinceCode(rs.getString(22));
+				claim.setMunicipalityCode(rs.getString(23));
+				claim.setCommuneCode(rs.getString(24));
 				claim.setVertices(Vertex.getVertices(claimId,
 						externalConnection));
 				claim.setPropertyLocations(PropertyLocation
@@ -1147,6 +1212,9 @@ public class Claim {
 							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
+							"COMMUNE_CODE, " +
+							"COMMUNE_CODE, " +
+							"COMMUNE_CODE, " +
 							"COMMUNE_CODE " +
 							"FROM CLAIM");
 			ResultSet rs = statement.executeQuery();
@@ -1171,7 +1239,10 @@ public class Claim {
 				claim.setPlotNumber(rs.getString(16));
 				claim.setBlockNumber(rs.getString(17));
 				claim.setNeighborhood(rs.getString(18));
-				claim.setCommuneCode(rs.getString(19));
+				claim.setCountryCode(rs.getString(19));
+				claim.setProvinceCode(rs.getString(20));
+				claim.setMunicipalityCode(rs.getString(21));
+				claim.setCommuneCode(rs.getString(22));
 				claim.setAdditionalInfo(new ArrayList<AdditionalInfo>()); // No
 																			// longer
 																			// used
@@ -1859,6 +1930,8 @@ public class Claim {
 	private String plotNumber;
 	private String blockNumber;
 	private String neighborhood;
+	private String countryCode;
+	private String provinceCode;
+	private String municipalityCode;
 	private String communeCode;
-
 }

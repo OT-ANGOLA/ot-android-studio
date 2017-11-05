@@ -549,7 +549,7 @@
         <string name="id_issuance_commune_label">Comuna de emissao de ID </string>
         <string name="birth_country_label">Pais de nascimento</string>
         <string name="birth_commune_label">Comuna de nascimento </string>
-        <string name="residence_commune_label">Residencia</string>
+        <string name="residence_commune_label">Comuna de residencia</string>
         <string name="father_name_label">Nome do pai*</string>
         <string name="mother_name_label">Nome da mae*</string>
         <string name="beneficiary_name_label">Nome do beneficiario</string>
@@ -574,4 +574,10 @@
     <string name="discard">Descartar</string>
     <string name="birth_municipality_label">Municipio de nascimento</string>
     <string name="birth_province_label">Provincia de nascimento</string>
+    <string name="residence_country_label">Pais de residencia</string>
+    <string name="residence_municipality_label">Municipio de residencia</string>
+    <string name="residence_province_label">Provincia de residencia</string>
+    <string name="country_label">Pais</string>
+    <string name="municipality_label">Municipio</string>
+    <string name="province_label">Provincia</string>
 </resources>

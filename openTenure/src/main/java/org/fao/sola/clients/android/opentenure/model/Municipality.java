@@ -383,4 +383,34 @@ public class Municipality implements Comparable<Municipality>{
 		}
 		return result;
 	}
+	public static int municipalityIndex(String municipalityCode, List<Municipality> municipalitiesList){
+		int i = 0;
+		for(Municipality municipality:municipalitiesList){
+			if(municipality.getCode().trim().equalsIgnoreCase(municipalityCode.trim())){
+				return i;
+			}else{
+				i++;
+			}
+		}
+		return -1;
+	}
+	public static List<Municipality> filterMunicipalitiesByProvince(List<Municipality> municipalities, String provinceCode){
+		List<Municipality> filteredMunicipalities = new ArrayList<Municipality>();
+		for(Municipality municipality:municipalities){
+			if(municipality.getProvinceCode().equalsIgnoreCase(provinceCode)){
+				filteredMunicipalities.add(municipality);
+			}
+		}
+		if(filteredMunicipalities.size() <= 0){
+			// To account for provinces without municipalities
+			Municipality municipality = new Municipality();
+			municipality.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			municipality.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			municipality.setProvinceCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			filteredMunicipalities.add(municipality);
+			return filteredMunicipalities;
+
+		}
+		return filteredMunicipalities;
+	}
 }

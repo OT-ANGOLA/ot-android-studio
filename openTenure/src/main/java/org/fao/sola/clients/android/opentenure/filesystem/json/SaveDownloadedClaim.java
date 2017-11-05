@@ -195,11 +195,17 @@ public class SaveDownloadedClaim {
 			person.setIdIssuanceProvinceCode(claimant.getIdIssuanceProvinceCode());
 			person.setIdIssuanceMunicipalityCode(claimant.getIdIssuanceMunicipalityCode());
 			person.setIdIssuanceCommuneCode(claimant.getIdIssuanceCommuneCode());
+
 			person.setBirthCountryCode(claimant.getBirthCountryCode());
 			person.setBirthProvinceCode(claimant.getBirthProvinceCode());
 			person.setBirthMunicipalityCode(claimant.getBirthMunicipalityCode());
 			person.setBirthCommuneCode(claimant.getBirthCommuneCode());
+
+			person.setResidenceCountryCode(claimant.getResidenceCountryCode());
+			person.setResidenceProvinceCode(claimant.getResidenceProvinceCode());
+			person.setResidenceMunicipalityCode(claimant.getResidenceMunicipalityCode());
 			person.setResidenceCommuneCode(claimant.getResidenceCommuneCode());
+
 			person.setBeneficiaryName(claimant.getBeneficiaryName());
 			person.setBeneficiaryIdNumber(claimant.getBeneficiaryIdNumber());
 			person.setMaritalStatusCode(claimant.getMaritalStatusCode());
@@ -228,6 +234,9 @@ public class SaveDownloadedClaim {
 			}
 			claimDB.setNeighborhood(downloadedClaim.getNeighborhood());
 			claimDB.setLandProjectCode(downloadedClaim.getLandProjectCode());
+			claimDB.setCountryCode(downloadedClaim.getCountryCode());
+			claimDB.setProvinceCode(downloadedClaim.getProvinceCode());
+			claimDB.setMunicipalityCode(downloadedClaim.getMunicipalityCode());
 			claimDB.setCommuneCode(downloadedClaim.getCommuneCode());
 
 			if (downloadedClaim.getStartDate() != null) {
@@ -489,11 +498,17 @@ public class SaveDownloadedClaim {
 					personDB2.setIdIssuanceProvinceCode(person2.getIdIssuanceProvinceCode());
 					personDB2.setIdIssuanceMunicipalityCode(person2.getIdIssuanceMunicipalityCode());
 					personDB2.setIdIssuanceCommuneCode(person2.getIdIssuanceCommuneCode());
+
 					personDB2.setBirthCountryCode(person2.getBirthCountryCode());
 					personDB2.setBirthProvinceCode(person2.getBirthProvinceCode());
 					personDB2.setBirthMunicipalityCode(person2.getBirthMunicipalityCode());
 					personDB2.setBirthCommuneCode(person2.getBirthCommuneCode());
+
+					personDB2.setResidenceCountryCode(person2.getResidenceCountryCode());
+					personDB2.setResidenceProvinceCode(person2.getResidenceProvinceCode());
+					personDB2.setResidenceMunicipalityCode(person2.getResidenceMunicipalityCode());
 					personDB2.setResidenceCommuneCode(person2.getResidenceCommuneCode());
+
 					personDB2.setBeneficiaryName(person2.getBeneficiaryName());
 					personDB2.setBeneficiaryIdNumber(person2.getBeneficiaryIdNumber());
 					personDB2.setMaritalStatusCode(person2.getMaritalStatusCode());

@@ -358,4 +358,15 @@ public class Country implements Comparable<Country>{
 		}
 		return result;
 	}
+	public static int countryIndex(String countryCode, List<Country> countriesList){
+		int i = 0;
+		for(Country country:countriesList){
+			if(country.getCode().trim().equalsIgnoreCase(countryCode.trim())){
+				return i;
+			}else{
+				i++;
+			}
+		}
+		return -1;
+	}
 }

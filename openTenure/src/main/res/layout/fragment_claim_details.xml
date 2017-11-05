@@ -131,6 +131,75 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/country_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:paddingBottom="8dp"
+            android:paddingTop="10dp"
+            android:text="@string/country_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="36dp"
+            android:background="@android:color/white" >
+
+            <Spinner
+                android:id="@+id/countrySpinner"
+                android:layout_width="350dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/province_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:paddingBottom="8dp"
+            android:paddingTop="10dp"
+            android:text="@string/province_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="36dp"
+            android:background="@android:color/white" >
+
+            <Spinner
+                android:id="@+id/provinceSpinner"
+                android:layout_width="350dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/municipality_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:paddingBottom="8dp"
+            android:paddingTop="10dp"
+            android:text="@string/municipality_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="36dp"
+            android:background="@android:color/white" >
+
+            <Spinner
+                android:id="@+id/municipalitySpinner"
+                android:layout_width="350dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
             android:id="@+id/commune_label"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

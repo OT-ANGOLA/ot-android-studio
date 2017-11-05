@@ -52,11 +52,14 @@ import org.fao.sola.clients.android.opentenure.model.Claim;
 import org.fao.sola.clients.android.opentenure.model.ClaimStatus;
 import org.fao.sola.clients.android.opentenure.model.ClaimType;
 import org.fao.sola.clients.android.opentenure.model.Commune;
+import org.fao.sola.clients.android.opentenure.model.Country;
 import org.fao.sola.clients.android.opentenure.model.HoleVertex;
 import org.fao.sola.clients.android.opentenure.model.LandProject;
 import org.fao.sola.clients.android.opentenure.model.LandUse;
+import org.fao.sola.clients.android.opentenure.model.Municipality;
 import org.fao.sola.clients.android.opentenure.model.Owner;
 import org.fao.sola.clients.android.opentenure.model.Person;
+import org.fao.sola.clients.android.opentenure.model.Province;
 import org.fao.sola.clients.android.opentenure.model.ShareProperty;
 import org.fao.sola.clients.android.opentenure.model.Vertex;
 import org.fao.sola.clients.android.opentenure.print.PDFClaimExporter;
@@ -82,6 +85,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -103,6 +107,9 @@ public class ClaimDetailsFragment extends Fragment {
 	private Map<String, String> valueKeyMapLandUse;
 	private Map<String, String> keyValueClaimTypesMap;
 	private Map<String, String> valueKeyClaimTypesMap;
+	private List<Country> countriesList;
+	private List<Province> provincesList;
+	private List<Municipality> municipalitiesList;
 	private List<Commune> communesList;
 	private Map<String, String> keyValueLandProjectsMap;
 	private Map<String, String> valueKeyLandProjectsMap;
@@ -503,19 +510,132 @@ public class ClaimDetailsFragment extends Fragment {
 
 		spinnerLP.setAdapter(dataAdapterLP);
 
-		// Communes Spinner
-		/* Mapping commune localization */
+		countriesList = new ArrayList<Country>(new TreeSet<Country>(onlyActiveValues ? Country.getActiveCountries():Country.getCountries()));
+
+		final Spinner spinnerCountry = (Spinner) rootView
+				.findViewById(R.id.countrySpinner);
+		final ArrayAdapter<Country> dataAdapterCountry = new ArrayAdapter<Country>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				countriesList);
+		spinnerCountry.setAdapter(dataAdapterCountry);
+
+		provincesList = new ArrayList<Province>(new TreeSet<Province>(onlyActiveValues ? Province.getActiveProvinces():Province.getProvinces()));
+
+		ArrayAdapter<Province> dataAdapterProvince = new ArrayAdapter<Province>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				new ArrayList<Province>(provincesList));
+		final Spinner spinnerProvince = (Spinner) rootView
+				.findViewById(R.id.provinceSpinner);
+		spinnerProvince.setAdapter(dataAdapterProvince);
+
+		municipalitiesList = new ArrayList<Municipality>(new TreeSet<Municipality>(onlyActiveValues ? Municipality.getActiveMunicipalities():Municipality.getMunicipalities()));
+
+		ArrayAdapter<Municipality> dataAdapterMunicipality = new ArrayAdapter<Municipality>(
+				OpenTenureApplication.getContext(), R.layout.my_spinner,
+				new ArrayList<Municipality>(municipalitiesList));
+		final Spinner spinnerMunicipality = (Spinner) rootView
+				.findViewById(R.id.municipalitySpinner);
+		spinnerMunicipality.setAdapter(dataAdapterMunicipality);
+
 		communesList = new ArrayList<Commune>(new TreeSet<Commune>(onlyActiveValues ? Commune.getActiveCommunes():Commune.getCommunes()));
 
-		ArrayAdapter<Commune> dataAdapterCO = new ArrayAdapter<Commune>(
+		ArrayAdapter<Commune> dataAdapterCommune = new ArrayAdapter<Commune>(
 				OpenTenureApplication.getContext(), R.layout.my_spinner,
 				new ArrayList<Commune>(communesList));
-		Spinner spinnerCO = (Spinner) rootView
+		final Spinner spinnerCommune = (Spinner) rootView
 				.findViewById(R.id.communeSpinner);
+		spinnerCommune.setAdapter(dataAdapterCommune);
 
-		dataAdapterCO.setDropDownViewResource(R.layout.my_spinner);
+		spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+				// Reload list of birth communes based on selected country
+				Country selectedCountry = (Country)spinnerCountry.getSelectedItem();
 
-		spinnerCO.setAdapter(dataAdapterCO);
+				ArrayAdapter<Province> dataAdapterPR = (ArrayAdapter<Province>)spinnerProvince.getAdapter();
+				dataAdapterPR.clear();
+				List<Province> provinces = Province.filterProvincesByCountry(provincesList, selectedCountry.getCode());
+				dataAdapterPR.addAll(provinces);
+				dataAdapterPR.notifyDataSetChanged();
+				spinnerProvince.setSelection(0,true);
+
+				Province selectedProvince = provinces.get(0);
+				ArrayAdapter<Municipality> dataAdapterMU = (ArrayAdapter<Municipality>)spinnerMunicipality.getAdapter();
+				dataAdapterMU.clear();
+				List<Municipality> municipalities = Municipality.filterMunicipalitiesByProvince(municipalitiesList, selectedProvince.getCode());
+				dataAdapterMU.addAll(municipalities);
+				dataAdapterMU.notifyDataSetChanged();
+				spinnerMunicipality.setSelection(0,true);
+
+				Municipality selectedMunicipality = municipalities.get(0);
+				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerCommune.getAdapter();
+				dataAdapterCO.clear();
+				dataAdapterCO.addAll(Commune.filterCommunesByMunicipality(communesList, selectedMunicipality.getCode()));
+				dataAdapterCO.notifyDataSetChanged();
+				spinnerCommune.setSelection(0,true);
+
+				((EditText) rootView.findViewById(R.id.claim_name_input_field)).requestFocus();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parentView) {
+				// your code here
+			}
+
+		});
+
+		spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+				// Reload list of issuance municipalities based on selected province
+				Province selectedProvince = (Province)spinnerProvince.getSelectedItem();
+
+				ArrayAdapter<Municipality> dataAdapterMU = (ArrayAdapter<Municipality>)spinnerMunicipality.getAdapter();
+				dataAdapterMU.clear();
+				List<Municipality> municipalities = Municipality.filterMunicipalitiesByProvince(municipalitiesList, selectedProvince.getCode());
+				dataAdapterMU.addAll(municipalities);
+				dataAdapterMU.notifyDataSetChanged();
+				spinnerMunicipality.setSelection(0,true);
+
+				Municipality selectedMunicipality = municipalities.get(0);
+				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerCommune.getAdapter();
+				dataAdapterCO.clear();
+				dataAdapterCO.addAll(Commune.filterCommunesByMunicipality(communesList, selectedMunicipality.getCode()));
+				dataAdapterCO.notifyDataSetChanged();
+				spinnerCommune.setSelection(0,true);
+
+				((EditText) rootView.findViewById(R.id.claim_name_input_field)).requestFocus();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parentView) {
+				// your code here
+			}
+
+		});
+
+		spinnerMunicipality.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+				// Reload list of issuance communes based on selected municipality
+
+				Municipality selectedMunicipality = (Municipality)spinnerMunicipality.getSelectedItem();
+
+				ArrayAdapter<Commune> dataAdapterCO = (ArrayAdapter<Commune>)spinnerCommune.getAdapter();
+				dataAdapterCO.clear();
+				dataAdapterCO.addAll(Commune.filterCommunesByMunicipality(communesList, selectedMunicipality.getCode()));
+				dataAdapterCO.notifyDataSetChanged();
+				spinnerCommune.setSelection(0,true);
+
+				((EditText) rootView.findViewById(R.id.claim_name_input_field)).requestFocus();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parentView) {
+				// your code here
+			}
+
+		});
 
 		// Claimant
 		((TextView) rootView.findViewById(R.id.claimant_id)).setTextSize(8);
@@ -792,6 +912,15 @@ public class ClaimDetailsFragment extends Fragment {
 					.setSelection(new LandProject().getIndexByCodeType(
 							claim.getLandProjectCode(), onlyActiveValues));
 
+			((Spinner) rootView.findViewById(R.id.countrySpinner))
+					.setSelection(Country.countryIndex(claim.getCountryCode(), countriesList));
+
+			((Spinner) rootView.findViewById(R.id.provinceSpinner))
+					.setSelection(Province.provinceIndex(claim.getProvinceCode(), provincesList));
+
+			((Spinner) rootView.findViewById(R.id.municipalitySpinner))
+					.setSelection(Municipality.municipalityIndex(claim.getMunicipalityCode(), municipalitiesList));
+
 			((Spinner) rootView.findViewById(R.id.communeSpinner))
 					.setSelection(Commune.communeIndex(communesList, claim.getCommuneCode()));
 
@@ -855,21 +984,50 @@ public class ClaimDetailsFragment extends Fragment {
 						.setFocusable(false);
 				((Spinner) rootView.findViewById(R.id.claimTypesSpinner))
 						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.claimTypesSpinner))
+						.setFocusableInTouchMode(false);
 
 				((Spinner) rootView.findViewById(R.id.landUseSpinner))
 						.setFocusable(false);
 				((Spinner) rootView.findViewById(R.id.landUseSpinner))
 						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.landUseSpinner))
+						.setFocusableInTouchMode(false);
 
 				((Spinner) rootView.findViewById(R.id.landProjectSpinner))
 						.setFocusable(false);
 				((Spinner) rootView.findViewById(R.id.landProjectSpinner))
 						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.landProjectSpinner))
+						.setFocusableInTouchMode(false);
+
+				((Spinner) rootView.findViewById(R.id.countrySpinner))
+						.setFocusable(false);
+				((Spinner) rootView.findViewById(R.id.countrySpinner))
+						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.countrySpinner))
+						.setFocusableInTouchMode(false);
+
+				((Spinner) rootView.findViewById(R.id.provinceSpinner))
+						.setFocusable(false);
+				((Spinner) rootView.findViewById(R.id.provinceSpinner))
+						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.provinceSpinner))
+						.setFocusableInTouchMode(false);
+
+				((Spinner) rootView.findViewById(R.id.municipalitySpinner))
+						.setFocusable(false);
+				((Spinner) rootView.findViewById(R.id.municipalitySpinner))
+						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.municipalitySpinner))
+						.setFocusableInTouchMode(false);
 
 				((Spinner) rootView.findViewById(R.id.communeSpinner))
 						.setFocusable(false);
 				((Spinner) rootView.findViewById(R.id.communeSpinner))
 						.setClickable(false);
+				((Spinner) rootView.findViewById(R.id.communeSpinner))
+						.setFocusableInTouchMode(false);
 
 				((Switch) rootView.findViewById(R.id.has_constructions_switch))
 						.setFocusable(false);
@@ -960,6 +1118,18 @@ public class ClaimDetailsFragment extends Fragment {
 		String landProjectDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.landProjectSpinner)).getSelectedItem();
 		claim.setLandProjectCode(valueKeyLandProjectsMap.get(landProjectDispValue));
+
+		Country country = (Country) ((Spinner) rootView
+				.findViewById(R.id.countrySpinner)).getSelectedItem();
+		claim.setCountryCode(country.getCode());
+
+		Province province = (Province) ((Spinner) rootView
+				.findViewById(R.id.provinceSpinner)).getSelectedItem();
+		claim.setProvinceCode(province.getCode());
+
+		Municipality municipality = (Municipality) ((Spinner) rootView
+				.findViewById(R.id.municipalitySpinner)).getSelectedItem();
+		claim.setMunicipalityCode(municipality.getCode());
 
 		Commune commune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.communeSpinner)).getSelectedItem();
@@ -1140,6 +1310,18 @@ public class ClaimDetailsFragment extends Fragment {
 		String landProjectDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.landProjectSpinner)).getSelectedItem();
 		claim.setLandProjectCode(valueKeyLandProjectsMap.get(landProjectDispValue));
+
+		Country country = (Country) ((Spinner) rootView
+				.findViewById(R.id.countrySpinner)).getSelectedItem();
+		claim.setCountryCode(country.getCode());
+
+		Province province = (Province) ((Spinner) rootView
+				.findViewById(R.id.provinceSpinner)).getSelectedItem();
+		claim.setProvinceCode(province.getCode());
+
+		Municipality municipality = (Municipality) ((Spinner) rootView
+				.findViewById(R.id.municipalitySpinner)).getSelectedItem();
+		claim.setMunicipalityCode(municipality.getCode());
 
 		Commune commune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.communeSpinner)).getSelectedItem();
@@ -1437,6 +1619,30 @@ public class ClaimDetailsFragment extends Fragment {
 		if ((claim.getLandProjectCode() == null && valueKeyLandProjectsMap.get(landProjectDispValue) != null)
 				|| (!claim.getLandProjectCode().equals(valueKeyLandProjectsMap.get(landProjectDispValue)))){
 			Log.d(this.getClass().getName(), "Land project has changed");
+			return true;
+		}
+		Country country = (Country) ((Spinner) rootView
+				.findViewById(R.id.countrySpinner))
+				.getSelectedItem();
+		if ((claim.getCountryCode() == null && country.getCode() != null)
+				|| (!claim.getCountryCode().equals(country.getCode()))){
+			Log.d(this.getClass().getName(), "Country has changed");
+			return true;
+		}
+		Province province = (Province) ((Spinner) rootView
+				.findViewById(R.id.provinceSpinner))
+				.getSelectedItem();
+		if ((claim.getProvinceCode() == null && province.getCode() != null)
+				|| (!claim.getProvinceCode().equals(province.getCode()))){
+			Log.d(this.getClass().getName(), "Province has changed");
+			return true;
+		}
+		Municipality municipality = (Municipality) ((Spinner) rootView
+				.findViewById(R.id.municipalitySpinner))
+				.getSelectedItem();
+		if ((claim.getMunicipalityCode() == null && municipality.getCode() != null)
+				|| (!claim.getMunicipalityCode().equals(municipality.getCode()))){
+			Log.d(this.getClass().getName(), "Municipality has changed");
 			return true;
 		}
 		Commune commune = (Commune) ((Spinner) rootView

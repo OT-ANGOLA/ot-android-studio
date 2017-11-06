@@ -210,6 +210,13 @@ public class Commune implements Comparable<Commune>{
 				commune.setCountryCode(rs.getString(5));
 				communes.add(commune);
 			}
+			// To allow for municipalities without communes
+			Commune commune = new Commune();
+			commune.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setMunicipalityCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setCountryCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			communes.add(commune);
 			return communes;
 
 		} catch (Exception exception) {
@@ -274,6 +281,13 @@ public class Commune implements Comparable<Commune>{
 				commune.setCountryCode(rs.getString(5));
 				communes.add(commune);
 			}
+			// To allow for municipalities without communes
+			Commune commune = new Commune();
+			commune.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setMunicipalityCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setCountryCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			communes.add(commune);
 			return communes;
 
 		} catch (Exception exception) {
@@ -410,6 +424,9 @@ public class Commune implements Comparable<Commune>{
 		return result;
 	}
 	public static int communeIndex(List<Commune> communesList, String communeCode){
+		if(communeCode==null){
+			return 0;
+		}
 		int i = 0;
 		for(Commune commune:communesList){
 			if(commune.getCode().trim().equalsIgnoreCase(communeCode.trim())){
@@ -418,7 +435,7 @@ public class Commune implements Comparable<Commune>{
 				i++;
 			}
 		}
-		return -1;
+		return 0;
 	}
 	public static List<Commune> filterCommunesByMunicipality(List<Commune> communes, String municipalityCode){
 		List<Commune> filteredCommunes = new ArrayList<Commune>();

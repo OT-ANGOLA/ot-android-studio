@@ -31,6 +31,7 @@ import android.support.annotation.NonNull;
 
 import org.fao.sola.clients.android.opentenure.DisplayNameLocalizer;
 import org.fao.sola.clients.android.opentenure.OpenTenureApplication;
+import org.fao.sola.clients.android.opentenure.R;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -174,6 +175,11 @@ public class Country implements Comparable<Country>{
 				countries.add(country);
 
 			}
+			Country country = new Country();
+			country.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			country.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+
+			countries.add(country);
 			return countries;
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -224,6 +230,11 @@ public class Country implements Comparable<Country>{
 				countries.add(country);
 
 			}
+			Country country = new Country();
+			country.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			country.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+
+			countries.add(country);
 			return countries;
 
 		} catch (Exception exception) {
@@ -359,6 +370,9 @@ public class Country implements Comparable<Country>{
 		return result;
 	}
 	public static int countryIndex(String countryCode, List<Country> countriesList){
+		if(countryCode == null){
+			return countryIndex(DEFAULT_COUNTRY_CODE, countriesList);
+		}
 		int i = 0;
 		for(Country country:countriesList){
 			if(country.getCode().trim().equalsIgnoreCase(countryCode.trim())){
@@ -367,6 +381,6 @@ public class Country implements Comparable<Country>{
 				i++;
 			}
 		}
-		return -1;
+		return 0;
 	}
 }

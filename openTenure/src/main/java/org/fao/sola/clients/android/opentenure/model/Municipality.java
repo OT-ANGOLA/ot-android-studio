@@ -384,6 +384,9 @@ public class Municipality implements Comparable<Municipality>{
 		return result;
 	}
 	public static int municipalityIndex(String municipalityCode, List<Municipality> municipalitiesList){
+		if(municipalityCode==null){
+			return 0;
+		}
 		int i = 0;
 		for(Municipality municipality:municipalitiesList){
 			if(municipality.getCode().trim().equalsIgnoreCase(municipalityCode.trim())){
@@ -392,7 +395,7 @@ public class Municipality implements Comparable<Municipality>{
 				i++;
 			}
 		}
-		return -1;
+		return 0;
 	}
 	public static List<Municipality> filterMunicipalitiesByProvince(List<Municipality> municipalities, String provinceCode){
 		List<Municipality> filteredMunicipalities = new ArrayList<Municipality>();

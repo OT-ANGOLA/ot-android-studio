@@ -108,6 +108,7 @@ public class ClaimMapFragment extends Fragment implements OnCameraChangeListener
 		add_boundary, add_non_boundary, measure, edit_hole
 	};
 
+	private static final String KEY_MAP_STATE = "__KEY_MAP_STATE__";
 	private static final int MAP_LABEL_FONT_SIZE = 16;
 	private static final String OSM_MAPNIK_BASE_URL = "http://a.tile.openstreetmap.org/{z}/{x}/{y}.png";
 	private static final String OSM_MAPQUEST_BASE_URL = "http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png";
@@ -185,6 +186,9 @@ public class ClaimMapFragment extends Fragment implements OnCameraChangeListener
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putString(MAP_TYPE, mapType.toString());
 		super.onSaveInstanceState(outState);
+		Bundle mapState = new Bundle();
+		((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.claim_map_fragment)).onSaveInstanceState(outState);
+		outState.putBundle(KEY_MAP_STATE,mapState);
 
 	}
 
@@ -337,16 +341,14 @@ public class ClaimMapFragment extends Fragment implements OnCameraChangeListener
 		setRetainInstance(true);
 		super.onCreateView(inflater, container, savedInstanceState);
 		mapView = inflater.inflate(R.layout.fragment_claim_map, container, false);
-		mapView.setSaveEnabled(false);
 		setHasOptionsMenu(true);
 		label = (MapLabel) getChildFragmentManager().findFragmentById(R.id.claim_map_provider_label);
-//		label = (MapLabel) getActivity().getSupportFragmentManager().findFragmentById(R.id.claim_map_provider_label);
 		label.changeTextProperties(MAP_LABEL_FONT_SIZE,
 				getActivity().getResources().getString(R.string.map_provider_google_normal));
-//		map = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.claim_map_fragment))
-//				.getExtendedMap();
-		map = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.claim_map_fragment))
-				.getExtendedMap();
+		SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map_fragment);
+		Bundle mapState = (savedInstanceState != null) ? savedInstanceState.getBundle(KEY_MAP_STATE): null;
+		fragment.onCreate(mapState);
+		map = fragment.getExtendedMap();
 		ClusteringSettings settings = new ClusteringSettings();
 		settings.clusterOptionsProvider(new OpenTenureClusterOptionsProvider(getResources()));
 		settings.addMarkersDynamically(true);

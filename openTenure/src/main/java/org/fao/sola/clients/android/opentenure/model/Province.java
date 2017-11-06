@@ -184,7 +184,13 @@ public class Province implements Comparable<Province> {
 				provinces.add(province);
 
 			}
+			// To allow for countries without provinces
+			Province province = new Province();
+			province.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			province.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			province.setCountryCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
 
+			provinces.add(province);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
@@ -234,6 +240,13 @@ public class Province implements Comparable<Province> {
 				provinces.add(province);
 
 			}
+			// To allow for countries without provinces
+			Province province = new Province();
+			province.setCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			province.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			province.setCountryCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+
+			provinces.add(province);
 
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -370,6 +383,9 @@ public class Province implements Comparable<Province> {
 		return result;
 	}
 	public static int provinceIndex(String provinceCode, List<Province> provincesList){
+		if(provinceCode == null){
+			return 0;
+		}
 		int i = 0;
 		for(Province province:provincesList){
 			if(province.getCode().trim().equalsIgnoreCase(provinceCode.trim())){
@@ -378,7 +394,7 @@ public class Province implements Comparable<Province> {
 				i++;
 			}
 		}
-		return -1;
+		return 0;
 	}
 	public static List<Province> filterProvincesByCountry(List<Province> provinces, String countryCode){
 		List<Province> filteredProvinces = new ArrayList<Province>();

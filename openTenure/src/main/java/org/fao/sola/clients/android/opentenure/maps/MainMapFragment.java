@@ -109,6 +109,7 @@ public class MainMapFragment extends SupportMapFragment implements OnCameraChang
 	public static final String MAIN_MAP_LATITUDE = "__MAIN_MAP_LATITUDE__";
 	public static final String MAIN_MAP_LONGITUDE = "__MAIN_MAP_LONGITUDE__";
 	public static final String MAIN_MAP_TYPE = "__MAIN_MAP_PROVIDER__";
+	private static final String KEY_MAP_STATE = "__KEY_MAP_STATE__";
 	private static final int MAP_LABEL_FONT_SIZE = 16;
 	public static final float MAX_ZOOM_LEVELS_TO_DOWNLOAD = 3.0f;
 	private static final int MAX_TILES_IN_DOWNLOAD_QUEUE = 1000;
@@ -296,16 +297,14 @@ public class MainMapFragment extends SupportMapFragment implements OnCameraChang
 
 		super.onCreateView(inflater, container, savedInstanceState);
 		mapView = inflater.inflate(R.layout.main_map, container, false);
-		mapView.setSaveEnabled(false);
 		setHasOptionsMenu(true);
 		label = (MapLabel) getChildFragmentManager().findFragmentById(R.id.main_map_provider_label);
-//		label = (MapLabel) getActivity().getSupportFragmentManager().findFragmentById(R.id.main_map_provider_label);
 		label.changeTextProperties(MAP_LABEL_FONT_SIZE,
 				getActivity().getResources().getString(R.string.map_provider_google_normal));
-//		map = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.main_map_fragment))
-//				.getExtendedMap();
-		map = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map_fragment))
-				.getExtendedMap();
+		SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map_fragment);
+		Bundle mapState = (savedInstanceState != null) ? savedInstanceState.getBundle(KEY_MAP_STATE): null;
+		fragment.onCreate(mapState);
+		map = fragment.getExtendedMap();
 		ClusteringSettings settings = new ClusteringSettings();
 		settings.clusterOptionsProvider(new OpenTenureClusterOptionsProvider(getResources()));
 		settings.addMarkersDynamically(true);
@@ -710,6 +709,9 @@ public class MainMapFragment extends SupportMapFragment implements OnCameraChang
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putString(MAIN_MAP_TYPE, mapType.toString());
 		super.onSaveInstanceState(outState);
+		Bundle mapState = new Bundle();
+		((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map_fragment)).onSaveInstanceState(mapState);
+		outState.putBundle(KEY_MAP_STATE,mapState);
 
 	}
 

@@ -986,6 +986,8 @@ public class ClaimDetailsFragment extends Fragment {
 						.setClickable(false);
 				((Spinner) rootView.findViewById(R.id.claimTypesSpinner))
 						.setFocusableInTouchMode(false);
+				((Spinner) rootView.findViewById(R.id.claimTypesSpinner))
+						.setEnabled(false);
 
 				((Spinner) rootView.findViewById(R.id.landUseSpinner))
 						.setFocusable(false);
@@ -993,6 +995,8 @@ public class ClaimDetailsFragment extends Fragment {
 						.setClickable(false);
 				((Spinner) rootView.findViewById(R.id.landUseSpinner))
 						.setFocusableInTouchMode(false);
+				((Spinner) rootView.findViewById(R.id.landUseSpinner))
+						.setEnabled(false);
 
 				((Spinner) rootView.findViewById(R.id.landProjectSpinner))
 						.setFocusable(false);
@@ -1000,6 +1004,8 @@ public class ClaimDetailsFragment extends Fragment {
 						.setClickable(false);
 				((Spinner) rootView.findViewById(R.id.landProjectSpinner))
 						.setFocusableInTouchMode(false);
+				((Spinner) rootView.findViewById(R.id.landProjectSpinner))
+						.setEnabled(false);
 
 				((Spinner) rootView.findViewById(R.id.countrySpinner))
 						.setFocusable(false);
@@ -1007,6 +1013,8 @@ public class ClaimDetailsFragment extends Fragment {
 						.setClickable(false);
 				((Spinner) rootView.findViewById(R.id.countrySpinner))
 						.setFocusableInTouchMode(false);
+				((Spinner) rootView.findViewById(R.id.countrySpinner))
+						.setEnabled(false);
 
 				((Spinner) rootView.findViewById(R.id.provinceSpinner))
 						.setFocusable(false);
@@ -1014,6 +1022,8 @@ public class ClaimDetailsFragment extends Fragment {
 						.setClickable(false);
 				((Spinner) rootView.findViewById(R.id.provinceSpinner))
 						.setFocusableInTouchMode(false);
+				((Spinner) rootView.findViewById(R.id.provinceSpinner))
+						.setEnabled(false);
 
 				((Spinner) rootView.findViewById(R.id.municipalitySpinner))
 						.setFocusable(false);
@@ -1021,6 +1031,8 @@ public class ClaimDetailsFragment extends Fragment {
 						.setClickable(false);
 				((Spinner) rootView.findViewById(R.id.municipalitySpinner))
 						.setFocusableInTouchMode(false);
+				((Spinner) rootView.findViewById(R.id.municipalitySpinner))
+						.setEnabled(false);
 
 				((Spinner) rootView.findViewById(R.id.communeSpinner))
 						.setFocusable(false);
@@ -1028,6 +1040,8 @@ public class ClaimDetailsFragment extends Fragment {
 						.setClickable(false);
 				((Spinner) rootView.findViewById(R.id.communeSpinner))
 						.setFocusableInTouchMode(false);
+				((Spinner) rootView.findViewById(R.id.communeSpinner))
+						.setEnabled(false);
 
 				((Switch) rootView.findViewById(R.id.has_constructions_switch))
 						.setFocusable(false);

@@ -925,12 +925,15 @@ public class PersonFragment extends Fragment {
 			((EditText) rootView
 					.findViewById(R.id.contact_phone_number_input_field))
 					.setFocusable(false);
+
             ((Spinner) rootView.findViewById(R.id.id_type_spinner))
                     .setFocusable(false);
             ((Spinner) rootView.findViewById(R.id.id_type_spinner))
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.id_type_spinner))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.id_type_spinner))
+					.setEnabled(false);
 			((ImageView) rootView.findViewById(R.id.claimant_picture))
 					.setClickable(false);
 
@@ -940,84 +943,112 @@ public class PersonFragment extends Fragment {
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.gender_spinner))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.gender_spinner))
+					.setEnabled(false);
             ((Spinner) rootView.findViewById(R.id.marital_status_spinner))
                     .setFocusable(false);
             ((Spinner) rootView.findViewById(R.id.marital_status_spinner))
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.marital_status_spinner))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.marital_status_spinner))
+					.setEnabled(false);
             ((Spinner) rootView.findViewById(R.id.id_issuance_country))
                     .setFocusable(false);
             ((Spinner) rootView.findViewById(R.id.id_issuance_country))
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.id_issuance_country))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_country))
+					.setEnabled(false);
             ((Spinner) rootView.findViewById(R.id.birth_country))
                     .setFocusable(false);
             ((Spinner) rootView.findViewById(R.id.birth_country))
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.birth_country))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.birth_country))
+					.setEnabled(false);
 			((Spinner) rootView.findViewById(R.id.residence_country))
 					.setFocusable(false);
 			((Spinner) rootView.findViewById(R.id.residence_country))
 					.setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.residence_country))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.residence_country))
+					.setEnabled(false);
 			((Spinner) rootView.findViewById(R.id.id_issuance_province))
 					.setFocusable(false);
 			((Spinner) rootView.findViewById(R.id.id_issuance_province))
 					.setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.id_issuance_province))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_province))
+					.setEnabled(false);
 			((Spinner) rootView.findViewById(R.id.birth_province))
 					.setFocusable(false);
 			((Spinner) rootView.findViewById(R.id.birth_province))
 					.setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.birth_province))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.birth_province))
+					.setEnabled(false);
 			((Spinner) rootView.findViewById(R.id.residence_province))
 					.setFocusable(false);
 			((Spinner) rootView.findViewById(R.id.residence_province))
 					.setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.residence_province))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.residence_province))
+					.setEnabled(false);
             ((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
                     .setFocusable(false);
             ((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
+					.setEnabled(false);
 			((Spinner) rootView.findViewById(R.id.birth_municipality))
 					.setFocusable(false);
 			((Spinner) rootView.findViewById(R.id.birth_municipality))
 					.setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.birth_municipality))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.birth_municipality))
+					.setEnabled(false);
 			((Spinner) rootView.findViewById(R.id.residence_municipality))
 					.setFocusable(false);
 			((Spinner) rootView.findViewById(R.id.residence_municipality))
 					.setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.residence_municipality))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.residence_municipality))
+					.setEnabled(false);
             ((Spinner) rootView.findViewById(R.id.id_issuance_commune))
                     .setFocusable(false);
             ((Spinner) rootView.findViewById(R.id.id_issuance_commune))
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.id_issuance_commune))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.id_issuance_commune))
+					.setEnabled(false);
             ((Spinner) rootView.findViewById(R.id.residence_commune))
                     .setFocusable(false);
             ((Spinner) rootView.findViewById(R.id.residence_commune))
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.residence_commune))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.residence_commune))
+					.setEnabled(false);
             ((Spinner) rootView.findViewById(R.id.birth_commune))
                     .setFocusable(false);
             ((Spinner) rootView.findViewById(R.id.birth_commune))
                     .setFocusableInTouchMode(false);
 			((Spinner) rootView.findViewById(R.id.birth_commune))
 					.setClickable(false);
+			((Spinner) rootView.findViewById(R.id.birth_commune))
+					.setEnabled(false);
 			((EditText) rootView.findViewById(R.id.id_number))
 					.setFocusable(false);
 			((EditText) rootView.findViewById(R.id.beneficiary_name_input_field))

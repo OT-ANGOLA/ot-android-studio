@@ -371,12 +371,15 @@ public class Person {
 			statement.setString(22, person.getBirthProvinceCode());
 			statement.setString(23, person.getBirthMunicipalityCode());
 			statement.setString(24, person.getBirthCommuneCode());
-			statement.setString(25, person.getResidenceCommuneCode());
-			statement.setString(26, person.getMaritalStatusCode());
-			statement.setString(27, person.getFatherName());
-			statement.setString(28, person.getMotherName());
-			statement.setString(29, person.getBeneficiaryName());
-			statement.setString(30, person.getBeneficiaryIdNumber());
+			statement.setString(25, person.getResidenceCountryCode());
+			statement.setString(26, person.getResidenceProvinceCode());
+			statement.setString(27, person.getResidenceMunicipalityCode());
+			statement.setString(28, person.getResidenceCommuneCode());
+			statement.setString(29, person.getMaritalStatusCode());
+			statement.setString(30, person.getFatherName());
+			statement.setString(31, person.getMotherName());
+			statement.setString(32, person.getBeneficiaryName());
+			statement.setString(33, person.getBeneficiaryIdNumber());
 			result = statement.executeUpdate();
 
 			FileSystemUtilities.createClaimantFolder(person.getPersonId());

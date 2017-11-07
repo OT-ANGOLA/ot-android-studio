@@ -161,7 +161,7 @@ public class Claim {
 		return municipalityCode;
 	}
 
-	public void setMunicipalityCode(String mMunicipalityCode) { this.municipalityCode = mMunicipalityCode; }
+	public void setMunicipalityCode(String municipalityCode) { this.municipalityCode = municipalityCode; }
 
 	public String getCommuneCode() {
 		return communeCode;
@@ -1116,9 +1116,9 @@ public class Claim {
 							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
-							"COMMUNE_CODE, " +
-							"COMMUNE_CODE, " +
-							"COMMUNE_CODE, " +
+							"COUNTRY_CODE, " +
+							"PROVINCE_CODE, " +
+							"MUNICIPALITY_CODE, " +
 							"COMMUNE_CODE " +
 							"FROM CLAIM");
 			ResultSet rs = statement.executeQuery();
@@ -1212,9 +1212,9 @@ public class Claim {
 							"PLOT_NUMBER, " +
 							"BLOCK_NUMBER, " +
 							"NEIGHBORHOOD, " +
-							"COMMUNE_CODE, " +
-							"COMMUNE_CODE, " +
-							"COMMUNE_CODE, " +
+							"COUNTRY_CODE, " +
+							"PROVINCE_CODE, " +
+							"MUNICIPALITY_CODE, " +
 							"COMMUNE_CODE " +
 							"FROM CLAIM");
 			ResultSet rs = statement.executeQuery();

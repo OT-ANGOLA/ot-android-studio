@@ -385,7 +385,7 @@ public class Municipality implements Comparable<Municipality>{
 	}
 	public static int municipalityIndex(String municipalityCode, List<Municipality> municipalitiesList){
 		if(municipalityCode==null){
-			return 0;
+			return municipalityIndex(OpenTenureApplication.getActivity().getResources().getString(R.string.na), municipalitiesList);
 		}
 		int i = 0;
 		for(Municipality municipality:municipalitiesList){

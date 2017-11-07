@@ -371,7 +371,7 @@ public class Country implements Comparable<Country>{
 	}
 	public static int countryIndex(String countryCode, List<Country> countriesList){
 		if(countryCode == null){
-			return countryIndex(DEFAULT_COUNTRY_CODE, countriesList);
+			return countryIndex(OpenTenureApplication.getActivity().getResources().getString(R.string.na), countriesList);
 		}
 		int i = 0;
 		for(Country country:countriesList){

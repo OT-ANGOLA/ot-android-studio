@@ -425,7 +425,7 @@ public class Commune implements Comparable<Commune>{
 	}
 	public static int communeIndex(List<Commune> communesList, String communeCode){
 		if(communeCode==null){
-			return 0;
+			return communeIndex(communesList, OpenTenureApplication.getActivity().getResources().getString(R.string.na));
 		}
 		int i = 0;
 		for(Commune commune:communesList){

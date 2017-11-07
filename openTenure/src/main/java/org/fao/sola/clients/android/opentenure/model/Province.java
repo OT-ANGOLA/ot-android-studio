@@ -384,7 +384,7 @@ public class Province implements Comparable<Province> {
 	}
 	public static int provinceIndex(String provinceCode, List<Province> provincesList){
 		if(provinceCode == null){
-			return 0;
+			return provinceIndex(OpenTenureApplication.getActivity().getResources().getString(R.string.na), provincesList);
 		}
 		int i = 0;
 		for(Province province:provincesList){

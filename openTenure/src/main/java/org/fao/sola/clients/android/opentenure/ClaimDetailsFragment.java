@@ -636,6 +636,7 @@ public class ClaimDetailsFragment extends Fragment {
 			}
 
 		});
+		spinnerCountry.setSelection(Country.countryIndex(Country.DEFAULT_COUNTRY_CODE, countriesList),true);
 
 		// Claimant
 		((TextView) rootView.findViewById(R.id.claimant_id)).setTextSize(8);
@@ -1638,32 +1639,28 @@ public class ClaimDetailsFragment extends Fragment {
 		Country country = (Country) ((Spinner) rootView
 				.findViewById(R.id.countrySpinner))
 				.getSelectedItem();
-		if ((claim.getCountryCode() == null && country.getCode() != null)
-				|| (!claim.getCountryCode().equals(country.getCode()))){
+		if (!areEqual(claim.getCountryCode(), country.getCode())){
 			Log.d(this.getClass().getName(), "Country has changed");
 			return true;
 		}
 		Province province = (Province) ((Spinner) rootView
 				.findViewById(R.id.provinceSpinner))
 				.getSelectedItem();
-		if ((claim.getProvinceCode() == null && province.getCode() != null)
-				|| (!claim.getProvinceCode().equals(province.getCode()))){
+		if (!areEqual(claim.getProvinceCode(), province.getCode())){
 			Log.d(this.getClass().getName(), "Province has changed");
 			return true;
 		}
 		Municipality municipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.municipalitySpinner))
 				.getSelectedItem();
-		if ((claim.getMunicipalityCode() == null && municipality.getCode() != null)
-				|| (!claim.getMunicipalityCode().equals(municipality.getCode()))){
+		if (!areEqual(claim.getMunicipalityCode(), municipality.getCode())){
 			Log.d(this.getClass().getName(), "Municipality has changed");
 			return true;
 		}
 		Commune commune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.communeSpinner))
 				.getSelectedItem();
-		if ((claim.getCommuneCode() == null && commune.getCode() != null)
-				|| (!claim.getCommuneCode().equals(commune.getCode()))){
+		if (!areEqual(claim.getCommuneCode(), commune.getCode())){
 			Log.d(this.getClass().getName(), "Commune has changed");
 			return true;
 		}
@@ -1851,6 +1848,7 @@ public class ClaimDetailsFragment extends Fragment {
 	@Override
 	public void onResume() {
 		Claim claim = Claim.getClaim(claimActivity.getClaimId());
+		preload(claim);
 		load(claim);
 
 		super.onResume();
@@ -1963,6 +1961,19 @@ public class ClaimDetailsFragment extends Fragment {
 		SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
 		dateOfBirth.setText(sdf.format(localCalendar.getTime()));
+	}
+
+	private boolean areEqual(String codeA, String codeB){
+		Log.d(this.getClass().getName(), "comparing " + codeA + " and " + codeB);
+		if((codeA == null && codeB == null)
+				|| (codeA == null && codeB != null && codeB.equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)))
+				|| (codeB == null && codeA != null && codeA.equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)))
+				|| (codeA != null && codeB != null && codeA.equals(codeB))){
+
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	@Override

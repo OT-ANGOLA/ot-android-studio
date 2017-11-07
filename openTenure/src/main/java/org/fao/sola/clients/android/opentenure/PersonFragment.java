@@ -2265,108 +2265,84 @@ public class PersonFragment extends Fragment {
 				.findViewById(R.id.id_issuance_country))
 				.getSelectedItem();
 
-		if ((idIssuanceCountry.getCode() != null && person.getIdIssuanceCountryCode() != null)
-				&& !person.getIdIssuanceCountryCode().trim().equals(
-				idIssuanceCountry.getCode().trim()))
+		if (!areEqual(idIssuanceCountry.getCode(), person.getIdIssuanceCountryCode()))
 			return true;
 
 		Country birthCountry = (Country) ((Spinner) rootView
 				.findViewById(R.id.birth_country))
 				.getSelectedItem();
 
-		if ((birthCountry.getCode() != null && person.getBirthCountryCode() != null)
-				&& !person.getBirthCountryCode().trim().equals(
-				birthCountry.getCode().trim()))
+		if (!areEqual(birthCountry.getCode(), person.getBirthCountryCode()))
 			return true;
 
 		Country residenceCountry = (Country) ((Spinner) rootView
 				.findViewById(R.id.residence_country))
 				.getSelectedItem();
 
-		if ((residenceCountry.getCode() != null && person.getResidenceCountryCode() != null)
-				&& !person.getResidenceCountryCode().trim().equals(
-				residenceCountry.getCode().trim()))
+		if (!areEqual(residenceCountry.getCode(), person.getResidenceCountryCode()))
 			return true;
 
 		Province idIssuanceProvince = (Province) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_province))
 				.getSelectedItem();
 
-		if ((idIssuanceProvince.getCode() != null && person.getIdIssuanceProvinceCode() != null)
-				&& !person.getIdIssuanceProvinceCode().trim().equals(
-				idIssuanceProvince.getCode().trim()))
+		if (!areEqual(idIssuanceProvince.getCode(), person.getIdIssuanceProvinceCode()))
 			return true;
 
 		Province birthProvince = (Province) ((Spinner) rootView
 				.findViewById(R.id.birth_province))
 				.getSelectedItem();
 
-		if ((birthProvince.getCode() != null && person.getBirthProvinceCode() != null)
-				&& !person.getBirthProvinceCode().trim().equals(
-				birthProvince.getCode().trim()))
+		if (!areEqual(birthProvince.getCode(), person.getBirthProvinceCode()))
 			return true;
 
 		Province residenceProvince = (Province) ((Spinner) rootView
 				.findViewById(R.id.residence_province))
 				.getSelectedItem();
 
-		if ((residenceProvince.getCode() != null && person.getResidenceProvinceCode() != null)
-				&& !person.getResidenceProvinceCode().trim().equals(
-				residenceProvince.getCode().trim()))
+		if (!areEqual(residenceProvince.getCode(), person.getResidenceProvinceCode()))
 			return true;
 
 		Municipality idIssuanceMunicipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_municipality))
 				.getSelectedItem();
 
-		if ((idIssuanceMunicipality != null && person.getIdIssuanceMunicipalityCode() != null)
-				&& !person.getIdIssuanceMunicipalityCode().trim().equals(
-				idIssuanceMunicipality.getCode().trim()))
+		if (!areEqual(idIssuanceMunicipality.getCode(), person.getIdIssuanceMunicipalityCode()))
 			return true;
 
 		Municipality birthMunicipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.birth_municipality))
 				.getSelectedItem();
 
-		if ((birthMunicipality != null && person.getBirthMunicipalityCode() != null)
-				&& !person.getBirthMunicipalityCode().trim().equals(
-				birthMunicipality.getCode().trim()))
+		if (!areEqual(birthMunicipality.getCode(), person.getBirthMunicipalityCode()))
 			return true;
 
 		Municipality residenceMunicipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.residence_municipality))
 				.getSelectedItem();
 
-		if ((residenceMunicipality != null && person.getResidenceMunicipalityCode() != null)
-				&& !person.getResidenceMunicipalityCode().trim().equals(
-				residenceMunicipality.getCode().trim()))
+		if (!areEqual(residenceMunicipality.getCode(), person.getResidenceMunicipalityCode()))
 			return true;
 
 		Commune idIssuanceCommune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_commune))
 				.getSelectedItem();
 
-		if ((idIssuanceCommune.getCode() != null && person.getIdIssuanceCommuneCode() != null)
-				&& !person.getIdIssuanceCommuneCode().trim().equals(
-				idIssuanceCommune.getCode().trim()))
+		if (!areEqual(idIssuanceCommune.getCode(), person.getIdIssuanceCommuneCode()))
 			return true;
 
 		Commune residenceCommune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.residence_commune))
 				.getSelectedItem();
 
-		if ((residenceCommune.getCode() != null && person.getResidenceCommuneCode() != null)
-				&& !person.getResidenceCommuneCode().trim().equals(
-				residenceCommune.getCode().trim()))
+		if (!areEqual(residenceCommune.getCode(), person.getResidenceCommuneCode()))
 			return true;
 
 		Commune birthCommune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.birth_commune))
 				.getSelectedItem();
 
-		if ((birthCommune.getCode() != null && person.getBirthCommuneCode() != null)
-				&& !person.getBirthCommuneCode().trim().equals(
-				birthCommune.getCode().trim()))
+		if (!areEqual(birthCommune.getCode(), person.getBirthCommuneCode()))
 			return true;
 
 		String contact = ((EditText) rootView
@@ -2609,5 +2585,19 @@ public class PersonFragment extends Fragment {
 
 		return false;
 
+	}
+	private boolean areEqual(String codeA, String codeB){
+		Log.d(this.getClass().getName(), "comparing " + codeA + " and " + codeB);
+		if((codeA == null && codeB == null)
+				|| (codeA == null && codeB != null && codeB.equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)))
+				|| (codeB == null && codeA != null && codeA.equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)))
+				|| (codeA.equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na))
+				&& codeB.equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)))
+				|| codeA.equals(codeB)){
+
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

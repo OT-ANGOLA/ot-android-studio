@@ -193,6 +193,7 @@ public class ClaimDetailsFragment extends Fragment {
 			case PERSON_RESULT:
 				String personId = data
 						.getStringExtra(PersonActivity.PERSON_ID_KEY);
+				Log.d(this.getClass().getName(), "Created claimant with id: " + personId);
 
 				Person claimant = Person.getPerson(personId);
 				loadClaimant(claimant);
@@ -800,6 +801,7 @@ public class ClaimDetailsFragment extends Fragment {
 	}
 
 	private void loadClaimant(Person claimant) {
+		Log.d(this.getClass().getName(), "Loading claimant: " + claimant.toString());
 
 		if (claimant != null) {
 			if (OpenTenureApplication.getInstance().getLocale().toString()
@@ -917,13 +919,13 @@ public class ClaimDetailsFragment extends Fragment {
 					.setSelection(Country.countryIndex(claim.getCountryCode(), countriesList));
 
 			((Spinner) rootView.findViewById(R.id.provinceSpinner))
-					.setSelection(Province.provinceIndex(claim.getProvinceCode(), provincesList));
+					.setSelection(Province.provinceIndex(claim.getProvinceCode(), Province.filterProvincesByCountry(provincesList, claim.getCountryCode())));
 
 			((Spinner) rootView.findViewById(R.id.municipalitySpinner))
-					.setSelection(Municipality.municipalityIndex(claim.getMunicipalityCode(), municipalitiesList));
+					.setSelection(Municipality.municipalityIndex(claim.getMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList, claim.getProvinceCode())));
 
 			((Spinner) rootView.findViewById(R.id.communeSpinner))
-					.setSelection(Commune.communeIndex(communesList, claim.getCommuneCode()));
+					.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, claim.getMunicipalityCode()), claim.getCommuneCode()));
 
 			((EditText) rootView.findViewById(R.id.claim_notes_input_field))
 					.setText(claim.getNotes());
@@ -1084,8 +1086,11 @@ public class ClaimDetailsFragment extends Fragment {
 
 	public int saveClaim() {
 
-		Person person = Person.getPerson(((TextView) rootView
-				.findViewById(R.id.claimant_id)).getText().toString());
+		String personId = ((TextView) rootView
+				.findViewById(R.id.claimant_id)).getText().toString();
+		Log.d(this.getClass().getName(), "Retrieving claimant with id: " + personId);
+		Person person = Person.getPerson(personId);
+
 		Claim challengedClaim = Claim
 				.getClaim(((TextView) rootView
 						.findViewById(R.id.challenge_to_claim_id)).getText()
@@ -1847,9 +1852,9 @@ public class ClaimDetailsFragment extends Fragment {
 
 	@Override
 	public void onResume() {
-		Claim claim = Claim.getClaim(claimActivity.getClaimId());
-		preload(claim);
-		load(claim);
+//		Claim claim = Claim.getClaim(claimActivity.getClaimId());
+//		preload(claim);
+//		load(claim);
 
 		super.onResume();
 

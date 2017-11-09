@@ -857,30 +857,29 @@ public class PersonFragment extends Fragment {
 		((Spinner) rootView.findViewById(R.id.id_issuance_country))
 				.setSelection(Country.countryIndex(person.getIdIssuanceCountryCode(), countriesList));
 		((Spinner) rootView.findViewById(R.id.id_issuance_province))
-				.setSelection(Province.provinceIndex(person.getIdIssuanceProvinceCode(), provincesList));
+				.setSelection(Province.provinceIndex(person.getIdIssuanceProvinceCode(), Province.filterProvincesByCountry(provincesList,person.getIdIssuanceCountryCode())));
 		((Spinner) rootView.findViewById(R.id.id_issuance_municipality))
-				.setSelection(Municipality.municipalityIndex(person.getIdIssuanceMunicipalityCode(), municipalitiesList));
+				.setSelection(Municipality.municipalityIndex(person.getIdIssuanceMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList,person.getIdIssuanceProvinceCode())));
 		((Spinner) rootView.findViewById(R.id.id_issuance_commune))
-				.setSelection(Commune.communeIndex(communesList, person.getIdIssuanceCommuneCode()));
+				.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, person.getIdIssuanceMunicipalityCode()), person.getIdIssuanceCommuneCode()));
 		((Spinner) rootView.findViewById(R.id.marital_status_spinner))
 				.setSelection(new MaritalStatus().getIndexByCodeType(person.getMaritalStatusCode(),onlyActive));
 		((Spinner) rootView.findViewById(R.id.birth_country))
 				.setSelection(Country.countryIndex(person.getBirthCountryCode(), countriesList));
 		((Spinner) rootView.findViewById(R.id.birth_province))
-				.setSelection(Province.provinceIndex(person.getBirthProvinceCode(), provincesList));
+				.setSelection(Province.provinceIndex(person.getBirthProvinceCode(), Province.filterProvincesByCountry(provincesList,person.getBirthCountryCode())));
 		((Spinner) rootView.findViewById(R.id.birth_municipality))
-				.setSelection(Municipality.municipalityIndex(person.getBirthMunicipalityCode(), municipalitiesList));
+				.setSelection(Municipality.municipalityIndex(person.getBirthMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList, person.getBirthProvinceCode())));
 		((Spinner) rootView.findViewById(R.id.birth_commune))
-				.setSelection(Commune.communeIndex(communesList, person.getBirthCommuneCode()));
+				.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, person.getBirthMunicipalityCode()), person.getBirthCommuneCode()));
 		((Spinner) rootView.findViewById(R.id.residence_country))
 				.setSelection(Country.countryIndex(person.getResidenceCountryCode(), countriesList));
 		((Spinner) rootView.findViewById(R.id.residence_province))
-				.setSelection(Province.provinceIndex(person.getResidenceProvinceCode(), provincesList));
+				.setSelection(Province.provinceIndex(person.getResidenceProvinceCode(), Province.filterProvincesByCountry(provincesList, person.getResidenceCountryCode())));
 		((Spinner) rootView.findViewById(R.id.residence_municipality))
-				.setSelection(Municipality.municipalityIndex(person.getResidenceMunicipalityCode(), municipalitiesList));
+				.setSelection(Municipality.municipalityIndex(person.getResidenceMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList,person.getBirthProvinceCode())));
 		((Spinner) rootView.findViewById(R.id.residence_commune))
-				.setSelection(Commune.communeIndex(communesList, person.getResidenceCommuneCode()));
-
+				.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, person.getBirthMunicipalityCode()), person.getResidenceCommuneCode()));
 		if (person.getGender().equals("M")) {
 			((Spinner) rootView.findViewById(R.id.gender_spinner))
 					.setSelection(0);
@@ -894,6 +893,7 @@ public class PersonFragment extends Fragment {
 				.getBeneficiaryName());
 		((EditText) rootView.findViewById(R.id.beneficiary_id_number_input_field)).setText(person
 				.getBeneficiaryIdNumber());
+		((EditText) rootView.findViewById(R.id.first_name_input_field)).requestFocus();
 
 		if (person.hasUploadedClaims()) {
 			((EditText) rootView.findViewById(R.id.first_name_input_field))

@@ -54,12 +54,7 @@ public class Claimant {
 	@SerializedName("idIssuanceMunicipalityCode")  private String idIssuanceMunicipalityCode;
 	@SerializedName("idIssuanceCommuneCode")  private String idIssuanceCommuneCode;
 	@SerializedName("birthCountryCode")  private String birthCountryCode;
-	@SerializedName("birthProvinceCode")  private String birthProvinceCode;
-	@SerializedName("birthMunicipalityCode")  private String birthMunicipalityCode;
 	@SerializedName("birthCommuneCode")  private String birthCommuneCode;
-	@SerializedName("residenceCountryCode")  private String residenceCountryCode;
-	@SerializedName("residenceProvinceCode")  private String residenceProvinceCode;
-	@SerializedName("residenceMunicipalityCode")  private String residenceMunicipalityCode;
 	@SerializedName("residenceCommuneCode")  private String residenceCommuneCode;
 	@SerializedName("beneficiaryName")  private String beneficiaryName;
 	@SerializedName("beneficiaryIdNumber")  private String beneficiaryIdNumber;
@@ -138,52 +133,12 @@ public class Claimant {
 		this.birthCountryCode = birthCountryCode;
 	}
 
-	public String getBirthProvinceCode() {
-		return birthProvinceCode;
-	}
-
-	public void setBirthProvinceCode(String birthProvinceCode) {
-		this.birthProvinceCode = birthProvinceCode;
-	}
-
-	public String getBirthMunicipalityCode() {
-		return birthMunicipalityCode;
-	}
-
-	public void setBirthMunicipalityCode(String birthMunicipalityCode) {
-		this.birthMunicipalityCode = birthMunicipalityCode;
-	}
-
 	public String getBirthCommuneCode() {
 		return birthCommuneCode;
 	}
 
 	public void setBirthCommuneCode(String birthCommuneCode) {
 		this.birthCommuneCode = birthCommuneCode;
-	}
-
-	public String getResidenceCountryCode() {
-		return residenceCountryCode;
-	}
-
-	public void setResidenceCountryCode(String residenceCountryCode) {
-		this.residenceCountryCode = residenceCountryCode;
-	}
-
-	public String getResidenceProvinceCode() {
-		return residenceProvinceCode;
-	}
-
-	public void setResidenceProvinceCode(String residenceProvinceCode) {
-		this.residenceProvinceCode = residenceProvinceCode;
-	}
-
-	public String getResidenceMunicipalityCode() {
-		return residenceMunicipalityCode;
-	}
-
-	public void setResidenceMunicipalityCode(String residenceMunicipalityCode) {
-		this.residenceMunicipalityCode = residenceMunicipalityCode;
 	}
 
 	public String getResidenceCommuneCode() {

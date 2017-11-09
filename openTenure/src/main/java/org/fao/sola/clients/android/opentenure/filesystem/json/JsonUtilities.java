@@ -227,13 +227,8 @@ public class JsonUtilities {
 				person.setIdIssuanceCommuneCode(claim.getPerson().getIdIssuanceCommuneCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getIdIssuanceCommuneCode());
 
 				person.setBirthCountryCode(claim.getPerson().getBirthCountryCode());
-				person.setBirthProvinceCode(claim.getPerson().getBirthProvinceCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getBirthProvinceCode());
-				person.setBirthMunicipalityCode(claim.getPerson().getBirthMunicipalityCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getBirthMunicipalityCode());
 				person.setBirthCommuneCode(claim.getPerson().getBirthCommuneCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getBirthCommuneCode());
 
-				person.setResidenceCountryCode(claim.getPerson().getResidenceCountryCode());
-				person.setResidenceProvinceCode(claim.getPerson().getResidenceProvinceCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getResidenceProvinceCode());
-				person.setResidenceMunicipalityCode(claim.getPerson().getResidenceMunicipalityCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getResidenceMunicipalityCode());
 				person.setResidenceCommuneCode(claim.getPerson().getResidenceCommuneCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : claim.getPerson().getResidenceCommuneCode());
 
 				person.setBeneficiaryName(claim.getPerson().getBeneficiaryName());
@@ -374,13 +369,8 @@ public class JsonUtilities {
 						personJson.setIdIssuanceCommuneCode(personDB.getIdIssuanceCommuneCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : personDB.getIdIssuanceCommuneCode());
 
 						personJson.setBirthCountryCode(personDB.getBirthCountryCode());
-						personJson.setBirthProvinceCode(personDB.getBirthProvinceCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : personDB.getBirthProvinceCode());
-						personJson.setBirthMunicipalityCode(personDB.getBirthMunicipalityCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : personDB.getBirthMunicipalityCode());
 						personJson.setBirthCommuneCode(personDB.getBirthCommuneCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : personDB.getBirthCommuneCode());
 
-						personJson.setResidenceCountryCode(personDB.getResidenceCountryCode());
-						personJson.setResidenceProvinceCode(personDB.getResidenceProvinceCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : personDB.getResidenceProvinceCode());
-						personJson.setResidenceMunicipalityCode(personDB.getResidenceMunicipalityCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : personDB.getResidenceMunicipalityCode());
 						personJson.setResidenceCommuneCode(personDB.getResidenceCommuneCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na)) ? null : personDB.getResidenceCommuneCode());
 
 						personJson.setBeneficiaryName(personDB.getBeneficiaryName());
@@ -439,9 +429,6 @@ public class JsonUtilities {
                 }
 				tempClaim.setNeighborhood(claim.getNeighborhood());
 				tempClaim.setLandProjectCode(claim.getLandProjectCode());
-				tempClaim.setCountryCode(claim.getCountryCode());
-				tempClaim.setProvinceCode(claim.getProvinceCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na))?null:claim.getProvinceCode());
-				tempClaim.setMunicipalityCode(claim.getMunicipalityCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na))?null:claim.getMunicipalityCode());
 				tempClaim.setCommuneCode(claim.getCommuneCode().equalsIgnoreCase(OpenTenureApplication.getActivity().getResources().getString(R.string.na))?null:claim.getCommuneCode());
 
 				try {

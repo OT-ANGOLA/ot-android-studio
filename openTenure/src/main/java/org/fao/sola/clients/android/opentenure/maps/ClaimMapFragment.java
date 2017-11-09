@@ -345,7 +345,7 @@ public class ClaimMapFragment extends Fragment implements OnCameraChangeListener
 		label = (MapLabel) getChildFragmentManager().findFragmentById(R.id.claim_map_provider_label);
 		label.changeTextProperties(MAP_LABEL_FONT_SIZE,
 				getActivity().getResources().getString(R.string.map_provider_google_normal));
-		SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.main_map_fragment);
+		SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.claim_map_fragment);
 		Bundle mapState = (savedInstanceState != null) ? savedInstanceState.getBundle(KEY_MAP_STATE): null;
 		fragment.onCreate(mapState);
 		map = fragment.getExtendedMap();

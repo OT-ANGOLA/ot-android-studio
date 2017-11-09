@@ -45,6 +45,7 @@ import org.fao.sola.clients.android.opentenure.filesystem.json.model.Location;
 import org.fao.sola.clients.android.opentenure.filesystem.json.model.Share;
 import org.fao.sola.clients.android.opentenure.model.AdjacenciesNotes;
 import org.fao.sola.clients.android.opentenure.model.AttachmentStatus;
+import org.fao.sola.clients.android.opentenure.model.Commune;
 import org.fao.sola.clients.android.opentenure.model.Owner;
 import org.fao.sola.clients.android.opentenure.model.ShareProperty;
 import org.fao.sola.clients.android.opentenure.model.Person;
@@ -199,13 +200,15 @@ public class SaveZippedClaim {
 			person.setIdIssuanceCommuneCode(claimant.getIdIssuanceCommuneCode());
 
 			person.setBirthCountryCode(claimant.getBirthCountryCode());
-			person.setBirthProvinceCode(claimant.getBirthProvinceCode());
-			person.setBirthMunicipalityCode(claimant.getBirthMunicipalityCode());
+			Commune birthCommune = Commune.getCommune(claimant.getBirthCommuneCode());
+			person.setBirthProvinceCode(birthCommune.getProvinceCode());
+			person.setBirthMunicipalityCode(birthCommune.getMunicipalityCode());
 			person.setBirthCommuneCode(claimant.getBirthCommuneCode());
 
-			person.setResidenceCountryCode(claimant.getResidenceCountryCode());
-			person.setResidenceProvinceCode(claimant.getResidenceProvinceCode());
-			person.setResidenceMunicipalityCode(claimant.getResidenceMunicipalityCode());
+			Commune residenceCommune = Commune.getCommune(claimant.getResidenceCommuneCode());
+			person.setResidenceCountryCode(residenceCommune.getCountryCode());
+			person.setResidenceProvinceCode(residenceCommune.getProvinceCode());
+			person.setResidenceMunicipalityCode(residenceCommune.getMunicipalityCode());
 			person.setResidenceCommuneCode(claimant.getResidenceCommuneCode());
 
 			person.setBeneficiaryName(claimant.getBeneficiaryName());
@@ -236,9 +239,10 @@ public class SaveZippedClaim {
 			}
 			claimDB.setNeighborhood(zippedClaim.getNeighborhood());
 			claimDB.setLandProjectCode(zippedClaim.getLandProjectCode());
-			claimDB.setCountryCode(zippedClaim.getCountryCode());
-			claimDB.setProvinceCode(zippedClaim.getProvinceCode());
-			claimDB.setMunicipalityCode(zippedClaim.getMunicipalityCode());
+			Commune commune = Commune.getCommune(zippedClaim.getCommuneCode());
+			claimDB.setCountryCode(commune.getCountryCode());
+			claimDB.setProvinceCode(commune.getProvinceCode());
+			claimDB.setMunicipalityCode(commune.getMunicipalityCode());
 			claimDB.setCommuneCode(zippedClaim.getCommuneCode());
 			claimDB.setRecorderName(zippedClaim.getRecorderName());
 			claimDB.setVersion(zippedClaim.getVersion());
@@ -513,13 +517,15 @@ public class SaveZippedClaim {
 					personDB2.setIdIssuanceCommuneCode(person2.getIdIssuanceCommuneCode());
 
 					personDB2.setBirthCountryCode(person2.getBirthCountryCode());
-					personDB2.setBirthProvinceCode(person2.getBirthProvinceCode());
-					personDB2.setBirthMunicipalityCode(person2.getBirthMunicipalityCode());
+					Commune birthCommune2 = Commune.getCommune(person2.getBirthCommuneCode());
+					personDB2.setBirthProvinceCode(birthCommune2.getProvinceCode());
+					personDB2.setBirthMunicipalityCode(birthCommune2.getMunicipalityCode());
 					personDB2.setBirthCommuneCode(person2.getBirthCommuneCode());
 
-					personDB2.setResidenceCountryCode(person2.getResidenceCountryCode());
-					personDB2.setResidenceProvinceCode(person2.getResidenceProvinceCode());
-					personDB2.setResidenceMunicipalityCode(person2.getResidenceMunicipalityCode());
+					Commune residenceCommune2 = Commune.getCommune(person2.getResidenceCommuneCode());
+					personDB2.setResidenceCountryCode(residenceCommune2.getCountryCode());
+					personDB2.setResidenceProvinceCode(residenceCommune2.getProvinceCode());
+					personDB2.setResidenceMunicipalityCode(residenceCommune2.getMunicipalityCode());
 					personDB2.setResidenceCommuneCode(person2.getResidenceCommuneCode());
 
 					personDB2.setBeneficiaryName(person2.getBeneficiaryName());

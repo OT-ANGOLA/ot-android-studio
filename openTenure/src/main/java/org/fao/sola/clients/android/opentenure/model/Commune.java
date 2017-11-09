@@ -53,6 +53,7 @@ public class Commune implements Comparable<Commune>{
 	String description;
 	String status;
 	String municipalityCode;
+	String provinceCode;
 	String countryCode;
 	Boolean active;
 
@@ -107,6 +108,14 @@ public class Commune implements Comparable<Commune>{
 
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
+	}
+
+	public String getProvinceCode() {
+		return provinceCode;
+	}
+
+	public void setProvinceCode(String provinceCode) {
+		this.provinceCode = provinceCode;
 	}
 
 	public String getDisplayValue() {
@@ -188,7 +197,8 @@ public class Commune implements Comparable<Commune>{
 							"COM.DESCRIPTION, " +
 							"COM.DISPLAY_VALUE, " +
 							"COM.MUNICIPALITY_CODE, " +
-							"COU.CODE " +
+							"COU.CODE, " +
+							"PRO.CODE " +
 							"FROM " +
 							"COUNTRY COU, " +
 							"PROVINCE PRO, " +
@@ -208,6 +218,7 @@ public class Commune implements Comparable<Commune>{
 				commune.setDisplayValue(rs.getString(3));
 				commune.setMunicipalityCode(rs.getString(4));
 				commune.setCountryCode(rs.getString(5));
+				commune.setProvinceCode(rs.getString(6));
 				communes.add(commune);
 			}
 			// To allow for municipalities without communes
@@ -216,6 +227,7 @@ public class Commune implements Comparable<Commune>{
 			commune.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
 			commune.setMunicipalityCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
 			commune.setCountryCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setProvinceCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
 			communes.add(commune);
 			return communes;
 
@@ -260,7 +272,8 @@ public class Commune implements Comparable<Commune>{
 							"COM.DESCRIPTION, " +
 							"COM.DISPLAY_VALUE, " +
 							"COM.MUNICIPALITY_CODE, " +
-							"COU.CODE " +
+							"COU.CODE, " +
+							"PRO.CODE " +
 							"FROM " +
 							"COUNTRY COU, " +
 							"PROVINCE PRO, " +
@@ -279,6 +292,7 @@ public class Commune implements Comparable<Commune>{
 				commune.setDisplayValue(rs.getString(3));
 				commune.setMunicipalityCode(rs.getString(4));
 				commune.setCountryCode(rs.getString(5));
+				commune.setProvinceCode(rs.getString(6));
 				communes.add(commune);
 			}
 			// To allow for municipalities without communes
@@ -287,6 +301,7 @@ public class Commune implements Comparable<Commune>{
 			commune.setDisplayValue(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
 			commune.setMunicipalityCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
 			commune.setCountryCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
+			commune.setProvinceCode(OpenTenureApplication.getActivity().getResources().getString(R.string.na));
 			communes.add(commune);
 			return communes;
 
@@ -324,7 +339,23 @@ public class Commune implements Comparable<Commune>{
 			localConnection = OpenTenureApplication.getInstance().getDatabase()
 					.getConnection();
 			statement = localConnection
-					.prepareStatement("SELECT CODE, DESCRIPTION, DISPLAY_VALUE, MUNICIPALITY_CODE FROM COMMUNE WHERE CODE=?");
+					.prepareStatement("SELECT " +
+							"COM.CODE, " +
+							"COM.DESCRIPTION, " +
+							"COM.DISPLAY_VALUE, " +
+							"COM.MUNICIPALITY_CODE, " +
+							"COU.CODE, " +
+							"PRO.CODE " +
+							"FROM " +
+							"COUNTRY COU, " +
+							"PROVINCE PRO, " +
+							"MUNICIPALITY MUN, " +
+							"COMMUNE COM " +
+							"WHERE " +
+							"COM.MUNICIPALITY_CODE=MUN.CODE " +
+							"AND MUN.PROVINCE_CODE=PRO.CODE " +
+							"AND PRO.COUNTRY_CODE=COU.CODE " +
+							"AND COM.CODE=?");
 			statement.setString(1, code);
 
 			result = statement.executeQuery();
@@ -335,6 +366,8 @@ public class Commune implements Comparable<Commune>{
 				commune.setDescription(result.getString(2));
 				commune.setDisplayValue(result.getString(3));
 				commune.setMunicipalityCode(result.getString(4));
+				commune.setCountryCode(result.getString(5));
+				commune.setProvinceCode(result.getString(6));
 
 				return commune;
 			}

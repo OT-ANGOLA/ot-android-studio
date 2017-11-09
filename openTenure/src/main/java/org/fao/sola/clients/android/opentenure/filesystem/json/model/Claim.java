@@ -217,31 +217,6 @@ public class Claim {
 	public void setLandProjectCode(String landProjectCode) {
 		this.landProjectCode = landProjectCode;
 	}
-
-	public String getCountryCode() {
-		return countryCode;
-	}
-
-	public void setCountryCode(String communeCode) {
-		this.countryCode = countryCode;
-	}
-
-	public String getProvinceCode() {
-		return provinceCode;
-	}
-
-	public void setProvinceCode(String provinceCode) {
-		this.provinceCode = provinceCode;
-	}
-
-	public String getMunicipalityCode() {
-		return municipalityCode;
-	}
-
-	public void setMunicipalityCode(String municipalityCode) {
-		this.municipalityCode = municipalityCode;
-	}
-
 	public String getCommuneCode() {
 		return communeCode;
 	}
@@ -264,12 +239,6 @@ public class Claim {
 	String neighborhood;
 	@SerializedName("landProjectCode")
 	String landProjectCode;
-	@SerializedName("countryCode")
-	String countryCode;
-	@SerializedName("provinceCode")
-	String provinceCode;
-	@SerializedName("municipalityCode")
-	String municipalityCode;
 	@SerializedName("communeCode")
 	String communeCode;
 

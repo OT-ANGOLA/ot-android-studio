@@ -127,38 +127,59 @@ public class Person {
 
 
 
-	@SerializedName("id")          private String id;
-	@SerializedName("name")        private String name;
-	@SerializedName("lastName")    private String lastName;
-	@SerializedName("idTypeCode")  private String idTypeCode;
-	@SerializedName("idNumber")    private String idNumber;
+	@SerializedName("id")
+	private String id;
+	@SerializedName("name")
+	private String name;
+	@SerializedName("lastName")
+	private String lastName;
+	@SerializedName("idTypeCode")
+	private String idTypeCode;
+	@SerializedName("idNumber")
+	private String idNumber;
 	//@SerializedName("placeOfBirth")private String placeOfBirth;
-	@SerializedName("address")     private String address;
-	@SerializedName("mobilePhone") private String mobilePhone;
-	@SerializedName("phone")       private String phone;
-	@SerializedName("email")       private String email;
-	@SerializedName("birthDate")   private String birthDate;
-	@SerializedName("genderCode")  private String genderCode;
-	@SerializedName("person") 	   private boolean isPhysicalPerson;
-	@SerializedName("otherName")  private String otherName;
-	@SerializedName("fatherName")  private String fatherName;
-	@SerializedName("motherName")  private String motherName;
-	@SerializedName("idIssuanceDate")  private String idIssuanceDate;
-	@SerializedName("idIssuanceCountryCode")  private String idIssuanceCountryCode;
-	@SerializedName("idIssuanceProvinceCode")  private String idIssuanceProvinceCode;
-	@SerializedName("idIssuanceMunicipalityCode")  private String idIssuanceMunicipalityCode;
-	@SerializedName("idIssuanceCommuneCode")  private String idIssuanceCommuneCode;
-	@SerializedName("birthCountryCode")  private String birthCountryCode;
-	@SerializedName("birthProvinceCode")  private String birthProvinceCode;
-	@SerializedName("birthMunicipalityCode")  private String birthMunicipalityCode;
-	@SerializedName("birthCommuneCode")  private String birthCommuneCode;
-	@SerializedName("residenceCountryCode")  private String residenceCountryCode;
-	@SerializedName("residenceProvinceCode")  private String residenceProvinceCode;
-	@SerializedName("residenceMunicipalityCode")  private String residenceMunicipalityCode;
-	@SerializedName("residenceCommuneCode")  private String residenceCommuneCode;
-	@SerializedName("beneficiaryName")  private String beneficiaryName;
-	@SerializedName("beneficiaryIdNumber")  private String beneficiaryIdNumber;
-	@SerializedName("maritalStatusCode")  private String maritalStatusCode;
+	@SerializedName("address")
+	private String address;
+	@SerializedName("mobilePhone")
+	private String mobilePhone;
+	@SerializedName("phone")
+	private String phone;
+	@SerializedName("email")
+	private String email;
+	@SerializedName("birthDate")
+	private String birthDate;
+	@SerializedName("genderCode")
+	private String genderCode;
+	@SerializedName("person")
+	private boolean isPhysicalPerson;
+	@SerializedName("otherName")
+	private String otherName;
+	@SerializedName("fatherName")
+	private String fatherName;
+	@SerializedName("motherName")
+	private String motherName;
+	@SerializedName("idIssuanceDate")
+	private String idIssuanceDate;
+	@SerializedName("idIssuanceCountryCode")
+	private String idIssuanceCountryCode;
+	@SerializedName("idIssuanceProvinceCode")
+	private String idIssuanceProvinceCode;
+	@SerializedName("idIssuanceMunicipalityCode")
+	private String idIssuanceMunicipalityCode;
+	@SerializedName("idIssuanceCommuneCode")
+	private String idIssuanceCommuneCode;
+	@SerializedName("birthCountryCode")
+	private String birthCountryCode;
+	@SerializedName("birthCommuneCode")
+	private String birthCommuneCode;
+	@SerializedName("residenceCommuneCode")
+	private String residenceCommuneCode;
+	@SerializedName("beneficiaryName")
+	private String beneficiaryName;
+	@SerializedName("beneficiaryIdNumber")
+	private String beneficiaryIdNumber;
+	@SerializedName("maritalStatusCode")
+	private String maritalStatusCode;
 
 
 	public String getOtherName() {
@@ -233,52 +254,12 @@ public class Person {
 		this.birthCountryCode = birthCountryCode;
 	}
 
-	public String getBirthProvinceCode() {
-		return birthProvinceCode;
-	}
-
-	public void setBirthProvinceCode(String birthProvinceCode) {
-		this.birthProvinceCode = birthProvinceCode;
-	}
-
-	public String getBirthMunicipalityCode() {
-		return birthMunicipalityCode;
-	}
-
-	public void setBirthMunicipalityCode(String birthMunicipalityCode) {
-		this.birthMunicipalityCode = birthMunicipalityCode;
-	}
-
 	public String getBirthCommuneCode() {
 		return birthCommuneCode;
 	}
 
 	public void setBirthCommuneCode(String birthCommuneCode) {
 		this.birthCommuneCode = birthCommuneCode;
-	}
-
-	public String getResidenceCountryCode() {
-		return residenceCountryCode;
-	}
-
-	public void setResidenceCountryCode(String residenceCountryCode) {
-		this.residenceCountryCode = residenceCountryCode;
-	}
-
-	public String getResidenceProvinceCode() {
-		return residenceProvinceCode;
-	}
-
-	public void setResidenceProvinceCode(String residenceProvinceCode) {
-		this.residenceProvinceCode = residenceProvinceCode;
-	}
-
-	public String getResidenceMunicipalityCode() {
-		return residenceMunicipalityCode;
-	}
-
-	public void setResidenceMunicipalityCode(String residenceMunicipalityCode) {
-		this.residenceMunicipalityCode = residenceMunicipalityCode;
 	}
 
 	public String getResidenceCommuneCode() {

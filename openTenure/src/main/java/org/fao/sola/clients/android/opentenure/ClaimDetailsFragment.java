@@ -915,17 +915,19 @@ public class ClaimDetailsFragment extends Fragment {
 					.setSelection(new LandProject().getIndexByCodeType(
 							claim.getLandProjectCode(), onlyActiveValues));
 
+			Commune commune = Commune.getCommune(claim.getCommuneCode());
+
 			((Spinner) rootView.findViewById(R.id.countrySpinner))
-					.setSelection(Country.countryIndex(claim.getCountryCode(), countriesList));
+					.setSelection(Country.countryIndex(commune.getCountryCode(), countriesList));
 
 			((Spinner) rootView.findViewById(R.id.provinceSpinner))
-					.setSelection(Province.provinceIndex(claim.getProvinceCode(), Province.filterProvincesByCountry(provincesList, claim.getCountryCode())));
+					.setSelection(Province.provinceIndex(commune.getProvinceCode(), Province.filterProvincesByCountry(provincesList, commune.getCountryCode())));
 
 			((Spinner) rootView.findViewById(R.id.municipalitySpinner))
-					.setSelection(Municipality.municipalityIndex(claim.getMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList, claim.getProvinceCode())));
+					.setSelection(Municipality.municipalityIndex(commune.getMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList, commune.getProvinceCode())));
 
 			((Spinner) rootView.findViewById(R.id.communeSpinner))
-					.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, claim.getMunicipalityCode()), claim.getCommuneCode()));
+					.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, commune.getMunicipalityCode()), claim.getCommuneCode()));
 
 			((EditText) rootView.findViewById(R.id.claim_notes_input_field))
 					.setText(claim.getNotes());
@@ -1139,18 +1141,6 @@ public class ClaimDetailsFragment extends Fragment {
 				.findViewById(R.id.landProjectSpinner)).getSelectedItem();
 		claim.setLandProjectCode(valueKeyLandProjectsMap.get(landProjectDispValue));
 
-		Country country = (Country) ((Spinner) rootView
-				.findViewById(R.id.countrySpinner)).getSelectedItem();
-		claim.setCountryCode(country.getCode());
-
-		Province province = (Province) ((Spinner) rootView
-				.findViewById(R.id.provinceSpinner)).getSelectedItem();
-		claim.setProvinceCode(province.getCode());
-
-		Municipality municipality = (Municipality) ((Spinner) rootView
-				.findViewById(R.id.municipalitySpinner)).getSelectedItem();
-		claim.setMunicipalityCode(municipality.getCode());
-
 		Commune commune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.communeSpinner)).getSelectedItem();
 		claim.setCommuneCode(commune.getCode());
@@ -1330,18 +1320,6 @@ public class ClaimDetailsFragment extends Fragment {
 		String landProjectDispValue = (String) ((Spinner) rootView
 				.findViewById(R.id.landProjectSpinner)).getSelectedItem();
 		claim.setLandProjectCode(valueKeyLandProjectsMap.get(landProjectDispValue));
-
-		Country country = (Country) ((Spinner) rootView
-				.findViewById(R.id.countrySpinner)).getSelectedItem();
-		claim.setCountryCode(country.getCode());
-
-		Province province = (Province) ((Spinner) rootView
-				.findViewById(R.id.provinceSpinner)).getSelectedItem();
-		claim.setProvinceCode(province.getCode());
-
-		Municipality municipality = (Municipality) ((Spinner) rootView
-				.findViewById(R.id.municipalitySpinner)).getSelectedItem();
-		claim.setMunicipalityCode(municipality.getCode());
 
 		Commune commune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.communeSpinner)).getSelectedItem();
@@ -1641,32 +1619,32 @@ public class ClaimDetailsFragment extends Fragment {
 			Log.d(this.getClass().getName(), "Land project has changed");
 			return true;
 		}
+		Commune commune = (Commune) ((Spinner) rootView
+				.findViewById(R.id.communeSpinner))
+				.getSelectedItem();
+		if (!areEqual(claim.getCommuneCode(), commune.getCode())){
+			Log.d(this.getClass().getName(), "Commune has changed");
+			return true;
+		}
 		Country country = (Country) ((Spinner) rootView
 				.findViewById(R.id.countrySpinner))
 				.getSelectedItem();
-		if (!areEqual(claim.getCountryCode(), country.getCode())){
+		if (!areEqual(commune.getCountryCode(), country.getCode())){
 			Log.d(this.getClass().getName(), "Country has changed");
 			return true;
 		}
 		Province province = (Province) ((Spinner) rootView
 				.findViewById(R.id.provinceSpinner))
 				.getSelectedItem();
-		if (!areEqual(claim.getProvinceCode(), province.getCode())){
+		if (!areEqual(commune.getProvinceCode(), province.getCode())){
 			Log.d(this.getClass().getName(), "Province has changed");
 			return true;
 		}
 		Municipality municipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.municipalitySpinner))
 				.getSelectedItem();
-		if (!areEqual(claim.getMunicipalityCode(), municipality.getCode())){
+		if (!areEqual(commune.getMunicipalityCode(), municipality.getCode())){
 			Log.d(this.getClass().getName(), "Municipality has changed");
-			return true;
-		}
-		Commune commune = (Commune) ((Spinner) rootView
-				.findViewById(R.id.communeSpinner))
-				.getSelectedItem();
-		if (!areEqual(claim.getCommuneCode(), commune.getCode())){
-			Log.d(this.getClass().getName(), "Commune has changed");
 			return true;
 		}
 		String notes = ((EditText) rootView

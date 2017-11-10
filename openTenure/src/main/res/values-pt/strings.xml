@@ -555,7 +555,7 @@
         <string name="beneficiary_name_label">Nome do beneficiario</string>
         <string name="beneficiary_id_number_label">Numero de ID do beneficiario </string>
         <string name="marital_status_label">Estado civil</string>
-        <string name="plot_number_label">Numero do lote</string>
+        <string name="plot_number_label">Numero do lote *</string>
         <string name="other_name">Outro nome</string>
         <string name="mother_name">Nome da mae</string>
         <string name="father_name">Nome do pai</string>

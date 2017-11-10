@@ -194,12 +194,7 @@ public class Person {
 				", idIssuanceMunicipalityCode='" + idIssuanceMunicipalityCode + '\'' +
 				", idIssuanceCommuneCode='" + idIssuanceCommuneCode + '\'' +
 				", birthCountryCode='" + birthCountryCode + '\'' +
-				", birthProvinceCode='" + birthProvinceCode + '\'' +
-				", birthMunicipalityCode='" + birthMunicipalityCode + '\'' +
 				", birthCommuneCode='" + birthCommuneCode + '\'' +
-				", residenceCountryCode='" + residenceCountryCode + '\'' +
-				", residenceProvinceCode='" + residenceProvinceCode + '\'' +
-				", residenceMunicipalityCode='" + residenceMunicipalityCode + '\'' +
 				", residenceCommuneCode='" + residenceCommuneCode + '\'' +
 				", placeOfBirth='" + placeOfBirth + '\'' +
 				", emailAddress='" + emailAddress + '\'' +
@@ -330,12 +325,7 @@ public class Person {
 							"ID_ISSUANCE_MUNICIPALITY_CODE, " +
 							"ID_ISSUANCE_COMMUNE_CODE, " +
 							"BIRTH_COUNTRY_CODE, " +
-							"BIRTH_PROVINCE_CODE, " +
-							"BIRTH_MUNICIPALITY_CODE, " +
 							"BIRTH_COMMUNE_CODE, " +
-							"RESIDENCE_COUNTRY_CODE, " +
-							"RESIDENCE_PROVINCE_CODE, " +
-							"RESIDENCE_MUNICIPALITY_CODE, " +
 							"RESIDENCE_COMMUNE_CODE, " +
 							"MARITAL_STATUS_CODE, " +
 							"FATHER_NAME, " +
@@ -343,7 +333,7 @@ public class Person {
 							"BENEFICIARY_NAME, " +
 							"BENEFICIARY_ID_NUMBER " +
 							") " +
-							"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+							"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, person.getPersonId());
 			statement.setString(2, person.getFirstName());
 			if (person.getLastName() != null)
@@ -368,18 +358,13 @@ public class Person {
 			statement.setString(19, person.getIdIssuanceMunicipalityCode());
 			statement.setString(20, person.getIdIssuanceCommuneCode());
 			statement.setString(21, person.getBirthCountryCode());
-			statement.setString(22, person.getBirthProvinceCode());
-			statement.setString(23, person.getBirthMunicipalityCode());
-			statement.setString(24, person.getBirthCommuneCode());
-			statement.setString(25, person.getResidenceCountryCode());
-			statement.setString(26, person.getResidenceProvinceCode());
-			statement.setString(27, person.getResidenceMunicipalityCode());
-			statement.setString(28, person.getResidenceCommuneCode());
-			statement.setString(29, person.getMaritalStatusCode());
-			statement.setString(30, person.getFatherName());
-			statement.setString(31, person.getMotherName());
-			statement.setString(32, person.getBeneficiaryName());
-			statement.setString(33, person.getBeneficiaryIdNumber());
+			statement.setString(22, person.getBirthCommuneCode());
+			statement.setString(23, person.getResidenceCommuneCode());
+			statement.setString(24, person.getMaritalStatusCode());
+			statement.setString(25, person.getFatherName());
+			statement.setString(26, person.getMotherName());
+			statement.setString(27, person.getBeneficiaryName());
+			statement.setString(28, person.getBeneficiaryIdNumber());
 			result = statement.executeUpdate();
 
 			FileSystemUtilities.createClaimantFolder(person.getPersonId());
@@ -435,12 +420,7 @@ public class Person {
 							"ID_ISSUANCE_MUNICIPALITY_CODE, " +
 							"ID_ISSUANCE_COMMUNE_CODE, " +
 							"BIRTH_COUNTRY_CODE, " +
-							"BIRTH_PROVINCE_CODE, " +
-							"BIRTH_MUNICIPALITY_CODE, " +
 							"BIRTH_COMMUNE_CODE, " +
-							"RESIDENCE_COUNTRY_CODE, " +
-							"RESIDENCE_PROVINCE_CODE, " +
-							"RESIDENCE_MUNICIPALITY_CODE, " +
 							"RESIDENCE_COMMUNE_CODE, " +
 							"MARITAL_STATUS_CODE, " +
 							"FATHER_NAME, " +
@@ -448,7 +428,7 @@ public class Person {
 							"BENEFICIARY_NAME, " +
 							"BENEFICIARY_ID_NUMBER " +
 							") " +
-							"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+							"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, getPersonId());
 			statement.setString(2, getFirstName());
 			if (getLastName() != null)
@@ -473,18 +453,13 @@ public class Person {
 			statement.setString(19, getIdIssuanceMunicipalityCode());
 			statement.setString(20, getIdIssuanceCommuneCode());
 			statement.setString(21, getBirthCountryCode());
-			statement.setString(22, getBirthProvinceCode());
-			statement.setString(23, getBirthMunicipalityCode());
-			statement.setString(24, getBirthCommuneCode());
-			statement.setString(25, getResidenceCountryCode());
-			statement.setString(26, getResidenceProvinceCode());
-			statement.setString(27, getResidenceMunicipalityCode());
-			statement.setString(28, getResidenceCommuneCode());
-			statement.setString(29, getMaritalStatusCode());
-			statement.setString(30, getFatherName());
-			statement.setString(31, getMotherName());
-			statement.setString(32, getBeneficiaryName());
-			statement.setString(33, getBeneficiaryIdNumber());
+			statement.setString(22, getBirthCommuneCode());
+			statement.setString(23, getResidenceCommuneCode());
+			statement.setString(24, getMaritalStatusCode());
+			statement.setString(25, getFatherName());
+			statement.setString(26, getMotherName());
+			statement.setString(27, getBeneficiaryName());
+			statement.setString(28, getBeneficiaryIdNumber());
 			result = statement.executeUpdate();
 			FileSystemUtilities.createClaimantFolder(getPersonId());
 		} catch (SQLException e) {
@@ -619,12 +594,7 @@ public class Person {
 							"ID_ISSUANCE_MUNICIPALITY_CODE=?, " +
 							"ID_ISSUANCE_COMMUNE_CODE=?, " +
 							"BIRTH_COUNTRY_CODE=?, " +
-							"BIRTH_PROVINCE_CODE=?, " +
-							"BIRTH_MUNICIPALITY_CODE=?, " +
 							"BIRTH_COMMUNE_CODE=?, " +
-							"RESIDENCE_COUNTRY_CODE=?, " +
-							"RESIDENCE_PROVINCE_CODE=?, " +
-							"RESIDENCE_MUNICIPALITY_CODE=?, " +
 							"RESIDENCE_COMMUNE_CODE=?, " +
 							"MARITAL_STATUS_CODE=?, " +
 							"FATHER_NAME=?, " +
@@ -652,19 +622,14 @@ public class Person {
 			statement.setString(18, person.getIdIssuanceMunicipalityCode());
 			statement.setString(19, person.getIdIssuanceCommuneCode());
 			statement.setString(20, person.getBirthCountryCode());
-			statement.setString(21, person.getBirthProvinceCode());
-			statement.setString(22, person.getBirthMunicipalityCode());
-			statement.setString(23, person.getBirthCommuneCode());
-			statement.setString(24, person.getResidenceCountryCode());
-			statement.setString(25, person.getResidenceProvinceCode());
-			statement.setString(26, person.getResidenceMunicipalityCode());
-			statement.setString(27, person.getResidenceCommuneCode());
-			statement.setString(28, person.getMaritalStatusCode());
-			statement.setString(29, person.getFatherName());
-			statement.setString(30, person.getMotherName());
-			statement.setString(31, person.getBeneficiaryName());
-			statement.setString(32, person.getBeneficiaryIdNumber());
-			statement.setString(33, person.getPersonId());
+			statement.setString(21, person.getBirthCommuneCode());
+			statement.setString(22, person.getResidenceCommuneCode());
+			statement.setString(23, person.getMaritalStatusCode());
+			statement.setString(24, person.getFatherName());
+			statement.setString(25, person.getMotherName());
+			statement.setString(26, person.getBeneficiaryName());
+			statement.setString(27, person.getBeneficiaryIdNumber());
+			statement.setString(28, person.getPersonId());
 
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -718,12 +683,7 @@ public class Person {
 							"ID_ISSUANCE_MUNICIPALITY_CODE=?, " +
 							"ID_ISSUANCE_COMMUNE_CODE=?, " +
 							"BIRTH_COUNTRY_CODE=?, " +
-							"BIRTH_PROVINCE_CODE=?, " +
-							"BIRTH_MUNICIPALITY_CODE=?, " +
 							"BIRTH_COMMUNE_CODE=?, " +
-							"RESIDENCE_COUNTRY_CODE=?, " +
-							"RESIDENCE_PROVINCE_CODE=?, " +
-							"RESIDENCE_MUNICIPALITY_CODE=?, " +
 							"RESIDENCE_COMMUNE_CODE=?, " +
 							"MARITAL_STATUS_CODE=?, " +
 							"FATHER_NAME=?, " +
@@ -751,19 +711,14 @@ public class Person {
 			statement.setString(18, getIdIssuanceMunicipalityCode());
 			statement.setString(19, getIdIssuanceCommuneCode());
 			statement.setString(20, getBirthCountryCode());
-			statement.setString(21, getBirthProvinceCode());
-			statement.setString(22, getBirthMunicipalityCode());
-			statement.setString(23, getBirthCommuneCode());
-			statement.setString(24, getResidenceCountryCode());
-			statement.setString(25, getResidenceProvinceCode());
-			statement.setString(26, getResidenceMunicipalityCode());
-			statement.setString(27, getResidenceCommuneCode());
-			statement.setString(28, getMaritalStatusCode());
-			statement.setString(29, getFatherName());
-			statement.setString(30, getMotherName());
-			statement.setString(31, getBeneficiaryName());
-			statement.setString(32, getBeneficiaryIdNumber());
-			statement.setString(33, getPersonId());
+			statement.setString(21, getBirthCommuneCode());
+			statement.setString(22, getResidenceCommuneCode());
+			statement.setString(23, getMaritalStatusCode());
+			statement.setString(24, getFatherName());
+			statement.setString(25, getMotherName());
+			statement.setString(26, getBeneficiaryName());
+			statement.setString(27, getBeneficiaryIdNumber());
+			statement.setString(28, getPersonId());
 			result = statement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -840,12 +795,7 @@ public class Person {
 							"ID_ISSUANCE_MUNICIPALITY_CODE, " +
 							"ID_ISSUANCE_COMMUNE_CODE, " +
 							"BIRTH_COUNTRY_CODE, " +
-							"BIRTH_PROVINCE_CODE, " +
-							"BIRTH_MUNICIPALITY_CODE, " +
 							"BIRTH_COMMUNE_CODE, " +
-							"RESIDENCE_COUNTRY_CODE, " +
-							"RESIDENCE_PROVINCE_CODE, " +
-							"RESIDENCE_MUNICIPALITY_CODE, " +
 							"RESIDENCE_COMMUNE_CODE, " +
 							"MARITAL_STATUS_CODE, " +
 							"FATHER_NAME, " +
@@ -879,18 +829,13 @@ public class Person {
 				person.setIdIssuanceMunicipalityCode(rs.getString(18));
 				person.setIdIssuanceCommuneCode(rs.getString(19));
 				person.setBirthCountryCode(rs.getString(20));
-				person.setBirthProvinceCode(rs.getString(21));
-				person.setBirthMunicipalityCode(rs.getString(22));
-				person.setBirthCommuneCode(rs.getString(23));
-				person.setResidenceCountryCode(rs.getString(24));
-				person.setResidenceProvinceCode(rs.getString(25));
-				person.setResidenceMunicipalityCode(rs.getString(26));
-				person.setResidenceCommuneCode(rs.getString(27));
-				person.setMaritalStatusCode(rs.getString(28));
-				person.setFatherName(rs.getString(29));
-				person.setMotherName(rs.getString(30));
-				person.setBeneficiaryName(rs.getString(31));
-				person.setBeneficiaryIdNumber(rs.getString(32));
+				person.setBirthCommuneCode(rs.getString(21));
+				person.setResidenceCommuneCode(rs.getString(22));
+				person.setMaritalStatusCode(rs.getString(23));
+				person.setFatherName(rs.getString(24));
+				person.setMotherName(rs.getString(25));
+				person.setBeneficiaryName(rs.getString(26));
+				person.setBeneficiaryIdNumber(rs.getString(27));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -946,12 +891,7 @@ public class Person {
 							"ID_ISSUANCE_MUNICIPALITY_CODE, " +
 							"ID_ISSUANCE_COMMUNE_CODE, " +
 							"BIRTH_COUNTRY_CODE, " +
-							"BIRTH_PROVINCE_CODE, " +
-							"BIRTH_MUNICIPALITY_CODE, " +
 							"BIRTH_COMMUNE_CODE, " +
-							"RESIDENCE_COUNTRY_CODE, " +
-							"RESIDENCE_PROVINCE_CODE, " +
-							"RESIDENCE_MUNICIPALITY_CODE, " +
 							"RESIDENCE_COMMUNE_CODE, " +
 							"MARITAL_STATUS_CODE, " +
 							"FATHER_NAME, " +
@@ -984,18 +924,13 @@ public class Person {
 				person.setIdIssuanceMunicipalityCode(rs.getString(19));
 				person.setIdIssuanceCommuneCode(rs.getString(20));
 				person.setBirthCountryCode(rs.getString(21));
-				person.setBirthProvinceCode(rs.getString(22));
-				person.setBirthMunicipalityCode(rs.getString(23));
-				person.setBirthCommuneCode(rs.getString(24));
-				person.setResidenceCountryCode(rs.getString(25));
-				person.setResidenceProvinceCode(rs.getString(26));
-				person.setResidenceMunicipalityCode(rs.getString(27));
-				person.setResidenceCommuneCode(rs.getString(28));
-				person.setMaritalStatusCode(rs.getString(29));
-				person.setFatherName(rs.getString(30));
-				person.setMotherName(rs.getString(31));
-				person.setBeneficiaryName(rs.getString(32));
-				person.setBeneficiaryIdNumber(rs.getString(33));
+				person.setBirthCommuneCode(rs.getString(22));
+				person.setResidenceCommuneCode(rs.getString(23));
+				person.setMaritalStatusCode(rs.getString(24));
+				person.setFatherName(rs.getString(25));
+				person.setMotherName(rs.getString(26));
+				person.setBeneficiaryName(rs.getString(27));
+				person.setBeneficiaryIdNumber(rs.getString(28));
 				persons.add(person);
 			}
 		} catch (SQLException e) {
@@ -1305,12 +1240,7 @@ public class Person {
 		copy.setIdIssuanceMunicipalityCode(this.idIssuanceMunicipalityCode);
 		copy.setIdIssuanceCommuneCode(this.idIssuanceCommuneCode);
 		copy.setBirthCountryCode(this.birthCountryCode);
-		copy.setBirthProvinceCode(this.birthProvinceCode);
-		copy.setBirthMunicipalityCode(this.birthMunicipalityCode);
 		copy.setBirthCommuneCode(this.birthCommuneCode);
-		copy.setResidenceCountryCode(this.residenceCountryCode);
-		copy.setResidenceProvinceCode(this.residenceProvinceCode);
-		copy.setResidenceMunicipalityCode(this.residenceMunicipalityCode);
 		copy.setResidenceCommuneCode(this.residenceCommuneCode);
 		copy.setMaritalStatusCode(this.maritalStatusCode);
 		copy.setMotherName(this.motherName);
@@ -1333,12 +1263,7 @@ public class Person {
 	String idIssuanceMunicipalityCode;
 	String idIssuanceCommuneCode;
 	String birthCountryCode;
-	String birthProvinceCode;
-	String birthMunicipalityCode;
 	String birthCommuneCode;
-	String residenceCountryCode;
-	String residenceProvinceCode;
-	String residenceMunicipalityCode;
 	String residenceCommuneCode;
 	String placeOfBirth;
 	String emailAddress;
@@ -1419,52 +1344,12 @@ public class Person {
 		this.birthCountryCode = birthCountryCode;
 	}
 
-	public String getBirthProvinceCode() {
-		return birthProvinceCode;
-	}
-
-	public void setBirthProvinceCode(String birthProvinceCode) {
-		this.birthProvinceCode = birthProvinceCode;
-	}
-
-	public String getBirthMunicipalityCode() {
-		return birthMunicipalityCode;
-	}
-
-	public void setBirthMunicipalityCode(String birthMunicipalityCode) {
-		this.birthMunicipalityCode = birthMunicipalityCode;
-	}
-
 	public String getBirthCommuneCode() {
 		return birthCommuneCode;
 	}
 
 	public void setBirthCommuneCode(String birthCommuneCode) {
 		this.birthCommuneCode = birthCommuneCode;
-	}
-
-	public String getResidenceCountryCode() {
-		return residenceCountryCode;
-	}
-
-	public void setResidenceCountryCode(String residenceCountryCode) {
-		this.residenceCountryCode = residenceCountryCode;
-	}
-
-	public String getResidenceProvinceCode() {
-		return residenceProvinceCode;
-	}
-
-	public void setResidenceProvinceCode(String residenceProvinceCode) {
-		this.residenceProvinceCode = residenceProvinceCode;
-	}
-
-	public String getResidenceMunicipalityCode() {
-		return residenceMunicipalityCode;
-	}
-
-	public void setResidenceMunicipalityCode(String residenceMunicipalityCode) {
-		this.residenceMunicipalityCode = residenceMunicipalityCode;
 	}
 
 	public String getResidenceCommuneCode() {

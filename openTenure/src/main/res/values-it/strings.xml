@@ -533,7 +533,7 @@
     <string name="new_hole">Nuova lacuna</string>
     <string name="action_add_hole">Aggiungi a lacuna</string>
     <string name="title_select_hole">Scegli una lacuna</string>
-    <string name="plot_number_label">Numero di lotto</string>
+    <string name="plot_number_label">Numero di lotto *</string>
     <string name="other_name">Altro nome</string>
     <string name="other_name_label">Altro nome*</string>
     <string name="mother_name_label">Nome della madre*</string>

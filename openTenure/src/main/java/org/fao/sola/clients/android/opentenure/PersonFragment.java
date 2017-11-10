@@ -866,20 +866,22 @@ public class PersonFragment extends Fragment {
 				.setSelection(new MaritalStatus().getIndexByCodeType(person.getMaritalStatusCode(),onlyActive));
 		((Spinner) rootView.findViewById(R.id.birth_country))
 				.setSelection(Country.countryIndex(person.getBirthCountryCode(), countriesList));
+		Commune birthCommune = Commune.getCommune(person.getBirthCommuneCode());
 		((Spinner) rootView.findViewById(R.id.birth_province))
-				.setSelection(Province.provinceIndex(person.getBirthProvinceCode(), Province.filterProvincesByCountry(provincesList,person.getBirthCountryCode())));
+				.setSelection(Province.provinceIndex(birthCommune.getProvinceCode(), Province.filterProvincesByCountry(provincesList,person.getBirthCountryCode())));
 		((Spinner) rootView.findViewById(R.id.birth_municipality))
-				.setSelection(Municipality.municipalityIndex(person.getBirthMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList, person.getBirthProvinceCode())));
+				.setSelection(Municipality.municipalityIndex(birthCommune.getMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList, birthCommune.getProvinceCode())));
 		((Spinner) rootView.findViewById(R.id.birth_commune))
-				.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, person.getBirthMunicipalityCode()), person.getBirthCommuneCode()));
+				.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, birthCommune.getMunicipalityCode()), person.getBirthCommuneCode()));
+		Commune residenceCommune = Commune.getCommune(person.getResidenceCommuneCode());
 		((Spinner) rootView.findViewById(R.id.residence_country))
-				.setSelection(Country.countryIndex(person.getResidenceCountryCode(), countriesList));
+				.setSelection(Country.countryIndex(residenceCommune.getCountryCode(), countriesList));
 		((Spinner) rootView.findViewById(R.id.residence_province))
-				.setSelection(Province.provinceIndex(person.getResidenceProvinceCode(), Province.filterProvincesByCountry(provincesList, person.getResidenceCountryCode())));
+				.setSelection(Province.provinceIndex(residenceCommune.getProvinceCode(), Province.filterProvincesByCountry(provincesList, residenceCommune.getCountryCode())));
 		((Spinner) rootView.findViewById(R.id.residence_municipality))
-				.setSelection(Municipality.municipalityIndex(person.getResidenceMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList,person.getBirthProvinceCode())));
+				.setSelection(Municipality.municipalityIndex(residenceCommune.getMunicipalityCode(), Municipality.filterMunicipalitiesByProvince(municipalitiesList,residenceCommune.getProvinceCode())));
 		((Spinner) rootView.findViewById(R.id.residence_commune))
-				.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, person.getBirthMunicipalityCode()), person.getResidenceCommuneCode()));
+				.setSelection(Commune.communeIndex(Commune.filterCommunesByMunicipality(communesList, residenceCommune.getMunicipalityCode()), person.getResidenceCommuneCode()));
 		if (person.getGender().equals("M")) {
 			((Spinner) rootView.findViewById(R.id.gender_spinner))
 					.setSelection(0);
@@ -893,7 +895,6 @@ public class PersonFragment extends Fragment {
 				.getBeneficiaryName());
 		((EditText) rootView.findViewById(R.id.beneficiary_id_number_input_field)).setText(person
 				.getBeneficiaryIdNumber());
-		((EditText) rootView.findViewById(R.id.first_name_input_field)).requestFocus();
 
 		if (person.hasUploadedClaims()) {
 			((EditText) rootView.findViewById(R.id.first_name_input_field))
@@ -1057,7 +1058,9 @@ public class PersonFragment extends Fragment {
 					.setFocusable(false);
 			allowSave = false;
 			getActivity().invalidateOptionsMenu();
-		}
+		}else{
+            ((EditText) rootView.findViewById(R.id.first_name_input_field)).requestFocus();
+        }
 
 		personPictureFile = Person.getPersonPictureFile(person.getPersonId());
 
@@ -1287,33 +1290,13 @@ public class PersonFragment extends Fragment {
 				.findViewById(R.id.birth_country)).getSelectedItem();
 		person.setBirthCountryCode(birthCountry.getCode());
 
-		Country residenceCountry = (Country) ((Spinner) rootView
-				.findViewById(R.id.residence_country)).getSelectedItem();
-		person.setResidenceCountryCode(residenceCountry.getCode());
-
 		Province idIssuanceProvince = (Province) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_province)).getSelectedItem();
 		person.setIdIssuanceProvinceCode(idIssuanceProvince.getCode());
 
-		Province birthProvince = (Province) ((Spinner) rootView
-				.findViewById(R.id.birth_province)).getSelectedItem();
-		person.setBirthProvinceCode(birthProvince.getCode());
-
-		Province residenceProvince = (Province) ((Spinner) rootView
-				.findViewById(R.id.residence_province)).getSelectedItem();
-		person.setResidenceProvinceCode(residenceProvince.getCode());
-
 		Municipality idIssuanceMunicipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_municipality)).getSelectedItem();
 		person.setIdIssuanceMunicipalityCode(idIssuanceMunicipality.getCode());
-
-		Municipality birthMunicipality = (Municipality) ((Spinner) rootView
-				.findViewById(R.id.birth_municipality)).getSelectedItem();
-		person.setBirthMunicipalityCode(birthMunicipality.getCode());
-
-		Municipality residenceMunicipality = (Municipality) ((Spinner) rootView
-				.findViewById(R.id.residence_municipality)).getSelectedItem();
-		person.setResidenceMunicipalityCode(residenceMunicipality.getCode());
 
 		Commune idIssuanceCommune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_commune)).getSelectedItem();
@@ -1592,33 +1575,13 @@ public class PersonFragment extends Fragment {
 				.findViewById(R.id.birth_country)).getSelectedItem();
 		person.setBirthCountryCode(birthCountry.getCode());
 
-		Country residenceCountry = (Country) ((Spinner) rootView
-				.findViewById(R.id.residence_country)).getSelectedItem();
-		person.setResidenceCountryCode(residenceCountry.getCode());
-
 		Province idIssuanceProvince = (Province) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_province)).getSelectedItem();
 		person.setIdIssuanceProvinceCode(idIssuanceProvince.getCode());
 
-		Province birthProvince = (Province) ((Spinner) rootView
-				.findViewById(R.id.birth_province)).getSelectedItem();
-		person.setBirthProvinceCode(birthProvince.getCode());
-
-		Province residenceProvince = (Province) ((Spinner) rootView
-				.findViewById(R.id.residence_province)).getSelectedItem();
-		person.setResidenceProvinceCode(residenceProvince.getCode());
-
 		Municipality idIssuanceMunicipality = (Municipality) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_municipality)).getSelectedItem();
 		person.setIdIssuanceMunicipalityCode(idIssuanceMunicipality.getCode());
-
-		Municipality birthMunicipality = (Municipality) ((Spinner) rootView
-				.findViewById(R.id.birth_municipality)).getSelectedItem();
-		person.setBirthMunicipalityCode(birthMunicipality.getCode());
-
-		Municipality residenceMunicipality = (Municipality) ((Spinner) rootView
-				.findViewById(R.id.residence_municipality)).getSelectedItem();
-		person.setResidenceMunicipalityCode(residenceMunicipality.getCode());
 
 		Commune idIssuanceCommune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_commune)).getSelectedItem();
@@ -2268,62 +2231,6 @@ public class PersonFragment extends Fragment {
 		if (!areEqual(idIssuanceCountry.getCode(), person.getIdIssuanceCountryCode()))
 			return true;
 
-		Country birthCountry = (Country) ((Spinner) rootView
-				.findViewById(R.id.birth_country))
-				.getSelectedItem();
-
-		if (!areEqual(birthCountry.getCode(), person.getBirthCountryCode()))
-			return true;
-
-		Country residenceCountry = (Country) ((Spinner) rootView
-				.findViewById(R.id.residence_country))
-				.getSelectedItem();
-
-		if (!areEqual(residenceCountry.getCode(), person.getResidenceCountryCode()))
-			return true;
-
-		Province idIssuanceProvince = (Province) ((Spinner) rootView
-				.findViewById(R.id.id_issuance_province))
-				.getSelectedItem();
-
-		if (!areEqual(idIssuanceProvince.getCode(), person.getIdIssuanceProvinceCode()))
-			return true;
-
-		Province birthProvince = (Province) ((Spinner) rootView
-				.findViewById(R.id.birth_province))
-				.getSelectedItem();
-
-		if (!areEqual(birthProvince.getCode(), person.getBirthProvinceCode()))
-			return true;
-
-		Province residenceProvince = (Province) ((Spinner) rootView
-				.findViewById(R.id.residence_province))
-				.getSelectedItem();
-
-		if (!areEqual(residenceProvince.getCode(), person.getResidenceProvinceCode()))
-			return true;
-
-		Municipality idIssuanceMunicipality = (Municipality) ((Spinner) rootView
-				.findViewById(R.id.id_issuance_municipality))
-				.getSelectedItem();
-
-		if (!areEqual(idIssuanceMunicipality.getCode(), person.getIdIssuanceMunicipalityCode()))
-			return true;
-
-		Municipality birthMunicipality = (Municipality) ((Spinner) rootView
-				.findViewById(R.id.birth_municipality))
-				.getSelectedItem();
-
-		if (!areEqual(birthMunicipality.getCode(), person.getBirthMunicipalityCode()))
-			return true;
-
-		Municipality residenceMunicipality = (Municipality) ((Spinner) rootView
-				.findViewById(R.id.residence_municipality))
-				.getSelectedItem();
-
-		if (!areEqual(residenceMunicipality.getCode(), person.getResidenceMunicipalityCode()))
-			return true;
-
 		Commune idIssuanceCommune = (Commune) ((Spinner) rootView
 				.findViewById(R.id.id_issuance_commune))
 				.getSelectedItem();
@@ -2343,6 +2250,62 @@ public class PersonFragment extends Fragment {
 				.getSelectedItem();
 
 		if (!areEqual(birthCommune.getCode(), person.getBirthCommuneCode()))
+			return true;
+
+		Country birthCountry = (Country) ((Spinner) rootView
+				.findViewById(R.id.birth_country))
+				.getSelectedItem();
+
+		if (!areEqual(birthCountry.getCode(), person.getBirthCountryCode()))
+			return true;
+
+		Country residenceCountry = (Country) ((Spinner) rootView
+				.findViewById(R.id.residence_country))
+				.getSelectedItem();
+
+		if (!areEqual(residenceCountry.getCode(), residenceCommune.getCountryCode()))
+			return true;
+
+		Province idIssuanceProvince = (Province) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_province))
+				.getSelectedItem();
+
+		if (!areEqual(idIssuanceProvince.getCode(), person.getIdIssuanceProvinceCode()))
+			return true;
+
+		Province birthProvince = (Province) ((Spinner) rootView
+				.findViewById(R.id.birth_province))
+				.getSelectedItem();
+
+		if (!areEqual(birthProvince.getCode(), birthCommune.getProvinceCode()))
+			return true;
+
+		Province residenceProvince = (Province) ((Spinner) rootView
+				.findViewById(R.id.residence_province))
+				.getSelectedItem();
+
+		if (!areEqual(residenceProvince.getCode(), residenceCommune.getProvinceCode()))
+			return true;
+
+		Municipality idIssuanceMunicipality = (Municipality) ((Spinner) rootView
+				.findViewById(R.id.id_issuance_municipality))
+				.getSelectedItem();
+
+		if (!areEqual(idIssuanceMunicipality.getCode(), person.getIdIssuanceMunicipalityCode()))
+			return true;
+
+		Municipality birthMunicipality = (Municipality) ((Spinner) rootView
+				.findViewById(R.id.birth_municipality))
+				.getSelectedItem();
+
+		if (!areEqual(birthMunicipality.getCode(), birthCommune.getMunicipalityCode()))
+			return true;
+
+		Municipality residenceMunicipality = (Municipality) ((Spinner) rootView
+				.findViewById(R.id.residence_municipality))
+				.getSelectedItem();
+
+		if (!areEqual(residenceMunicipality.getCode(), residenceCommune.getMunicipalityCode()))
 			return true;
 
 		String contact = ((EditText) rootView

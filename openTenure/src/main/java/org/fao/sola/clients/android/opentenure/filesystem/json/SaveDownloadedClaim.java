@@ -213,7 +213,9 @@ public class SaveDownloadedClaim {
 
 			claimDB.setClaimId(downloadedClaim.getId());
 			claimDB.setAdditionalInfo(additionalInfoDBList);
-			claimDB.setName(downloadedClaim.getDescription());
+			// Claims created on the server could have no description since it is not mandatory
+			// We need to make sure claims on the client have a name
+			claimDB.setName(downloadedClaim.getDescription()==null?downloadedClaim.getNr():downloadedClaim.getDescription());
 			claimDB.setLandUse(downloadedClaim.getLandUseCode());
 			claimDB.setNotes(downloadedClaim.getNotes());
 			// Angola specific
@@ -229,7 +231,6 @@ public class SaveDownloadedClaim {
 			claimDB.setNeighborhood(downloadedClaim.getNeighborhood());
 			claimDB.setLandProjectCode(downloadedClaim.getLandProjectCode());
 
-			Commune ommune = Commune.getCommune(claimant.getBirthCommuneCode());
 			claimDB.setCommuneCode(downloadedClaim.getCommuneCode());
 
 			if (downloadedClaim.getStartDate() != null) {
